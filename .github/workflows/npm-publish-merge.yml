@@ -13,7 +13,7 @@ jobs:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
       - name: Build project
-        run: npm install && echo 'tsc --build ./tsconfig.json'
+        run: npm install && echo tsc --build ./tsconfig.json
       - name: Publish package
         run: npm publish --access public
         env:
