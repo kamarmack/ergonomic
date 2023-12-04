@@ -11,6 +11,7 @@
 		"semver": "^7.3.5",
 		"uuid": "^8.3.2",
 		"validator": "^13.7.0",
+		"xstate": "^4.38.2",
 		"yup": "^0.32.11"
 	},
 	"description": "Helper types and functions for TypeScript repos",
