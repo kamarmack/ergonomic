@@ -1,9 +1,17 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema';
-import * as TsHelpers from '../typescript-helpers';
-import * as ObjectSchemaHelpers from './object-schema-helpers';
-import * as getApiObjectEndpointHelpers from './getApiObjectEndpoint';
+import { Keys } from '@/typescript-helpers/object-helpers';
+import { TsEnumType, getEnum } from '@/typescript-helpers/enum-helpers';
+import {
+	BaseApiObject,
+	BaseApiObjectProperties,
+	CreateParams,
+	CreateParamsHelpers,
+	UpdateParams,
+	UpdateParamsHelpers,
+} from '@/typescript-api-helpers/object-schema-helpers';
+import { getApiObjectEndpoint } from '@/typescript-api-helpers/getApiObjectEndpoint';
 
 // Create API Object Property Definitions
 export const getApiObjectSpec = <
@@ -15,7 +23,7 @@ export const getApiObjectSpec = <
 	databaseId = '(default)',
 	properties,
 }: {
-	createParamsRequiredFieldEnum: TsHelpers.TsEnumType<V>;
+	createParamsRequiredFieldEnum: TsEnumType<V>;
 	databaseId?: string;
 	properties: U;
 }) => {
@@ -23,36 +31,36 @@ export const getApiObjectSpec = <
 	const apiObjectJsonShape = R.mapObjIndexed(
 		(schema: U[T], field: T) =>
 			createParamsRequiredFieldEnum.isMember(field)
-				? ObjectSchemaHelpers.CreateParamsHelpers.toRequiredField(schema)
+				? CreateParamsHelpers.toRequiredField(schema)
 				: schema,
 		properties,
 	) as U;
 
 	const apiObjectJsonSchema = yup.object(apiObjectJsonShape);
-	const apiObjectFieldEnum = TsHelpers.getEnum(
-		TsHelpers.Keys(apiObjectJsonShape as Record<T, YupTypes.AnySchema>),
+	const apiObjectFieldEnum = getEnum(
+		Keys(apiObjectJsonShape as Record<T, YupTypes.AnySchema>),
 	);
 	const apiObjectDefaultJson = apiObjectJsonSchema.getDefault();
-	type ApiObjectType = ObjectSchemaHelpers.BaseApiObject &
+	type ApiObjectType = BaseApiObject &
 		yup.InferType<typeof apiObjectJsonSchema>;
 
 	// Create Params
 	const createParamsJsonShape = R.omit(
-		ObjectSchemaHelpers.CreateParamsHelpers.fieldMaskEnum.arr,
+		CreateParamsHelpers.fieldMaskEnum.arr,
 		apiObjectJsonShape,
 	);
 	const createParamsJsonSchema = yup.object(createParamsJsonShape);
-	const createParamsFieldEnum = TsHelpers.getEnum(
-		TsHelpers.Keys(
+	const createParamsFieldEnum = getEnum(
+		Keys(
 			createParamsJsonShape as Omit<
 				Record<T, YupTypes.AnySchema>,
-				keyof typeof ObjectSchemaHelpers.CreateParamsHelpers.fieldMaskEnum.obj
+				keyof typeof CreateParamsHelpers.fieldMaskEnum.obj
 			>,
 		),
 	);
 	const createParamsDefaultJson = createParamsJsonSchema.getDefault();
 
-	type CreateApiObjectParamsType = ObjectSchemaHelpers.CreateParams<
+	type CreateApiObjectParamsType = CreateParams<
 		ApiObjectType,
 		keyof ApiObjectType & V
 	>;
@@ -60,7 +68,7 @@ export const getApiObjectSpec = <
 		_ref_user,
 		createParams,
 	}: {
-		_ref_user: ObjectSchemaHelpers.BaseApiObject['_ref_user'];
+		_ref_user: BaseApiObject['_ref_user'];
 		createParams: CreateApiObjectParamsType;
 	}) =>
 		({
@@ -80,22 +88,21 @@ export const getApiObjectSpec = <
 
 	// Update Params
 	const updateParamsJsonShape = R.omit(
-		ObjectSchemaHelpers.UpdateParamsHelpers.fieldMaskEnum.arr,
+		UpdateParamsHelpers.fieldMaskEnum.arr,
 		apiObjectJsonShape,
 	);
 	const updateParamsJsonSchema = yup.object(updateParamsJsonShape);
-	const updateParamsFieldEnum = TsHelpers.getEnum(
-		TsHelpers.Keys(
+	const updateParamsFieldEnum = getEnum(
+		Keys(
 			updateParamsJsonShape as Omit<
 				Record<T, YupTypes.AnySchema>,
-				keyof typeof ObjectSchemaHelpers.UpdateParamsHelpers.fieldMaskEnum.obj
+				keyof typeof UpdateParamsHelpers.fieldMaskEnum.obj
 			>,
 		),
 	);
 	const updateParamsDefaultJson = updateParamsJsonSchema.getDefault();
 
-	type UpdateApiObjectParamsType =
-		ObjectSchemaHelpers.UpdateParams<ApiObjectType>;
+	type UpdateApiObjectParamsType = UpdateParams<ApiObjectType>;
 	const mergeUpdateParams = ({
 		prevApiObjectJson,
 		updateParams,
@@ -108,12 +115,10 @@ export const getApiObjectSpec = <
 	});
 
 	// REST API Client
-	const { _object } =
-		properties as unknown as typeof ObjectSchemaHelpers.BaseApiObjectProperties;
+	const { _object } = properties as unknown as typeof BaseApiObjectProperties;
 	const apiObjectCollectionId = _object.getDefault();
 	if (apiObjectCollectionId === undefined) throw new Error();
-	const apiObjectBaseEndpoint =
-		getApiObjectEndpointHelpers.getApiObjectEndpoint(apiObjectCollectionId);
+	const apiObjectBaseEndpoint = getApiObjectEndpoint(apiObjectCollectionId);
 
 	return {
 		apiObjectCollectionId,

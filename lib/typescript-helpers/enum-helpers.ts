@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
-import * as ObjectHelpers from './object-helpers';
+import { Keys } from '@/typescript-helpers/object-helpers';
 
 export type TsEnumObject<K extends string = string> = Readonly<{
 	[key in K]: key;
@@ -8,7 +8,7 @@ export type TsEnumObject<K extends string = string> = Readonly<{
 const _getEnumObject = <K extends string>(
 	options: Record<number, K>,
 ): TsEnumObject<K> =>
-	R.uniq(ObjectHelpers.Keys(options)).reduce((acc, v) => {
+	R.uniq(Keys(options)).reduce((acc, v) => {
 		const key = options[v] as K;
 		return { ...acc, [key]: key };
 	}, {} as TsEnumObject<K>);
@@ -26,7 +26,7 @@ export const getEnum = <K extends string>(
 	defaultValue: K = members[0] as K,
 ) => {
 	const obj = _getEnumObject(members);
-	const arr = ObjectHelpers.Keys(obj);
+	const arr = Keys(obj);
 	return {
 		arr,
 		isMember: _isTsEnumMember(arr),

@@ -1,5 +1,8 @@
 {
 	"errorOnDeprecated": true,
+	"moduleNameMapper": {
+		"^@/(.*)$": "<rootDir>/lib/$1"
+	},
 	"preset": "ts-jest",
 	"testEnvironment": "node",
 	"verbose": true,

@@ -1,7 +1,7 @@
 import * as validator from 'validator';
-import * as TsHelpers from '../typescript-helpers';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
 
-export const WebProtocolEnum = TsHelpers.getEnum(['http://', 'https://']);
+export const WebProtocolEnum = getEnum(['http://', 'https://']);
 
 export const isWebHost = (stringValue: unknown): stringValue is string => {
 	if (typeof stringValue === 'string') {

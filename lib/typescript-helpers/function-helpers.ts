@@ -1,12 +1,14 @@
-import * as FunctionResponseHelpers from './function-response-helpers';
+import {
+	TsError,
+	TsResponse,
+	getTsErrorResponse,
+	isTsErrorResponse,
+} from '@/typescript-helpers/function-response-helpers';
 
 export type TsPredicateFn = (value: unknown) => boolean;
 export type TsMapFn<T = unknown, U = unknown> = (value: T) => U;
 
-export type TsParseFnResponse<
-	_ = unknown,
-	U = unknown,
-> = FunctionResponseHelpers.TsResponse<U>;
+export type TsParseFnResponse<_ = unknown, U = unknown> = TsResponse<U>;
 export type TsParseFn<T = unknown, U = unknown> = (
 	value: T,
 ) => TsParseFnResponse<T, U>;
@@ -14,7 +16,7 @@ export type TsParseFn<T = unknown, U = unknown> = (
 type _getTsParseFnProps<T = unknown, U = unknown> = {
 	mapFn: TsMapFn<T, U>;
 	predicateFn: TsPredicateFn;
-	getTsError?: () => FunctionResponseHelpers.TsError;
+	getTsError?: () => TsError;
 };
 export const getTsParseFn =
 	<T = unknown, U = unknown>({
@@ -27,7 +29,7 @@ export const getTsParseFn =
 			const res = mapFn(value);
 			return { data: Array.isArray(res) ? res : [res], errors: [] };
 		}
-		return FunctionResponseHelpers.getTsErrorResponse(getTsError);
+		return getTsErrorResponse(getTsError);
 	};
 
 type _TsCastFnResponse<T = unknown, U = unknown> = TsParseFnResponse<
@@ -49,6 +51,6 @@ export const toTsCastFn =
 	}: _ToTsCastFnProps<T, U>): TsCastFn<T, U> =>
 	(value) => {
 		const res = parseFn(value);
-		if (FunctionResponseHelpers.isTsErrorResponse(res)) return defaultResponse;
+		if (isTsErrorResponse(res)) return defaultResponse;
 		return res.data;
 	};

@@ -1,8 +1,9 @@
 import * as R from 'ramda';
-import * as Luxon from 'luxon';
-import * as TSHelpers from '../typescript-helpers';
+import { DateTime } from 'luxon';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { NumericCharacters } from '@/typescript-helpers/number-helpers';
 
-export const getUtcDateNow = () => Luxon.DateTime.now().toUTC().toISO();
+export const getUtcDateNow = () => DateTime.now().toUTC().toISO();
 export const getUtcDateString = <
 	T extends string,
 	U extends Mm,
@@ -20,7 +21,7 @@ export const getUnixMs = (utcDate: string = '') =>
 export const getUnixSeconds = (utcDate: string = '') =>
 	getUnixMs(utcDate) / 1000;
 
-const _UTCDateCharacters = [...TSHelpers.NumericCharacters, ':', 'T', 'Z'];
+const _UTCDateCharacters = [...NumericCharacters, ':', 'T', 'Z'];
 const _isUTCDateCharacter = (stringValue: unknown): stringValue is string =>
 	typeof stringValue === 'string' &&
 	_UTCDateCharacters.slice().includes(stringValue);
@@ -36,15 +37,15 @@ export const isUtcDate = (stringValue: unknown): stringValue is string => {
 					.filter(R.complement(_isUTCDateCharacter)).length > 0
 			)
 				return false;
-			return Luxon.DateTime.isDateTime(
-				Luxon.DateTime.fromISO(trimmedStringValue, { zone: 'utc' }),
+			return DateTime.isDateTime(
+				DateTime.fromISO(trimmedStringValue, { zone: 'utc' }),
 			);
 		}
 	}
 	return false;
 };
 
-export const MmEnum = TSHelpers.getEnum([
+export const MmEnum = getEnum([
 	'01',
 	'02',
 	'03',
@@ -60,12 +61,7 @@ export const MmEnum = TSHelpers.getEnum([
 ] as const);
 export type Mm = keyof typeof MmEnum.obj;
 
-export const FiscalQuarterEnum = TSHelpers.getEnum([
-	'Q1',
-	'Q2',
-	'Q3',
-	'Q4',
-] as const);
+export const FiscalQuarterEnum = getEnum(['Q1', 'Q2', 'Q3', 'Q4'] as const);
 export type FiscalQuarter = keyof typeof FiscalQuarterEnum.obj;
 
 /**

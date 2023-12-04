@@ -1,13 +1,14 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema';
-import * as TsHelpers from '../typescript-helpers';
-import * as YupHelpers from './yup-helpers';
+import { YupHelpers } from '@/typescript-api-helpers/yup-helpers';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { Keys } from '@/typescript-helpers/object-helpers';
 
 // API Object Properties
 export const BaseApiObjectProperties = {
 	_archived: yup.boolean().default(false),
-	_date_created: YupHelpers.YupHelpers.now(),
+	_date_created: YupHelpers.now(),
 	_deleted: yup.boolean().default(false),
 	_id: yup.string().defined(),
 	_object: yup.string().defined(),
@@ -20,15 +21,13 @@ export const BaseApiObjectSchema = yup.object(BaseApiObjectProperties);
 export const defaultBaseApiObject = BaseApiObjectSchema.getDefault();
 export type BaseApiObject = yup.InferType<typeof BaseApiObjectSchema>;
 
-export const BaseApiObjectFieldEnum = TsHelpers.getEnum(
-	TsHelpers.Keys(BaseApiObjectProperties),
-);
+export const BaseApiObjectFieldEnum = getEnum(Keys(BaseApiObjectProperties));
 export type BaseApiObjectField = keyof typeof BaseApiObjectFieldEnum.obj;
 
 // Create API Object
 export const CreateParamsHelpers = {
-	fieldMaskEnum: TsHelpers.getEnum(
-		TsHelpers.Keys(
+	fieldMaskEnum: getEnum(
+		Keys(
 			R.pick(
 				['_archived', '_date_created', '_deleted', '_object', '_ref_user'],
 				BaseApiObjectProperties,
@@ -50,14 +49,14 @@ export type CreateParams<T extends BaseApiObject, K extends keyof T> = Partial<
 > &
 	Required<Pick<T, K>>;
 export type BaseCreateBody = CreateParams<BaseApiObject, BaseApiObjectField>;
-export const BaseApiObjectCreateParamsRequiredFieldEnum = TsHelpers.getEnum([
+export const BaseApiObjectCreateParamsRequiredFieldEnum = getEnum([
 	'category',
 	'name',
 ]);
 
 // Update API Object
-const _UpdateParamsFieldMaskEnum = TsHelpers.getEnum(
-	TsHelpers.Keys(
+const _UpdateParamsFieldMaskEnum = getEnum(
+	Keys(
 		R.pick(
 			['_object', '_id', '_date_created', '_ref_user'],
 			BaseApiObjectProperties,
@@ -67,7 +66,7 @@ const _UpdateParamsFieldMaskEnum = TsHelpers.getEnum(
 export const UpdateParamsHelpers = {
 	fieldMaskEnum: _UpdateParamsFieldMaskEnum,
 	toFieldEnum: <T extends string>(fields: T[]) =>
-		TsHelpers.getEnum(
+		getEnum(
 			fields.filter(
 				R.complement(_UpdateParamsFieldMaskEnum.isMember),
 			) as UpdateParamsField<T>[],
@@ -89,16 +88,16 @@ export type BaseUpdateOperation = {
 };
 
 // DB Helpers
-export const WriteOperationEnum = TsHelpers.getEnum(['create', 'update']);
+export const WriteOperationEnum = getEnum(['create', 'update']);
 export type WriteOperation = keyof typeof WriteOperationEnum.obj;
 
 // Authentication Helpers
-export const AUTH_DATABASE_ID = '(default)';
-export const AUTH_USER_COLLECTION_ID = 'auth_user';
+export const DEFAULT_AUTH_DATABASE_ID = '(default)';
+export const DEFAULT_AUTH_USER_COLLECTION_ID = 'auth_user';
 export type AuthUser = BaseApiObject & {
 	_object: 'auth_user';
 };
-export const AUTH_USER_API_KEY_COLLECTION_ID = 'auth_user_api_key';
+export const DEFAULT_AUTH_USER_API_KEY_COLLECTION_ID = 'auth_user_api_key';
 export type AuthUserApiKey = BaseApiObject & {
 	_object: 'auth_user_api_key';
 	hashed_api_key: string;

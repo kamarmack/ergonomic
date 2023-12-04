@@ -1,6 +1,6 @@
-import * as TsHelpers from '../typescript-helpers';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
 
-export const UsaStateEnum = TsHelpers.getEnum([
+export const UsaStateEnum = getEnum([
 	'Alabama',
 	'Alaska',
 	'Arizona',

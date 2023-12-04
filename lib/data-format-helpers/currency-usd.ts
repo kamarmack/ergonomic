@@ -1,14 +1,10 @@
-import * as TsHelpers from '../typescript-helpers';
+import { isDigitCharacter } from '@/typescript-helpers/number-helpers';
 
 export const getCurrencyUsdCents = (value: unknown): number => {
 	if (typeof value === 'number') return value;
 	const currencyUsdString = value as string;
 	const digits = parseInt(
-		currencyUsdString
-			.slice()
-			.split('')
-			.filter(TsHelpers.isDigitCharacter)
-			.join(''),
+		currencyUsdString.slice().split('').filter(isDigitCharacter).join(''),
 	);
 	const factor = currencyUsdString.includes('.') ? 1 : 100;
 	return digits * factor;

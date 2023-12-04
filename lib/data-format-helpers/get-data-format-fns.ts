@@ -1,16 +1,18 @@
-import * as TsHelpers from '../typescript-helpers';
+import {
+	TsMapFn,
+	TsPredicateFn,
+	getTsParseFn,
+	toTsCastFn,
+} from '@/typescript-helpers/function-helpers';
 
 export const getDataFormatFns = <
-	M extends TsHelpers.TsMapFn = TsHelpers.TsMapFn,
-	P extends TsHelpers.TsPredicateFn = TsHelpers.TsPredicateFn,
+	M extends TsMapFn = TsMapFn,
+	P extends TsPredicateFn = TsPredicateFn,
 >({
 	defaultResponseData,
 	mapFn,
-	// mapFnTests,
 	predicateFn,
-}: // predicateFnInvalidValues,
-// predicateFnValidValues,
-{
+}: {
 	defaultResponseData: unknown;
 	mapFnTests: [unknown, unknown][];
 	mapFn: M;
@@ -18,31 +20,20 @@ export const getDataFormatFns = <
 	predicateFnValidValues: unknown[];
 	predicateFn: P;
 }) => {
-	const parseFn = TsHelpers.getTsParseFn({
+	const parseFn = getTsParseFn({
 		mapFn,
 		predicateFn,
 	});
-	const castFn = TsHelpers.toTsCastFn({
+	const castFn = toTsCastFn({
 		defaultResponse: [defaultResponseData],
 		parseFn,
 	});
 
-	// const testMapFn: JestHelpers.TsMapFnTest = {
-	// 	mapFn,
-	// 	mapFnTests,
-	// };
-	// const testPredicateFn: JestHelpers.TsPredicateFnTest = {
-	// 	invalidValues: predicateFnInvalidValues,
-	// 	validValues: predicateFnValidValues,
-	// 	predicateFn,
-	// };
 	return {
 		defaultResponseData,
 		mapFn,
 		parseFn,
 		predicateFn,
 		castFn,
-		// testMapFn,
-		// testPredicateFn,
 	} as const;
 };

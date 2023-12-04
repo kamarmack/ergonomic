@@ -1,4 +1,4 @@
-import { isWebUrl } from './web-domain';
+import { isWebUrl } from '@/data-format-helpers/web-domain';
 
 const testUrl = 'gs://my-app.appspot.com/files/mdx/hello-world.mdx';
 describe('TsWebUrl', () => {

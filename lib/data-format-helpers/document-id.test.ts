@@ -1,4 +1,4 @@
-import { shortenObjectName } from './document-id';
+import { shortenObjectName } from '@/data-format-helpers/document-id';
 
 describe('shortenObjectName', () => {
 	it('should shorten collection names', () => {

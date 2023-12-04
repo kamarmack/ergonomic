@@ -1,7 +1,7 @@
 import * as R from 'ramda';
-import * as EnumHelpers from './enum-helpers';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
 
-export const TsErrorCategoryEnum = EnumHelpers.getEnum([
+export const TsErrorCategoryEnum = getEnum([
 	'doc.deleted',
 	'doc.does-not-exist',
 	'collection.does-not-exist',
@@ -13,12 +13,7 @@ export const TsErrorCategoryEnum = EnumHelpers.getEnum([
 ]);
 export type TsErrorCategory = keyof typeof TsErrorCategoryEnum.obj;
 
-export const TsErrorStatusCodeEnum = EnumHelpers.getEnum([
-	'400',
-	'401',
-	'404',
-	'500',
-]);
+export const TsErrorStatusCodeEnum = getEnum(['400', '401', '404', '500']);
 export type TsErrorStatusCode = keyof typeof TsErrorStatusCodeEnum.obj;
 export const getTsErrorStatusCode = (
 	errorCategory: TsErrorCategory,

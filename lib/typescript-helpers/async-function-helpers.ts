@@ -1,10 +1,13 @@
-import * as FunctionResponseHelpers from './function-response-helpers';
+import {
+	TsResponse,
+	getTsErrorResponse,
+	isTsErrorResponse,
+} from '@/typescript-helpers/function-response-helpers';
 
 export type TsPromiseChainFn = (
 	prevResponseData: unknown[],
 ) => Promise<unknown>;
-export type TsPromiseChainResponse =
-	FunctionResponseHelpers.TsResponse<unknown>;
+export type TsPromiseChainResponse = TsResponse<unknown>;
 export type TsPromiseChainWrapper = (
 	prevResponse: TsPromiseChainResponse,
 ) => Promise<TsPromiseChainResponse>;
@@ -13,8 +16,7 @@ const _toTsPromiseChainWrapper =
 	(defaultResponse: TsPromiseChainResponse) =>
 	(fn: TsPromiseChainFn, i: number): TsPromiseChainWrapper =>
 	async (prevResponse) => {
-		const encounteredError =
-			i > 0 && FunctionResponseHelpers.isTsErrorResponse(prevResponse);
+		const encounteredError = i > 0 && isTsErrorResponse(prevResponse);
 		if (encounteredError) return defaultResponse;
 		try {
 			const res = await fn(prevResponse.data);
@@ -47,7 +49,7 @@ const _resolveTsPromiseChainWrappers = async ({
 
 export const resolveTsPromiseChain = async (
 	fns: TsPromiseChainFn[],
-	defaultResponse = FunctionResponseHelpers.getTsErrorResponse(),
+	defaultResponse = getTsErrorResponse(),
 ): Promise<TsPromiseChainResponse> => {
 	try {
 		const res: TsPromiseChainResponse = await _resolveTsPromiseChainWrappers({

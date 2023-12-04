@@ -1,6 +1,6 @@
-import * as GoogleLibPhoneNumber from 'google-libphonenumber';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
-const _phoneUtil = () => GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
+const getPhoneUtil = () => PhoneNumberUtil.getInstance();
 
 export const isPhoneNumberUnitedStates = (
 	stringValue: unknown,
@@ -8,8 +8,8 @@ export const isPhoneNumberUnitedStates = (
 	try {
 		return (
 			typeof stringValue === 'string' &&
-			_phoneUtil().isValidNumberForRegion(
-				_phoneUtil().parseAndKeepRawInput(stringValue, 'US'),
+			getPhoneUtil().isValidNumberForRegion(
+				getPhoneUtil().parseAndKeepRawInput(stringValue, 'US'),
 				'US',
 			)
 		);

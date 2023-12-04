@@ -1,19 +1,20 @@
-import * as FunctionResponseHelpers from './function-response-helpers';
-import * as AsyncFunctionHelpers from './async-function-helpers';
+import {
+	TsResponse,
+	getTsErrorStatusCode,
+} from '@/typescript-helpers/function-response-helpers';
+import { resolveTsPromiseChain } from '@/typescript-helpers/async-function-helpers';
 
 describe('typescript-helpers.async-function-helpers.resolveTsPromiseChain', () => {
 	test('numeric mappers', () =>
 		void (async () => {
 			expect(
-				await AsyncFunctionHelpers.resolveTsPromiseChain([
-					() => Promise.resolve([1, 2, 3]),
-				]),
+				await resolveTsPromiseChain([() => Promise.resolve([1, 2, 3])]),
 			).toStrictEqual({ data: [1, 2, 3], errors: [] });
 		})());
 	test('mixed mappers', () =>
 		void (async () => {
 			expect(
-				await AsyncFunctionHelpers.resolveTsPromiseChain([
+				await resolveTsPromiseChain([
 					() => Promise.resolve([1, 2, 3]),
 					(prevData) =>
 						Promise.resolve((prevData as number[]).map((x) => `${x}`)),
@@ -23,24 +24,20 @@ describe('typescript-helpers.async-function-helpers.resolveTsPromiseChain', () =
 	test('failed queue', () =>
 		void (async () => {
 			try {
-				const errorResponse = await AsyncFunctionHelpers.resolveTsPromiseChain([
+				const errorResponse = await resolveTsPromiseChain([
 					() => Promise.resolve([1, 2, 3]),
 					() => Promise.reject('invalid data'),
 					(prevData) =>
 						Promise.resolve((prevData as number[]).map((x) => `${x}`)),
 				]);
-				expect<FunctionResponseHelpers.TsResponse>(
-					errorResponse,
-				).toStrictEqual<FunctionResponseHelpers.TsResponse>({
+				expect<TsResponse>(errorResponse).toStrictEqual<TsResponse>({
 					data: [],
 					errors: [
 						{
 							_object: 'error',
 							category: 'request.unknown-error',
 							msg: '',
-							status_code: FunctionResponseHelpers.getTsErrorStatusCode(
-								'request.unknown-error',
-							),
+							status_code: getTsErrorStatusCode('request.unknown-error'),
 						},
 					],
 				});

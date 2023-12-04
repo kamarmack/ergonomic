@@ -1,6 +1,7 @@
+import * as UUID from 'uuid';
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema';
-import * as TsHelpers from '../typescript-helpers';
+import { getEnum } from '@/typescript-helpers/enum-helpers';
 import {
 	getUtcDateNow,
 	isCurrencyUsdCents,
@@ -15,10 +16,9 @@ import {
 	isWebUrl,
 	getDocumentIdString,
 	isDocumentIdString,
-} from '../data-format-helpers';
-import * as UUID from 'uuid';
+} from '@/data-format-helpers';
 
-export const YupTypeEnum = TsHelpers.getEnum([
+export const YupTypeEnum = getEnum([
 	'array',
 	'boolean',
 	'mixed',
@@ -140,10 +140,10 @@ export const YupHelpers = {
 } as const;
 
 export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
-	_: ApiObjectCollection[],
+	_: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
 ) =>
 	({
-		id: (_object: ApiObjectCollection) =>
+		id: (_object: ApiObjectCollection | 'auth_user' | 'auth_user_api_key') =>
 			yup
 				.string()
 				.default(() => getDocumentIdString(_object))
@@ -154,7 +154,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					test: (value) => isDocumentIdString([_object], value),
 				})
 				.meta({ _object }),
-		ids: (_object: ApiObjectCollection) =>
+		ids: (_object: ApiObjectCollection | 'auth_user' | 'auth_user_api_key') =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -167,7 +167,9 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					})
 					.meta({ _object }),
 			),
-		idRef: (allowObjects: ApiObjectCollection[]) =>
+		idRef: (
+			allowObjects: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
+		) =>
 			yup
 				.string()
 				.default('')
@@ -178,7 +180,9 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					test: (value) => isDocumentIdString(allowObjects, value),
 				})
 				.meta({ allowObjects }),
-		idRefs: (allowObjects: ApiObjectCollection[]) =>
+		idRefs: (
+			allowObjects: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
+		) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -200,7 +204,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					message: ({ path, value }: { path: string; value: string }) =>
 						`${path} is not a uuid: ${value}`,
 					name: 'is-uuid',
-					test: (value) => isDocumentIdString(['user'], value),
+					test: (value) => isDocumentIdString(['auth_user'], value),
 				})
 				.defined(),
 	} as const);

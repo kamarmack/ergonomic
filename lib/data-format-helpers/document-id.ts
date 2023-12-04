@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as UUID from 'uuid';
-import * as TsHelpers from '../typescript-helpers';
+import { removeConsecutiveDuplicates } from '@/typescript-helpers/string-helpers';
 
 /**
  * Deterministically shortens an object name.
@@ -51,7 +51,7 @@ export const shortenObjectName = (_object: string): string => {
 			shortenedPart + (parts.indexOf(part) < parts.length - 1 ? '_' : '');
 	}
 
-	return TsHelpers.removeConsecutiveDuplicates(shortenedName);
+	return removeConsecutiveDuplicates(shortenedName);
 };
 
 export const getDocumentIdString = (_object: string): string =>

@@ -1,5 +1,5 @@
-import * as Luxon from 'luxon';
+import { Duration } from 'luxon';
 
 export const isDuration = (stringValue: unknown): stringValue is string =>
 	typeof stringValue === 'string' &&
-	Luxon.Duration.isDuration(Luxon.Duration.fromISO(stringValue.slice().trim()));
+	Duration.isDuration(Duration.fromISO(stringValue.slice().trim()));
