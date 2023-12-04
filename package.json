@@ -58,6 +58,10 @@
 	"license": "ISC",
 	"main": "./dist/index.js",
 	"name": "ergonomic",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/kamarmack/ergonomic.git"
+	},
 	"scripts": {
 		"build": "tsc --build ./tsconfig.json",
 		"format": "doctoc . && prettier --write .",
