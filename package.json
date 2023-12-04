@@ -64,6 +64,7 @@
 	},
 	"scripts": {
 		"build": "tsc --build ./tsconfig.json",
+		"clean": "tsc --build --clean ./tsconfig.json",
 		"format": "doctoc . && prettier --write .",
 		"lint": "eslint . --ext .ts",
 		"prepare": "husky install",
