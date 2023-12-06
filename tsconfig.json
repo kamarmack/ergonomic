@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		// Start -- Base TypeScript Configurations for a strict environment
 		"alwaysStrict": true,
+		"declaration": true,
 		"esModuleInterop": true,
 		"noEmitOnError": true,
 		"noFallthroughCasesInSwitch": true,

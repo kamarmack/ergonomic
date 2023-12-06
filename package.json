@@ -73,6 +73,6 @@
 		"watch": "tsc --build --watch ./tsconfig.json"
 	},
 	"type": "module",
-	"types": "./lib",
+	"types": "./dist",
 	"version": "0.0.1-alpha.8"
 }
