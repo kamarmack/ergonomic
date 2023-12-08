@@ -1,10 +1,8 @@
 {
 	"errorOnDeprecated": true,
-	"moduleNameMapper": {
-		"^@/(.*)$": "<rootDir>/lib/$1"
-	},
 	"preset": "ts-jest",
+	"roots": ["."],
 	"testEnvironment": "node",
 	"verbose": true,
-	"testPathIgnorePatterns": ["dist/*"]
+	"testPathIgnorePatterns": [".d.ts", ".ts"]
 }

@@ -3,7 +3,7 @@ import {
 	TsPredicateFn,
 	getTsParseFn,
 	toTsCastFn,
-} from '@/typescript-helpers/function-helpers';
+} from 'ergonomic/typescript-helpers/function-helpers.js';
 
 export const getDataFormatFns = <
 	M extends TsMapFn = TsMapFn,

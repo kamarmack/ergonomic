@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema';
-import { YupHelpers } from '@/typescript-api-helpers/yup-helpers';
-import { getEnum } from '@/typescript-helpers/enum-helpers';
-import { Keys } from '@/typescript-helpers/object-helpers';
+import { YupHelpers } from 'ergonomic/typescript-api-helpers/yup-helpers.js';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 
 // API Object Properties
 export const BaseApiObjectProperties = {

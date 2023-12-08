@@ -57,7 +57,7 @@
 		"typescript"
 	],
 	"license": "ISC",
-	"main": "./dist/index.js",
+	"main": "./index.js",
 	"name": "ergonomic",
 	"repository": {
 		"type": "git",
@@ -69,10 +69,10 @@
 		"format": "doctoc . && prettier --write .",
 		"lint": "eslint . --ext .ts",
 		"prepare": "husky install",
-		"test": "npx jest --config='./jest.config.json' --verbose",
+		"test": "NODE_OPTIONS=--experimental-vm-modules npx jest --config='./jest.config.json' --verbose",
 		"watch": "tsc --build --watch ./tsconfig.json"
 	},
 	"type": "module",
-	"types": "./dist",
+	"types": "./index.d.ts",
 	"version": "0.0.1-alpha.9"
 }

@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { DateTime } from 'luxon';
-import { getEnum } from '@/typescript-helpers/enum-helpers';
-import { NumericCharacters } from '@/typescript-helpers/number-helpers';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import { NumericCharacters } from 'ergonomic/typescript-helpers/number-helpers.js';
 
 export const getUtcDateNow = () => DateTime.now().toUTC().toISO();
 export const getUtcDateString = <

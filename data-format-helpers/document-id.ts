@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as UUID from 'uuid';
-import { removeConsecutiveDuplicates } from '@/typescript-helpers/string-helpers';
+import { removeConsecutiveDuplicates } from 'ergonomic/typescript-helpers/string-helpers.js';
 
 /**
  * Deterministically shortens an object name.

@@ -1,5 +1,5 @@
 import * as validator from 'validator';
-import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const WebProtocolEnum = getEnum(['http://', 'https://']);
 

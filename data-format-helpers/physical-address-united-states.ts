@@ -1,4 +1,4 @@
-import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const UsaStateEnum = getEnum([
 	'Alabama',

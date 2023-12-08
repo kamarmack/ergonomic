@@ -1,4 +1,4 @@
-import { isDigitCharacter } from '@/typescript-helpers/number-helpers';
+import { isDigitCharacter } from 'ergonomic/typescript-helpers/number-helpers.js';
 
 export const getCurrencyUsdCents = (value: unknown): number => {
 	if (typeof value === 'number') return value;

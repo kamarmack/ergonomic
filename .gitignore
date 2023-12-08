@@ -134,3 +134,7 @@ dist
 
 # Local Resources
 ___local_resources/
+
+# Build
+**.js
+**.d.ts

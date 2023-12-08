@@ -1,4 +1,4 @@
-import { shortenObjectName } from '@/data-format-helpers/document-id';
+import { shortenObjectName } from 'ergonomic/data-format-helpers/document-id.js';
 
 describe('shortenObjectName', () => {
 	it('should shorten collection names', () => {

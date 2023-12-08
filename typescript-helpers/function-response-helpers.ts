@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const TsErrorCategoryEnum = getEnum([
 	'doc.deleted',

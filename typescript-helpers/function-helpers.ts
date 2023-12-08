@@ -3,7 +3,7 @@ import {
 	TsResponse,
 	getTsErrorResponse,
 	isTsErrorResponse,
-} from '@/typescript-helpers/function-response-helpers';
+} from 'ergonomic/typescript-helpers/function-response-helpers.js';
 
 export type TsPredicateFn = (value: unknown) => boolean;
 export type TsMapFn<T = unknown, U = unknown> = (value: T) => U;

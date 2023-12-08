@@ -1,4 +1,4 @@
-import { rrulestr } from 'rrule';
+import { default as RRule } from 'rrule';
 
 export const isRecurrenceRule = (
 	stringValue: unknown,
@@ -6,7 +6,7 @@ export const isRecurrenceRule = (
 	try {
 		return (
 			typeof stringValue === 'string' &&
-			!!rrulestr(stringValue)?.isFullyConvertibleToText()
+			!!RRule.rrulestr(stringValue)?.isFullyConvertibleToText()
 		);
 	} catch {
 		return false;

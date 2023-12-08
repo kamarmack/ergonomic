@@ -1,7 +1,7 @@
 import * as UUID from 'uuid';
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema';
-import { getEnum } from '@/typescript-helpers/enum-helpers';
+import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
 	getUtcDateNow,
 	isCurrencyUsdCents,
@@ -16,7 +16,7 @@ import {
 	isWebUrl,
 	getDocumentIdString,
 	isDocumentIdString,
-} from '@/data-format-helpers';
+} from 'ergonomic/data-format-helpers/index.js';
 
 export const YupTypeEnum = getEnum([
 	'array',

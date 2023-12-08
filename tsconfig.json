@@ -26,15 +26,12 @@
 
 		// Start -- Base TypeScript Configurations for an ES6 Project
 		"baseUrl": ".",
-		"outDir": "./dist",
-		"rootDir": "./lib",
-		// End -- Base TypeScript Configurations for an ES6 Project
-
-		// Start -- TypeScript Path Aliases
+		"outDir": ".",
 		"paths": {
-			"@/*": ["lib/*"]
-		}
-		// End -- TypeScript Path Aliases
+			"ergonomic/*": ["./*"]
+		},
+		"rootDir": "."
+		// End -- Base TypeScript Configurations for an ES6 Project
 	},
-	"exclude": ["./dist"]
+	"exclude": ["**/*.js"]
 }

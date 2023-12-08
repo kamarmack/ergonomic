@@ -1,5 +1,5 @@
-import { defaultBaseApiObject } from '@/typescript-api-helpers/object-schema-helpers';
-import { utcDateRegex } from '@/typescript-helpers/string-helpers';
+import { defaultBaseApiObject } from 'ergonomic/typescript-api-helpers/object-schema-helpers.js';
+import { utcDateRegex } from 'ergonomic/typescript-helpers/string-helpers.js';
 
 test('BaseApiObjectSchema.getDefault', () => {
 	type T = typeof defaultBaseApiObject;

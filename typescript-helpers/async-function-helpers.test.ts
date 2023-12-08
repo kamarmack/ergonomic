@@ -1,8 +1,8 @@
 import {
 	TsResponse,
 	getTsErrorStatusCode,
-} from '@/typescript-helpers/function-response-helpers';
-import { resolveTsPromiseChain } from '@/typescript-helpers/async-function-helpers';
+} from 'ergonomic/typescript-helpers/function-response-helpers.js';
+import { resolveTsPromiseChain } from 'ergonomic/typescript-helpers/async-function-helpers.js';
 
 describe('typescript-helpers.async-function-helpers.resolveTsPromiseChain', () => {
 	test('numeric mappers', () =>

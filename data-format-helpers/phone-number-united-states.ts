@@ -1,6 +1,6 @@
-import { PhoneNumberUtil } from 'google-libphonenumber';
+import GoogleLibPhoneNumber from 'google-libphonenumber';
 
-const getPhoneUtil = () => PhoneNumberUtil.getInstance();
+const getPhoneUtil = () => GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
 export const isPhoneNumberUnitedStates = (
 	stringValue: unknown,

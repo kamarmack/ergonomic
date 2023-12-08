@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
-import { Keys } from '@/typescript-helpers/object-helpers';
+import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 
 export type TsEnumObject<K extends string = string> = Readonly<{
 	[key in K]: key;
