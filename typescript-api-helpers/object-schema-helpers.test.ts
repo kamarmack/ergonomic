@@ -9,7 +9,6 @@ test('BaseApiObjectSchema.getDefault', () => {
 		_deleted: false,
 		_id: undefined,
 		_object: undefined,
-		_ref_user: undefined,
 		category: undefined,
 		description: '',
 		name: undefined,

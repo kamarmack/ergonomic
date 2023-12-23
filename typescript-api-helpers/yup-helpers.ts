@@ -140,10 +140,10 @@ export const YupHelpers = {
 } as const;
 
 export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
-	_: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
+	_: ApiObjectCollection[],
 ) =>
 	({
-		id: (_object: ApiObjectCollection | 'auth_user' | 'auth_user_api_key') =>
+		id: (_object: ApiObjectCollection) =>
 			yup
 				.string()
 				.default(() => getDocumentIdString(_object))
@@ -154,7 +154,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					test: (value) => isDocumentIdString([_object], value),
 				})
 				.meta({ _object }),
-		ids: (_object: ApiObjectCollection | 'auth_user' | 'auth_user_api_key') =>
+		ids: (_object: ApiObjectCollection) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -167,9 +167,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					})
 					.meta({ _object }),
 			),
-		idRef: (
-			allowObjects: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
-		) =>
+		idRef: (allowObjects: ApiObjectCollection[]) =>
 			yup
 				.string()
 				.default('')
@@ -180,9 +178,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					test: (value) => isDocumentIdString(allowObjects, value),
 				})
 				.meta({ allowObjects }),
-		idRefs: (
-			allowObjects: (ApiObjectCollection | 'auth_user' | 'auth_user_api_key')[],
-		) =>
+		idRefs: (allowObjects: ApiObjectCollection[]) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -197,14 +193,4 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					})
 					.meta({ allowObjects }),
 			).defined(),
-		userIdRef: () =>
-			yup
-				.string()
-				.test({
-					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a uuid: ${value}`,
-					name: 'is-uuid',
-					test: (value) => isDocumentIdString(['auth_user'], value),
-				})
-				.defined(),
 	} as const);

@@ -12,7 +12,6 @@ export const BaseApiObjectProperties = {
 	_deleted: yup.boolean().default(false),
 	_id: yup.string().defined(),
 	_object: yup.string().defined(),
-	_ref_user: yup.string().defined(),
 	category: yup.string().defined(),
 	description: yup.string().default(''),
 	name: yup.string().defined(),
@@ -29,7 +28,7 @@ export const CreateParamsHelpers = {
 	fieldMaskEnum: getEnum(
 		Keys(
 			R.pick(
-				['_archived', '_date_created', '_deleted', '_object', '_ref_user'],
+				['_archived', '_date_created', '_deleted', '_object'],
 				BaseApiObjectProperties,
 			),
 		),
@@ -56,12 +55,7 @@ export const BaseApiObjectCreateParamsRequiredFieldEnum = getEnum([
 
 // Update API Object
 const _UpdateParamsFieldMaskEnum = getEnum(
-	Keys(
-		R.pick(
-			['_object', '_id', '_date_created', '_ref_user'],
-			BaseApiObjectProperties,
-		),
-	),
+	Keys(R.pick(['_object', '_id', '_date_created'], BaseApiObjectProperties)),
 );
 export const UpdateParamsHelpers = {
 	fieldMaskEnum: _UpdateParamsFieldMaskEnum,
@@ -90,16 +84,3 @@ export type BaseUpdateOperation = {
 // DB Helpers
 export const WriteOperationEnum = getEnum(['create', 'update']);
 export type WriteOperation = keyof typeof WriteOperationEnum.obj;
-
-// Authentication Helpers
-export const DEFAULT_AUTH_DATABASE_ID = '(default)';
-export const DEFAULT_AUTH_USER_COLLECTION_ID = 'auth_user';
-export type AuthUser = BaseApiObject & {
-	_object: 'auth_user';
-};
-export const DEFAULT_AUTH_USER_API_KEY_COLLECTION_ID = 'auth_user_api_key';
-export type AuthUserApiKey = BaseApiObject & {
-	_object: 'auth_user_api_key';
-	hashed_api_key: string;
-	revoked: boolean;
-};

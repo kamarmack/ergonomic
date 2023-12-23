@@ -68,16 +68,13 @@ export const getApiObjectSpec = <
 		keyof ApiObjectType & V
 	>;
 	const mergeCreateParams = ({
-		_ref_user,
 		createParams,
 	}: {
-		_ref_user: BaseApiObject['_ref_user'];
 		createParams: CreateApiObjectParamsType;
 	}) =>
 		({
 			...apiObjectJsonSchema.getDefault(),
 			...R.reject((v) => v === undefined, createParams),
-			_ref_user,
 		} as ApiObjectType);
 
 	// Create Params Required Fields
