@@ -10,7 +10,6 @@ import {
 	isFilePath,
 	isInterval,
 	isPhoneNumberUnitedStates,
-	isRecurrenceRule,
 	isUtcDate,
 	isWebHost,
 	isWebUrl,
@@ -99,15 +98,6 @@ export const YupHelpers = {
 				message: '${path} is not a US phone number',
 				name: 'is-phone-number-united-states',
 				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
-			})
-			.default(''),
-	recurrenceRule: () =>
-		yup
-			.string()
-			.test({
-				message: '${path} is not a Recurrence Rule',
-				name: 'is-recurrence-rule',
-				test: (value) => value === '' || isRecurrenceRule(value),
 			})
 			.default(''),
 	usd: () =>
