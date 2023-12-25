@@ -1,4 +1,4 @@
-import { default as RRule } from 'rrule';
+import { default as RRule } from '@mackgevanni/rrule-es6';
 
 export const isRecurrenceRule = (
 	stringValue: unknown,
