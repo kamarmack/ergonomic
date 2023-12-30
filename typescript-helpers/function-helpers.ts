@@ -2,7 +2,7 @@ import {
 	GeneralizedResponse,
 	isGeneralizedErrorResponse,
 } from 'ergonomic/typescript-helpers/function-response-helpers.js';
-import { getGeneralizedError } from './function-error-response-helpers';
+import { getGeneralizedError } from 'ergonomic/typescript-helpers/function-error-response-helpers';
 
 export type GeneralizedPredicateFn = (value: unknown) => boolean;
 export type GeneralizedMapFn<T = unknown, U = unknown> = (value: T) => U;

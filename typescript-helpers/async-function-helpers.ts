@@ -2,7 +2,7 @@ import {
 	GeneralizedResponse,
 	isGeneralizedErrorResponse,
 } from 'ergonomic/typescript-helpers/function-response-helpers.js';
-import { getGeneralizedError } from './function-error-response-helpers.js';
+import { getGeneralizedError } from 'ergonomic/typescript-helpers/function-error-response-helpers.js';
 
 export type GeneralizedPromiseChainFn = (
 	prevResponseData: unknown[],

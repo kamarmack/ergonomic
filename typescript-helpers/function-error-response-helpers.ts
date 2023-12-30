@@ -39,6 +39,33 @@ export const getGeneralizedErrorStatusCode = (
 		'request.unknown-error': GeneralizedErrorStatusCodeEnum.obj[500],
 	}[errorCategory]);
 
+/**
+ * GeneralizedError
+ *
+ * An error that is thrown when a Function call or an API request fails.
+ *
+ * @property error The error object
+ * @property error.category The category of the error
+ * @property error.data The data
+ * @property error.message The error message
+ * @property error.status The status code
+ * @property error.status_text The status text
+ *
+ * @example
+ * {
+ * 	error: {
+ * 		category: 'request.invalid-params',
+ * 		data: {
+ * 				'username': [
+ * 					'This field may not be blank.'
+ * 				],
+ * 		},
+ * 		message: 'Invalid parameters were provided.',
+ * 		status: 400,
+ * 		status_text: 'Bad Request'
+ * 	}
+ * }
+ */
 export type GeneralizedError = {
 	error: {
 		category: GeneralizedErrorCategory;
