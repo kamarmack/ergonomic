@@ -32,10 +32,10 @@ export const getEnum = <K extends string>(
 		isMember: _isTsEnumMember(arr),
 		obj,
 		regex: _getEnumRegex(arr),
-		toDefinedSchemaWithDefault: () =>
+		getDefinedSchemaWithDefault: () =>
 			yup.mixed<K>().oneOf(arr).default(defaultValue),
-		toDefinedSchema: () => yup.mixed<K>().oneOf(arr).defined(),
-		toOptionalSchema: () => yup.mixed<K>().oneOf(arr),
+		getDefinedSchema: () => yup.mixed<K>().oneOf(arr).defined(),
+		getOptionalSchema: () => yup.mixed<K>().oneOf(arr),
 	} as const;
 };
 export type TsEnumType<K extends string> = ReturnType<typeof getEnum> &
