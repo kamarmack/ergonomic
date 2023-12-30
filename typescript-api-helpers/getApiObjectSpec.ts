@@ -7,8 +7,8 @@ import {
 	getEnum,
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
-	BaseApiObject,
-	BaseApiObjectProperties,
+	GeneralizedApiObject,
+	GeneralizedApiObjectProperties,
 	CreateParams,
 	CreateParamsHelpers,
 	UpdateParams,
@@ -34,7 +34,7 @@ export const getApiObjectSpec = <
 	const apiObjectJsonShape = R.mapObjIndexed(
 		(schema: U[T], field: T) =>
 			createParamsRequiredFieldEnum.isMember(field)
-				? CreateParamsHelpers.toRequiredField(schema)
+				? CreateParamsHelpers.getRequiredField(schema)
 				: schema,
 		properties,
 	) as U;
@@ -44,7 +44,7 @@ export const getApiObjectSpec = <
 		Keys(apiObjectJsonShape as Record<T, YupTypes.AnySchema>),
 	);
 	const apiObjectDefaultJson = apiObjectJsonSchema.getDefault();
-	type ApiObjectType = BaseApiObject &
+	type ApiObjectType = GeneralizedApiObject &
 		yup.InferType<typeof apiObjectJsonSchema>;
 
 	// Create Params
@@ -115,15 +115,16 @@ export const getApiObjectSpec = <
 	});
 
 	// REST API Client
-	const { _object } = properties as unknown as typeof BaseApiObjectProperties;
+	const { _object } =
+		properties as unknown as typeof GeneralizedApiObjectProperties;
 	const apiObjectCollectionId = _object.getDefault();
 	if (apiObjectCollectionId === undefined) throw new Error();
-	const apiObjectBaseEndpoint = getApiObjectEndpoint(apiObjectCollectionId);
+	const apiObjectEndpoint = getApiObjectEndpoint(apiObjectCollectionId);
 
 	return {
 		apiObjectCollectionId,
 		apiObjectDefaultJson,
-		apiObjectBaseEndpoint,
+		apiObjectEndpoint,
 		apiObjectFieldEnum,
 		apiObjectJsonSchema,
 		apiObjectJsonShape,

@@ -6,7 +6,7 @@ import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 
 // API Object Properties
-export const BaseApiObjectProperties = {
+export const GeneralizedApiObjectProperties = {
 	_archived: yup.boolean().default(false),
 	_date_created: YupHelpers.now(),
 	_deleted: yup.boolean().default(false),
@@ -16,12 +16,20 @@ export const BaseApiObjectProperties = {
 	description: yup.string().default(''),
 	name: yup.string().defined(),
 } as const;
-export const BaseApiObjectSchema = yup.object(BaseApiObjectProperties);
-export const defaultBaseApiObject = BaseApiObjectSchema.getDefault();
-export type BaseApiObject = yup.InferType<typeof BaseApiObjectSchema>;
+export const GeneralizedApiObjectSchema = yup.object(
+	GeneralizedApiObjectProperties,
+);
+export const defaultGeneralizedApiObject =
+	GeneralizedApiObjectSchema.getDefault();
+export type GeneralizedApiObject = yup.InferType<
+	typeof GeneralizedApiObjectSchema
+>;
 
-export const BaseApiObjectFieldEnum = getEnum(Keys(BaseApiObjectProperties));
-export type BaseApiObjectField = keyof typeof BaseApiObjectFieldEnum.obj;
+export const GeneralizedApiObjectFieldEnum = getEnum(
+	Keys(GeneralizedApiObjectProperties),
+);
+export type GeneralizedApiObjectField =
+	keyof typeof GeneralizedApiObjectFieldEnum.obj;
 
 // Create API Object
 export const CreateParamsHelpers = {
@@ -29,11 +37,11 @@ export const CreateParamsHelpers = {
 		Keys(
 			R.pick(
 				['_archived', '_date_created', '_deleted', '_object'],
-				BaseApiObjectProperties,
+				GeneralizedApiObjectProperties,
 			),
 		),
 	),
-	toRequiredField: <T extends YupTypes.AnySchema>(schema: T) =>
+	getRequiredField: <T extends YupTypes.AnySchema>(schema: T) =>
 		(schema.defined() as T).meta({ createParamsRequired: true }),
 };
 
@@ -43,19 +51,24 @@ export type CreateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	CreateParamsFieldMask
 >;
-export type CreateParams<T extends BaseApiObject, K extends keyof T> = Partial<
-	Pick<T, CreateParamsField<keyof T>>
-> &
-	Required<Pick<T, K>>;
-export type BaseCreateBody = CreateParams<BaseApiObject, BaseApiObjectField>;
-export const BaseApiObjectCreateParamsRequiredFieldEnum = getEnum([
+export type CreateParams<
+	T extends GeneralizedApiObject,
+	K extends keyof T,
+> = Partial<Pick<T, CreateParamsField<keyof T>>> & Required<Pick<T, K>>;
+export type GeneralizedCreateBody = CreateParams<
+	GeneralizedApiObject,
+	GeneralizedApiObjectField
+>;
+export const GeneralizedApiObjectCreateParamsRequiredFieldEnum = getEnum([
 	'category',
 	'name',
 ]);
 
 // Update API Object
 const UpdateParamsFieldMaskEnum = getEnum(
-	Keys(R.pick(['_object', '_id', '_date_created'], BaseApiObjectProperties)),
+	Keys(
+		R.pick(['_object', '_id', '_date_created'], GeneralizedApiObjectProperties),
+	),
 );
 export const UpdateParamsHelpers = {
 	fieldMaskEnum: UpdateParamsFieldMaskEnum,
@@ -72,13 +85,13 @@ export type UpdateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	UpdateParamsFieldMask
 >;
-export type UpdateParams<T extends BaseApiObject> = Partial<
+export type UpdateParams<T extends GeneralizedApiObject> = Partial<
 	Pick<T, UpdateParamsField<keyof T>>
 >;
-export type BaseUpdateBody = UpdateParams<BaseApiObject>;
-export type BaseUpdateOperation = {
+export type GeneralizedUpdateBody = UpdateParams<GeneralizedApiObject>;
+export type GeneralizedUpdateOperation = {
 	_id: string;
-	updateParams: BaseUpdateBody;
+	updateParams: GeneralizedUpdateBody;
 };
 
 // DB Helpers
