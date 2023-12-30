@@ -1,9 +1,8 @@
 import {
-	GeneralizedError,
 	GeneralizedResponse,
-	getGeneralizedErrorResponse,
 	isGeneralizedErrorResponse,
 } from 'ergonomic/typescript-helpers/function-response-helpers.js';
+import { getGeneralizedError } from './function-error-response-helpers';
 
 export type GeneralizedPredicateFn = (value: unknown) => boolean;
 export type GeneralizedMapFn<T = unknown, U = unknown> = (value: T) => U;
@@ -19,20 +18,18 @@ export type GeneralizedParseFn<T = unknown, U = unknown> = (
 type GetGeneralizedParseFnProps<T = unknown, U = unknown> = {
 	mapFn: GeneralizedMapFn<T, U>;
 	predicateFn: GeneralizedPredicateFn;
-	getGeneralizedError?: () => GeneralizedError;
 };
 export const getGeneralizedParseFn =
 	<T = unknown, U = unknown>({
 		mapFn,
 		predicateFn,
-		getGeneralizedError,
 	}: GetGeneralizedParseFnProps<T, U>): GeneralizedParseFn<T, U> =>
 	(value) => {
 		if (predicateFn(value)) {
 			const res = mapFn(value);
 			return { data: Array.isArray(res) ? res : [res], errors: [] };
 		}
-		return getGeneralizedErrorResponse(getGeneralizedError);
+		return { data: [], errors: [getGeneralizedError()] };
 	};
 
 type GeneralizedCastFnResponse<

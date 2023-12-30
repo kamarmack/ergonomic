@@ -1,8 +1,8 @@
 import {
 	GeneralizedResponse,
-	getGeneralizedErrorResponse,
 	isGeneralizedErrorResponse,
 } from 'ergonomic/typescript-helpers/function-response-helpers.js';
+import { getGeneralizedError } from './function-error-response-helpers.js';
 
 export type GeneralizedPromiseChainFn = (
 	prevResponseData: unknown[],
@@ -49,7 +49,7 @@ const resolveGeneralizedPromiseChainWrappers = async ({
 
 export const resolveGeneralizedPromiseChain = async (
 	fns: GeneralizedPromiseChainFn[],
-	defaultResponse = getGeneralizedErrorResponse(),
+	defaultResponse = { data: [], errors: [getGeneralizedError()] },
 ): Promise<GeneralizedPromiseChainResponse> => {
 	try {
 		const res: GeneralizedPromiseChainResponse =

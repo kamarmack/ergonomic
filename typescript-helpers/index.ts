@@ -1,5 +1,6 @@
 export * from 'ergonomic/typescript-helpers/async-function-helpers.js';
 export * from 'ergonomic/typescript-helpers/enum-helpers.js';
+export * from 'ergonomic/typescript-helpers/function-error-response-helpers.js';
 export * from 'ergonomic/typescript-helpers/function-helpers.js';
 export * from 'ergonomic/typescript-helpers/function-response-helpers.js';
 export * from 'ergonomic/typescript-helpers/number-helpers.js';

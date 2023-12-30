@@ -1,7 +1,4 @@
-import {
-	GeneralizedResponse,
-	getGeneralizedErrorStatusCode,
-} from 'ergonomic/typescript-helpers/function-response-helpers.js';
+import { GeneralizedResponse } from 'ergonomic/typescript-helpers/function-response-helpers.js';
 import { resolveGeneralizedPromiseChain } from 'ergonomic/typescript-helpers/async-function-helpers.js';
 
 describe('typescript-helpers.async-function-helpers.resolveGeneralizedPromiseChain', () => {
@@ -38,12 +35,13 @@ describe('typescript-helpers.async-function-helpers.resolveGeneralizedPromiseCha
 					data: [],
 					errors: [
 						{
-							_object: 'error',
-							category: 'request.unknown-error',
-							msg: '',
-							status_code: getGeneralizedErrorStatusCode(
-								'request.unknown-error',
-							),
+							error: {
+								category: 'request.unknown-error',
+								data: {},
+								message: 'An unknown error occurred.',
+								status_code: 500,
+								status_text: 'Internal Server Error',
+							},
 						},
 					],
 				});
