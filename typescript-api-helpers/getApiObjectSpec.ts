@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 import {
-	TsEnumType,
+	GeneralizedEnumType,
 	getEnum,
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
@@ -26,7 +26,7 @@ export const getApiObjectSpec = <
 	databaseId = '(default)',
 	properties,
 }: {
-	createParamsRequiredFieldEnum: TsEnumType<V>;
+	createParamsRequiredFieldEnum: GeneralizedEnumType<V>;
 	databaseId?: string;
 	properties: U;
 }) => {

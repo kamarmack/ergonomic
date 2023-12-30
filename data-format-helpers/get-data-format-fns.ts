@@ -1,13 +1,13 @@
 import {
-	TsMapFn,
-	TsPredicateFn,
-	getTsParseFn,
-	toTsCastFn,
+	GeneralizedMapFn,
+	GeneralizedPredicateFn,
+	getGeneralizedParseFn,
+	toGeneralizedCastFn,
 } from 'ergonomic/typescript-helpers/function-helpers.js';
 
 export const getDataFormatFns = <
-	M extends TsMapFn = TsMapFn,
-	P extends TsPredicateFn = TsPredicateFn,
+	M extends GeneralizedMapFn = GeneralizedMapFn,
+	P extends GeneralizedPredicateFn = GeneralizedPredicateFn,
 >({
 	defaultResponseData,
 	mapFn,
@@ -20,11 +20,11 @@ export const getDataFormatFns = <
 	predicateFnValidValues: unknown[];
 	predicateFn: P;
 }) => {
-	const parseFn = getTsParseFn({
+	const parseFn = getGeneralizedParseFn({
 		mapFn,
 		predicateFn,
 	});
-	const castFn = toTsCastFn({
+	const castFn = toGeneralizedCastFn({
 		defaultResponse: [defaultResponseData],
 		parseFn,
 	});

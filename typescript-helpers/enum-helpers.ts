@@ -2,18 +2,18 @@ import * as R from 'ramda';
 import * as yup from 'yup';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 
-export type TsEnumObject<K extends string = string> = Readonly<{
+export type GeneralizedEnumObject<K extends string = string> = Readonly<{
 	[key in K]: key;
 }>;
 const _getEnumObject = <K extends string>(
 	options: Record<number, K>,
-): TsEnumObject<K> =>
+): GeneralizedEnumObject<K> =>
 	R.uniq(Keys(options)).reduce((acc, v) => {
 		const key = options[v] as K;
 		return { ...acc, [key]: key };
-	}, {} as TsEnumObject<K>);
+	}, {} as GeneralizedEnumObject<K>);
 
-const _isTsEnumMember =
+const _isGeneralizedEnumMember =
 	<K extends string>(options: K[]) =>
 	(str: unknown): str is K =>
 		options.some((s) => s === str);
@@ -29,7 +29,7 @@ export const getEnum = <K extends string>(
 	const arr = Keys(obj);
 	return {
 		arr,
-		isMember: _isTsEnumMember(arr),
+		isMember: _isGeneralizedEnumMember(arr),
 		obj,
 		regex: _getEnumRegex(arr),
 		getDefinedSchemaWithDefault: () =>
@@ -38,10 +38,10 @@ export const getEnum = <K extends string>(
 		getOptionalSchema: () => yup.mixed<K>().oneOf(arr),
 	} as const;
 };
-export type TsEnumType<K extends string> = ReturnType<typeof getEnum> &
+export type GeneralizedEnumType<K extends string> = ReturnType<typeof getEnum> &
 	Readonly<{
 		arr: K[];
-		obj: TsEnumObject<K>;
+		obj: GeneralizedEnumObject<K>;
 	}>;
 
 export const getOrderedEnum = <K extends string>(
