@@ -54,20 +54,20 @@ export const BaseApiObjectCreateParamsRequiredFieldEnum = getEnum([
 ]);
 
 // Update API Object
-const _UpdateParamsFieldMaskEnum = getEnum(
+const UpdateParamsFieldMaskEnum = getEnum(
 	Keys(R.pick(['_object', '_id', '_date_created'], BaseApiObjectProperties)),
 );
 export const UpdateParamsHelpers = {
-	fieldMaskEnum: _UpdateParamsFieldMaskEnum,
+	fieldMaskEnum: UpdateParamsFieldMaskEnum,
 	toFieldEnum: <T extends string>(fields: T[]) =>
 		getEnum(
 			fields.filter(
-				R.complement(_UpdateParamsFieldMaskEnum.isMember),
+				R.complement(UpdateParamsFieldMaskEnum.isMember),
 			) as UpdateParamsField<T>[],
 		),
 };
 
-export type UpdateParamsFieldMask = keyof typeof _UpdateParamsFieldMaskEnum.obj;
+export type UpdateParamsFieldMask = keyof typeof UpdateParamsFieldMaskEnum.obj;
 export type UpdateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	UpdateParamsFieldMask

@@ -21,10 +21,12 @@ export const getUnixMs = (utcDate: string = '') =>
 export const getUnixSeconds = (utcDate: string = '') =>
 	getUnixMs(utcDate) / 1000;
 
-const _UTCDateCharacters = [...NumericCharacters, ':', 'T', 'Z'];
-const _isUTCDateCharacter = (stringValue: unknown): stringValue is string =>
+const UTCDateCharacters = [...NumericCharacters, ':', 'T', 'Z'];
+const validateUTCDateCharacter = (
+	stringValue: unknown,
+): stringValue is string =>
 	typeof stringValue === 'string' &&
-	_UTCDateCharacters.slice().includes(stringValue);
+	UTCDateCharacters.slice().includes(stringValue);
 
 export const isUtcDate = (stringValue: unknown): stringValue is string => {
 	if (typeof stringValue === 'string') {
@@ -34,7 +36,7 @@ export const isUtcDate = (stringValue: unknown): stringValue is string => {
 				trimmedStringValue
 					.slice()
 					.split('')
-					.filter(R.complement(_isUTCDateCharacter)).length > 0
+					.filter(R.complement(validateUTCDateCharacter)).length > 0
 			)
 				return false;
 			return DateTime.isDateTime(

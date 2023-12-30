@@ -12,7 +12,7 @@ export type GeneralizedPromiseChainWrapper = (
 	prevResponse: GeneralizedPromiseChainResponse,
 ) => Promise<GeneralizedPromiseChainResponse>;
 
-const _toGeneralizedPromiseChainWrapper =
+const getGeneralizedPromiseChainWrapper =
 	(defaultResponse: GeneralizedPromiseChainResponse) =>
 	(fn: GeneralizedPromiseChainFn, i: number): GeneralizedPromiseChainWrapper =>
 	async (prevResponse) => {
@@ -29,17 +29,17 @@ const _toGeneralizedPromiseChainWrapper =
 		}
 	};
 
-const _resolveGeneralizedPromiseChainWrappers = async ({
+const resolveGeneralizedPromiseChainWrappers = async ({
 	defaultResponse,
 	fnWrappers,
 }: {
 	defaultResponse: GeneralizedPromiseChainResponse;
 	fnWrappers: GeneralizedPromiseChainWrapper[];
 }): Promise<GeneralizedPromiseChainResponse> => {
-	const res = await fnWrappers.reduce((_acc: unknown, _fn) => {
+	const res = await fnWrappers.reduce((fnWrapperAcc: unknown, fnWrapper) => {
 		try {
-			const acc = _acc as Promise<GeneralizedPromiseChainResponse>;
-			return acc.then(_fn);
+			const acc = fnWrapperAcc as Promise<GeneralizedPromiseChainResponse>;
+			return acc.then(fnWrapper);
 		} catch (msg) {
 			return defaultResponse;
 		}
@@ -53,9 +53,9 @@ export const resolveGeneralizedPromiseChain = async (
 ): Promise<GeneralizedPromiseChainResponse> => {
 	try {
 		const res: GeneralizedPromiseChainResponse =
-			await _resolveGeneralizedPromiseChainWrappers({
+			await resolveGeneralizedPromiseChainWrappers({
 				defaultResponse,
-				fnWrappers: fns.map(_toGeneralizedPromiseChainWrapper(defaultResponse)),
+				fnWrappers: fns.map(getGeneralizedPromiseChainWrapper(defaultResponse)),
 			});
 		return res as unknown as GeneralizedPromiseChainResponse;
 	} catch (msg) {

@@ -5,7 +5,7 @@ import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 export type GeneralizedEnumObject<K extends string = string> = Readonly<{
 	[key in K]: key;
 }>;
-const _getEnumObject = <K extends string>(
+const getEnumObject = <K extends string>(
 	options: Record<number, K>,
 ): GeneralizedEnumObject<K> =>
 	R.uniq(Keys(options)).reduce((acc, v) => {
@@ -13,25 +13,24 @@ const _getEnumObject = <K extends string>(
 		return { ...acc, [key]: key };
 	}, {} as GeneralizedEnumObject<K>);
 
-const _isGeneralizedEnumMember =
+const validateGeneralizedEnumMember =
 	<K extends string>(options: K[]) =>
 	(str: unknown): str is K =>
 		options.some((s) => s === str);
 
-const _getEnumRegex = (options: string[]) =>
-	new RegExp(options.join('|'), 'gi');
+const getEnumRegex = (options: string[]) => new RegExp(options.join('|'), 'gi');
 
 export const getEnum = <K extends string>(
 	members: Record<number, K>,
 	defaultValue: K = members[0] as K,
 ) => {
-	const obj = _getEnumObject(members);
+	const obj = getEnumObject(members);
 	const arr = Keys(obj);
 	return {
 		arr,
-		isMember: _isGeneralizedEnumMember(arr),
+		isMember: validateGeneralizedEnumMember(arr),
 		obj,
-		regex: _getEnumRegex(arr),
+		regex: getEnumRegex(arr),
 		getDefinedSchemaWithDefault: () =>
 			yup.mixed<K>().oneOf(arr).default(defaultValue),
 		getDefinedSchema: () => yup.mixed<K>().oneOf(arr).defined(),

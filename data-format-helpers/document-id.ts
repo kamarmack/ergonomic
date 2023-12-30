@@ -61,7 +61,10 @@ export const getUUIDFromDocumentId = (_id: string): string => {
 	return R.last(splitByUnderscore) as string;
 };
 
-const _isDocumentIdString = (_object: string, testValue: string): boolean => {
+const validateDocumentIdString = (
+	_object: string,
+	testValue: string,
+): boolean => {
 	const prefix = shortenObjectName(_object);
 	const suffix = testValue.slice(prefix.length + 1);
 	return UUID.validate(suffix);
@@ -72,7 +75,9 @@ export const isDocumentIdString = (
 	testValue: unknown,
 ): boolean => {
 	if (typeof testValue !== 'string') return false;
-	return allowObjects.some((object) => _isDocumentIdString(object, testValue));
+	return allowObjects.some((object) =>
+		validateDocumentIdString(object, testValue),
+	);
 };
 
 export const isDocumentIdStringRef = (

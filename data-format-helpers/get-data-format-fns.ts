@@ -2,7 +2,7 @@ import {
 	GeneralizedMapFn,
 	GeneralizedPredicateFn,
 	getGeneralizedParseFn,
-	toGeneralizedCastFn,
+	getGeneralizedCastFn,
 } from 'ergonomic/typescript-helpers/function-helpers.js';
 
 export const getDataFormatFns = <
@@ -24,7 +24,7 @@ export const getDataFormatFns = <
 		mapFn,
 		predicateFn,
 	});
-	const castFn = toGeneralizedCastFn({
+	const castFn = getGeneralizedCastFn({
 		defaultResponse: [defaultResponseData],
 		parseFn,
 	});

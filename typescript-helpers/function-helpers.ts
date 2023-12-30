@@ -16,7 +16,7 @@ export type GeneralizedParseFn<T = unknown, U = unknown> = (
 	value: T,
 ) => GeneralizedParseFnResponse<T, U>;
 
-type _getGeneralizedParseFnProps<T = unknown, U = unknown> = {
+type GetGeneralizedParseFnProps<T = unknown, U = unknown> = {
 	mapFn: GeneralizedMapFn<T, U>;
 	predicateFn: GeneralizedPredicateFn;
 	getGeneralizedError?: () => GeneralizedError;
@@ -26,7 +26,7 @@ export const getGeneralizedParseFn =
 		mapFn,
 		predicateFn,
 		getGeneralizedError,
-	}: _getGeneralizedParseFnProps<T, U>): GeneralizedParseFn<T, U> =>
+	}: GetGeneralizedParseFnProps<T, U>): GeneralizedParseFn<T, U> =>
 	(value) => {
 		if (predicateFn(value)) {
 			const res = mapFn(value);
@@ -35,23 +35,23 @@ export const getGeneralizedParseFn =
 		return getGeneralizedErrorResponse(getGeneralizedError);
 	};
 
-type _GeneralizedCastFnResponse<
+type GeneralizedCastFnResponse<
 	T = unknown,
 	U = unknown,
 > = GeneralizedParseFnResponse<T, U>['data'];
 export type GeneralizedCastFn<T = unknown, U = unknown> = (
 	value: T,
-) => _GeneralizedCastFnResponse<T, U>;
+) => GeneralizedCastFnResponse<T, U>;
 
-type _ToGeneralizedCastFnProps<T = unknown, U = unknown> = {
-	defaultResponse: _GeneralizedCastFnResponse<T, U>;
+type GetGeneralizedCastFnProps<T = unknown, U = unknown> = {
+	defaultResponse: GeneralizedCastFnResponse<T, U>;
 	parseFn: GeneralizedParseFn<T, U>;
 };
-export const toGeneralizedCastFn =
+export const getGeneralizedCastFn =
 	<T = unknown, U = unknown>({
 		defaultResponse,
 		parseFn,
-	}: _ToGeneralizedCastFnProps<T, U>): GeneralizedCastFn<T, U> =>
+	}: GetGeneralizedCastFnProps<T, U>): GeneralizedCastFn<T, U> =>
 	(value) => {
 		const res = parseFn(value);
 		if (isGeneralizedErrorResponse(res)) return defaultResponse;
