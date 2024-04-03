@@ -20,7 +20,7 @@ import { getApiObjectEndpoint } from 'ergonomic/typescript-api-helpers/getApiObj
 export const getApiObjectSpec = <
 	T extends string,
 	U extends Record<T, YupTypes.AnySchema>,
-	V extends string,
+	V extends T,
 >({
 	createParamsRequiredFieldEnum,
 	databaseId = '(default)',
@@ -49,13 +49,13 @@ export const getApiObjectSpec = <
 
 	// Create Params
 	const createParamsJsonShape = R.omit(
-		CreateParamsHelpers.fieldMaskEnum.arr,
+		CreateParamsHelpers.fieldMaskEnum.arr as T[],
 		apiObjectJsonShape,
 	);
 	const createParamsJsonSchema = yup.object(createParamsJsonShape);
 	const createParamsFieldEnum = getEnum(
 		Keys(
-			createParamsJsonShape as Omit<
+			createParamsJsonShape as unknown as Omit<
 				Record<T, YupTypes.AnySchema>,
 				keyof typeof CreateParamsHelpers.fieldMaskEnum.obj
 			>,
@@ -88,13 +88,13 @@ export const getApiObjectSpec = <
 
 	// Update Params
 	const updateParamsJsonShape = R.omit(
-		UpdateParamsHelpers.fieldMaskEnum.arr,
+		UpdateParamsHelpers.fieldMaskEnum.arr as T[],
 		apiObjectJsonShape,
 	);
 	const updateParamsJsonSchema = yup.object(updateParamsJsonShape);
 	const updateParamsFieldEnum = getEnum(
 		Keys(
-			updateParamsJsonShape as Omit<
+			updateParamsJsonShape as unknown as Omit<
 				Record<T, YupTypes.AnySchema>,
 				keyof typeof UpdateParamsHelpers.fieldMaskEnum.obj
 			>,
