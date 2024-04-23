@@ -131,17 +131,26 @@ export const YupHelpers = {
 
 export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 	_: ApiObjectCollection[],
+	documentIdPrefixMap: Record<ApiObjectCollection, string>,
 ) =>
 	({
 		id: (_object: ApiObjectCollection) =>
 			yup
 				.string()
-				.default(() => getDocumentIdString(_object))
+				.default(() =>
+					getDocumentIdString({
+						document_id_prefix: documentIdPrefixMap[_object],
+					}),
+				)
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
 						`${path} is not a uuid: ${value}`,
 					name: 'is-uuid',
-					test: (value) => isDocumentIdString([_object], value),
+					test: (value) =>
+						isDocumentIdString(
+							[{ document_id_prefix: documentIdPrefixMap[_object] }],
+							value,
+						),
 				})
 				.meta({ _object }),
 		ids: (_object: ApiObjectCollection) =>
@@ -153,7 +162,11 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 						message: ({ path, value }: { path: string; value: string }) =>
 							`${path} is not a uuid: ${value}`,
 						name: 'is-uuid',
-						test: (value) => isDocumentIdString([_object], value),
+						test: (value) =>
+							isDocumentIdString(
+								[{ document_id_prefix: documentIdPrefixMap[_object] }],
+								value,
+							),
 					})
 					.meta({ _object }),
 			),
@@ -165,7 +178,13 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					message: ({ path, value }: { path: string; value: string }) =>
 						`${path} is not a uuid: ${value}`,
 					name: 'is-uuid',
-					test: (value) => isDocumentIdString(allowObjects, value),
+					test: (value) =>
+						isDocumentIdString(
+							allowObjects.map((_object) => ({
+								document_id_prefix: documentIdPrefixMap[_object],
+							})),
+							value,
+						),
 				})
 				.meta({ allowObjects }),
 		idRefs: (allowObjects: ApiObjectCollection[]) =>
@@ -179,7 +198,12 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 						name: 'is-uuid',
 						test: (value) =>
 							typeof value === 'string' &&
-							isDocumentIdString(allowObjects, value),
+							isDocumentIdString(
+								allowObjects.map((_object) => ({
+									document_id_prefix: documentIdPrefixMap[_object],
+								})),
+								value,
+							),
 					})
 					.meta({ allowObjects }),
 			).defined(),
