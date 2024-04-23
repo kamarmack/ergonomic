@@ -6,10 +6,10 @@ export const getDocumentIdString = (options: {
 }): string => options.document_id_prefix + '_' + compressUUID(v4());
 
 const validateDocumentIdString = (
-	testValue: string,
 	options: {
 		document_id_prefix: string;
 	},
+	testValue: string,
 ): boolean => {
 	const split = testValue.split('_');
 	if (split.length !== 2) return false;
@@ -28,8 +28,8 @@ export const isDocumentIdString = (
 	testValue: unknown,
 ): boolean => {
 	if (typeof testValue !== 'string') return false;
-	return allowObjects.some((object) =>
-		validateDocumentIdString(testValue, object),
+	return allowObjects.some((options) =>
+		validateDocumentIdString(options, testValue),
 	);
 };
 
