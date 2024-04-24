@@ -12,5 +12,5 @@
 	},
 	"forwardPorts": [],
 	"name": "Ergonomic Dev Container",
-	"postStartCommand": "npm install"
+	"postStartCommand": "git config --global core.autocrlf input && npm install"
 }

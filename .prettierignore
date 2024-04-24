@@ -203,3 +203,7 @@ yarn-error.log
 
 # Local Resources
 ___local_resources/
+
+# Build
+**.js
+**.d.ts

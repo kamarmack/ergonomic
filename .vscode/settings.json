@@ -17,6 +17,9 @@
 	"clock.format": "isoUtcDateTime",
 	"jest.autoRevealOutput": "on-exec-error",
 	"jest.autoRun": "off",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"files.eol": "\n",
 	"terminal.integrated.confirmOnExit": "always",
 	"workbench.colorCustomizations": {
 		"editorIndentGuide.background1": "#8CA58B8F",
