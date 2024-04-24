@@ -25,11 +25,13 @@ export const getApiObjectSpec = <
 	createParamsRequiredFieldEnum,
 	databaseId = '(default)',
 	documentIdPrefix,
+	objectPlural,
 	properties,
 }: {
 	createParamsRequiredFieldEnum: GeneralizedEnumType<V>;
 	databaseId?: string;
 	documentIdPrefix: string;
+	objectPlural?: string;
 	properties: U;
 }) => {
 	// API Object
@@ -121,7 +123,9 @@ export const getApiObjectSpec = <
 		properties as unknown as typeof GeneralizedApiObjectProperties;
 	const apiObjectCollectionId = _object.getDefault();
 	if (apiObjectCollectionId === undefined) throw new Error();
-	const apiObjectEndpoint = getApiObjectEndpoint(apiObjectCollectionId);
+	const apiObjectEndpoint = getApiObjectEndpoint(
+		objectPlural ?? apiObjectCollectionId + 's',
+	);
 
 	return {
 		apiObjectCollectionId,
