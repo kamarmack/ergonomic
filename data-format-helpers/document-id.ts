@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { v4 } from 'uuid';
 import { compressUUID } from 'ergonomic/data-format-helpers/compressUUID.js';
 
@@ -12,9 +13,9 @@ const validateDocumentIdString = (
 	testValue: string,
 ): boolean => {
 	const split = testValue.split('_');
-	if (split.length !== 2) return false;
-	const [prefix, suffix] = split;
+	const prefix = R.init(split).join('_');
 	if (prefix !== options.document_id_prefix) return false;
+	const suffix = R.last(split);
 	if (typeof suffix !== 'string') return false;
 	const chars =
 		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
