@@ -11,7 +11,7 @@ import {
 	isInterval,
 	isPhoneNumberUnitedStates,
 	isUtcDate,
-	isWebHost,
+	isWebDomain,
 	isWebUrl,
 	getDocumentIdString,
 	isDocumentIdString,
@@ -109,13 +109,13 @@ export const YupHelpers = {
 				test: (value: unknown) => value === '' || isCurrencyUsdCents(value),
 			})
 			.default(0),
-	webHost: () =>
+	webDomain: () =>
 		yup
 			.string()
 			.test({
 				message: '${path} is not a web host',
 				name: 'is-web-host',
-				test: (value) => value === '' || isWebHost(value),
+				test: (value) => value === '' || isWebDomain(value),
 			})
 			.default(''),
 	webUrl: () =>

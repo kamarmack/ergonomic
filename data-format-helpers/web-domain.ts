@@ -3,7 +3,7 @@ import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const WebProtocolEnum = getEnum(['http://', 'https://']);
 
-export const isWebHost = (stringValue: unknown): stringValue is string => {
+export const isWebDomain = (stringValue: unknown): stringValue is string => {
 	if (typeof stringValue === 'string') {
 		const cleanedStringValue = stringValue.slice().trim().toLocaleLowerCase();
 		if (validator.default.isURL(cleanedStringValue)) {
