@@ -36,7 +36,7 @@ export const CreateParamsHelpers = {
 	fieldMaskEnum: getEnum(
 		Keys(
 			R.pick(
-				['_archived', '_date_created', '_deleted', '_object'],
+				['_archived', '_date_created', '_deleted', '_object'] as const,
 				GeneralizedApiObjectProperties,
 			),
 		),
@@ -67,7 +67,10 @@ export const GeneralizedApiObjectCreateParamsRequiredFieldEnum = getEnum([
 // Update API Object
 const UpdateParamsFieldMaskEnum = getEnum(
 	Keys(
-		R.pick(['_object', '_id', '_date_created'], GeneralizedApiObjectProperties),
+		R.pick(
+			['_object', '_id', '_date_created'] as const,
+			GeneralizedApiObjectProperties,
+		),
 	),
 );
 export const UpdateParamsHelpers = {
