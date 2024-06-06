@@ -1,6 +1,5 @@
-import validator, { default as validatorType } from 'validator';
-const validatorLib = validator as unknown as typeof validatorType['default'];
+import { default as validator } from 'validator';
 
 export const isEmailAddress = (stringValue: unknown): stringValue is string =>
 	typeof stringValue === 'string' &&
-	validatorLib.isEmail(stringValue.slice().toLowerCase().trim());
+	validator.isEmail(stringValue.slice().toLowerCase().trim());

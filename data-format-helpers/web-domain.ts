@@ -1,13 +1,12 @@
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
-import validator, { default as validatorType } from 'validator';
-const validatorLib = validator as unknown as typeof validatorType['default'];
+import { default as validator } from 'validator';
 
 export const WebProtocolEnum = getEnum(['http://', 'https://']);
 
 export const isWebDomain = (stringValue: unknown): stringValue is string => {
 	if (typeof stringValue === 'string') {
 		const cleanedStringValue = stringValue.slice().trim().toLocaleLowerCase();
-		if (validatorLib.isURL(cleanedStringValue)) {
+		if (validator.isURL(cleanedStringValue)) {
 			const protocol = WebProtocolEnum.arr.find((protocol) =>
 				cleanedStringValue.includes(protocol),
 			);
@@ -29,7 +28,7 @@ export const isWebUrl = (stringValue: unknown): stringValue is string => {
 			.slice()
 			.trim()
 			.toLocaleLowerCase();
-		if (validatorLib.isURL(cleanedStringValue)) {
+		if (validator.isURL(cleanedStringValue)) {
 			const protocol = WebProtocolEnum.arr.find((protocol) =>
 				cleanedStringValue.includes(protocol),
 			);
