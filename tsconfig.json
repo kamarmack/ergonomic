@@ -19,8 +19,8 @@
 		// End -- Base TypeScript Configurations for a strict environment
 
 		// Start -- Base TypeScript Configurations for a ES6 environment
-		"module": "Node16",
-		"moduleResolution": "Node16",
+		"module": "esnext",
+		"moduleResolution": "node",
 		"target": "es6",
 		// End -- Base TypeScript Configurations for a ES6 environment
 
