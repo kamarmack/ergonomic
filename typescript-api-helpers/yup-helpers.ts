@@ -1,6 +1,6 @@
 import * as UUID from 'uuid';
 import * as yup from 'yup';
-import * as YupSchemaHelpers from 'yup/lib/schema';
+import * as YupSchemaHelpers from 'yup/lib/schema.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
 	getUtcDateNow,

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
-import * as YupTypes from 'yup/lib/schema';
+import * as YupTypes from 'yup/lib/schema.js';
 import { YupHelpers } from 'ergonomic/typescript-api-helpers/yup-helpers.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
