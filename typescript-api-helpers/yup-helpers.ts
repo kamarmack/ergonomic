@@ -15,6 +15,7 @@ import {
 	getDocumentIdString,
 	isDocumentIdString,
 } from 'ergonomic/data-format-helpers/index.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
 
 export const YupTypeEnum = getEnum([
 	'array',
@@ -32,7 +33,12 @@ export type FieldSchema = YupSchemaHelpers.SchemaObjectDescription & {
 export const YupHelpers = {
 	array: <T extends Parameters<ReturnType<typeof yup.array>['of']>[0]>(
 		types: T,
-	) => yup.array().default([]).of<T>(types),
+	) =>
+		yup
+			.array()
+			.default([])
+			.of<T>(types)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.list }),
 	constant: <T extends boolean | string | number>(value: T) =>
 		yup.mixed<T>().oneOf([value]).default(value),
 	date: () =>
@@ -43,7 +49,8 @@ export const YupHelpers = {
 				name: 'is-utc-date',
 				test: (value) => value === '' || isUtcDate(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
 	duration: () =>
 		yup
 			.string()
@@ -52,7 +59,8 @@ export const YupHelpers = {
 				name: 'is-duration',
 				test: (value) => value === '' || isDuration(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.duration }),
 	emailAddress: () =>
 		yup
 			.string()
@@ -61,7 +69,8 @@ export const YupHelpers = {
 				name: 'is-email-address',
 				test: (value: unknown) => value === '' || isEmailAddress(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.email_address }),
 	filePath: () =>
 		yup
 			.string()
@@ -70,8 +79,13 @@ export const YupHelpers = {
 				name: 'is-filePath',
 				test: (value) => value === '' || isFilePath(value),
 			})
-			.default(''),
-	growthRate: () => yup.number().default(0),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.file }),
+	growthRate: () =>
+		yup
+			.number()
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.floating_point_number }),
 	interval: () =>
 		yup
 			.string()
@@ -80,7 +94,8 @@ export const YupHelpers = {
 				name: 'is-interval',
 				test: (value) => value === '' || isInterval(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.interval }),
 	now: () =>
 		yup
 			.string()
@@ -89,7 +104,8 @@ export const YupHelpers = {
 				name: 'is-utc-date',
 				test: isUtcDate,
 			})
-			.default(getUtcDateNow),
+			.default(getUtcDateNow)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
 	phoneNumber: () =>
 		yup
 			.string()
@@ -98,7 +114,8 @@ export const YupHelpers = {
 				name: 'is-phone-number-united-states',
 				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
 	usd: () =>
 		yup
 			.number()
@@ -107,7 +124,8 @@ export const YupHelpers = {
 				name: 'is-currency-usd',
 				test: (value: unknown) => value === '' || isCurrencyUsdCents(value),
 			})
-			.default(0),
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.currency }),
 	webDomain: () =>
 		yup
 			.string()
@@ -116,7 +134,8 @@ export const YupHelpers = {
 				name: 'is-web-host',
 				test: (value) => value === '' || isWebDomain(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.domain }),
 	webUrl: () =>
 		yup
 			.string()
@@ -125,7 +144,8 @@ export const YupHelpers = {
 				name: 'is-web-url',
 				test: (value) => value === '' || isWebUrl(value),
 			})
-			.default(''),
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.url }),
 } as const;
 
 export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
@@ -151,7 +171,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 							value,
 						),
 				})
-				.meta({ _object }),
+				.meta({ _object, type: GeneralizedFieldTypeEnum.obj.id }),
 		idRef: (allowObjects: ApiObjectCollection[]) =>
 			yup
 				.string()
@@ -168,7 +188,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 							value,
 						),
 				})
-				.meta({ allowObjects }),
+				.meta({ allowObjects, type: GeneralizedFieldTypeEnum.obj.id_ref }),
 		idRefs: (allowObjects: ApiObjectCollection[]) =>
 			YupHelpers.array(
 				yup
@@ -186,7 +206,8 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 								})),
 								value,
 							),
-					})
-					.meta({ allowObjects }),
-			).defined(),
+					}),
+			)
+				.defined()
+				.meta({ allowObjects, type: GeneralizedFieldTypeEnum.obj.id_refs }),
 	} as const);
