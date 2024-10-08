@@ -17,7 +17,7 @@ export const GeneralizedApiObjectProperties = {
 		.boolean()
 		.default(false)
 		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
-	_id: yup.string().defined(),
+	_id: yup.string().defined().label('Unique ID'),
 	_object: yup.string().defined(),
 	category: yup.string().defined(),
 	description: yup
