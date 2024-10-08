@@ -32,9 +32,15 @@ export const getEnum = <K extends string>(
 		obj,
 		regex: getEnumRegex(arr),
 		getDefinedSchemaWithDefault: () =>
-			yup.mixed<K>().oneOf(arr).default(defaultValue),
-		getDefinedSchema: () => yup.mixed<K>().oneOf(arr).defined(),
-		getOptionalSchema: () => yup.mixed<K>().oneOf(arr),
+			yup
+				.mixed<K>()
+				.oneOf(arr)
+				.default(defaultValue)
+				.meta({ type: 'select_one' }),
+		getDefinedSchema: () =>
+			yup.mixed<K>().oneOf(arr).defined().meta({ type: 'select_one' }),
+		getOptionalSchema: () =>
+			yup.mixed<K>().oneOf(arr).meta({ type: 'select_one' }),
 	} as const;
 };
 export type GeneralizedEnumType<K extends string> = ReturnType<typeof getEnum> &
