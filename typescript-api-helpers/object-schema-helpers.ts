@@ -4,17 +4,30 @@ import * as YupTypes from 'yup/lib/schema.js';
 import { YupHelpers } from 'ergonomic/typescript-api-helpers/yup-helpers.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
 
 // API Object Properties
 export const GeneralizedApiObjectProperties = {
-	_archived: yup.boolean().default(false),
+	_archived: yup
+		.boolean()
+		.default(false)
+		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
 	_date_created: YupHelpers.now(),
-	_deleted: yup.boolean().default(false),
+	_deleted: yup
+		.boolean()
+		.default(false)
+		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
 	_id: yup.string().defined(),
 	_object: yup.string().defined(),
 	category: yup.string().defined(),
-	description: yup.string().default(''),
-	name: yup.string().defined(),
+	description: yup
+		.string()
+		.default('')
+		.meta({ type: GeneralizedFieldTypeEnum.obj.long_text }),
+	name: yup
+		.string()
+		.defined()
+		.meta({ type: GeneralizedFieldTypeEnum.obj.short_text }),
 } as const;
 export const GeneralizedApiObjectSchema = yup.object(
 	GeneralizedApiObjectProperties,
