@@ -34,3 +34,13 @@ export type GeneralizedFieldSchemaMetadata = {
 	required_on_create?: boolean;
 	type: GeneralizedFieldType;
 };
+
+export type GeneralizedFieldSpec = {
+	default?: string;
+	oneOf: string[];
+	label?: string;
+	meta?: GeneralizedFieldSchemaMetadata;
+	notOneOf: string[];
+	nullable?: boolean;
+	type: 'string' | 'number' | 'boolean' | 'array' | 'mixed';
+};
