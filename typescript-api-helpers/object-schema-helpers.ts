@@ -55,7 +55,7 @@ export const CreateParamsHelpers = {
 		),
 	),
 	getRequiredField: <T extends YupTypes.AnySchema>(schema: T) =>
-		(schema.defined() as T).meta({ createParamsRequired: true }),
+		(schema.defined() as T).meta({ required_on_create: true }),
 };
 
 export type CreateParamsFieldMask =

@@ -31,5 +31,6 @@ export type GeneralizedFieldSchemaMetadata = {
 	label_tooltip_admin_text?: string;
 	label_tooltip_user_text?: string;
 	pii?: boolean;
+	required_on_create?: boolean;
 	type: GeneralizedFieldType;
 };
