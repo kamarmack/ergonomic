@@ -1,4 +1,3 @@
-import * as UUID from 'uuid';
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
@@ -153,23 +152,6 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 						),
 				})
 				.meta({ _object }),
-		ids: (_object: ApiObjectCollection) =>
-			YupHelpers.array(
-				yup
-					.string()
-					.default(() => UUID.v4())
-					.test({
-						message: ({ path, value }: { path: string; value: string }) =>
-							`${path} is not a uuid: ${value}`,
-						name: 'is-uuid',
-						test: (value) =>
-							isDocumentIdString(
-								[{ document_id_prefix: documentIdPrefixMap[_object] }],
-								value,
-							),
-					})
-					.meta({ _object }),
-			),
 		idRef: (allowObjects: ApiObjectCollection[]) =>
 			yup
 				.string()
