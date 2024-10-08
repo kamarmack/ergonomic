@@ -1,0 +1,37 @@
+export type GeneralizedJavascriptDataType =
+	| 'string'
+	| 'number'
+	| 'boolean'
+	| 'array';
+
+export type GeneralizedFieldType =
+	| 'address_field' // string - address field (city, country, line1, line2, postal_code, state)
+	| 'boolean' // boolean - true or false
+	| 'currency' // number - number of cents
+	| 'date' // string - ISO date string
+	| 'domain' // string - domain name
+	| 'duration' // string - ISO duration string
+	| 'email_address' // string - email address
+	| 'file' // string - single Google Cloud Storage Bucket URL
+	| 'floating_point_number' // number - floating point number
+	| 'id' // string - ID
+	| 'id_ref' // string - ID reference
+	| 'id_refs' // array - array of ID references
+	| 'integer' // number - integer
+	| 'interval' // string - ISO interval string
+	| 'list' // array - array of strings
+	| 'long_text' // string - long text
+	| 'phone_number' // string - phone number
+	| 'select_many' // array - array of strings from enum
+	| 'select_one' // string - single string from enum
+	| 'short_text' // string - short text
+	| 'url'; // string - URL
+
+export type GeneralizedFieldSchemaMetadata = {
+	label_message_admin_text?: string;
+	label_message_user_text?: string;
+	label_tooltip_admin_text?: string;
+	label_tooltip_user_text?: string;
+	pii?: boolean;
+	type: GeneralizedFieldType;
+};

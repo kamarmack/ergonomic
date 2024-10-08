@@ -5,3 +5,4 @@ export * from 'ergonomic/typescript-api-helpers/getApiObjectSpec.js';
 export * from 'ergonomic/typescript-api-helpers/getIdObj.js';
 export * from 'ergonomic/typescript-api-helpers/handleKyError.js';
 export * from 'ergonomic/typescript-api-helpers/yup-helpers.js';
+export * from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
