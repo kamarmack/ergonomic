@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
+import * as changeCase from 'change-case';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 
 export type GeneralizedEnumObject<K extends string = string> = Readonly<{
@@ -20,6 +21,15 @@ const validateGeneralizedEnumMember =
 
 const getEnumRegex = (options: string[]) => new RegExp(options.join('|'), 'gi');
 
+const getDefaultLabelByEnumOptionObject = (
+	arr: string[],
+): Record<string, string> => {
+	return R.mapObjIndexed(
+		(_, i) => changeCase.sentenceCase(i),
+		R.invertObj(arr),
+	);
+};
+
 export const getEnum = <K extends string>(
 	members: Record<number, K>,
 	defaultValue: K = members[0] as K,
@@ -36,11 +46,27 @@ export const getEnum = <K extends string>(
 				.mixed<K>()
 				.oneOf(arr)
 				.default(defaultValue)
-				.meta({ type: 'select_one' }),
+				.meta({
+					label_by_enum_option: getDefaultLabelByEnumOptionObject(arr),
+					type: 'select_one',
+				}),
 		getDefinedSchema: () =>
-			yup.mixed<K>().oneOf(arr).defined().meta({ type: 'select_one' }),
+			yup
+				.mixed<K>()
+				.oneOf(arr)
+				.defined()
+				.meta({
+					label_by_enum_option: getDefaultLabelByEnumOptionObject(arr),
+					type: 'select_one',
+				}),
 		getOptionalSchema: () =>
-			yup.mixed<K>().oneOf(arr).meta({ type: 'select_one' }),
+			yup
+				.mixed<K>()
+				.oneOf(arr)
+				.meta({
+					label_by_enum_option: getDefaultLabelByEnumOptionObject(arr),
+					type: 'select_one',
+				}),
 	} as const;
 };
 export type GeneralizedEnumType<K extends string> = ReturnType<typeof getEnum> &
