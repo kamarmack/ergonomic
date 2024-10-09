@@ -26,6 +26,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 export type GeneralizedFieldType = keyof typeof GeneralizedFieldTypeEnum.obj;
 
 export type GeneralizedFieldSchemaMetadata = {
+	label_by_enum_option?: Record<string, string>;
 	label_message_admin_text?: string;
 	label_message_user_text?: string;
 	label_tooltip_admin_text?: string;
