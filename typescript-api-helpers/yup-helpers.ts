@@ -171,6 +171,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 							value,
 						),
 				})
+				.label('Unique ID')
 				.meta({ _object, type: GeneralizedFieldTypeEnum.obj.id }),
 		idRef: (allowObjects: ApiObjectCollection[]) =>
 			yup
