@@ -173,7 +173,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 				})
 				.label('Unique ID')
 				.meta({ _object, type: GeneralizedFieldTypeEnum.obj.id }),
-		idRef: (allowObjects: ApiObjectCollection[]) =>
+		idRef: (referenceCollections: ApiObjectCollection[]) =>
 			yup
 				.string()
 				.default('')
@@ -183,17 +183,17 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					name: 'is-uuid',
 					test: (value) =>
 						isDocumentIdString(
-							allowObjects.map((_object) => ({
+							referenceCollections.map((_object) => ({
 								document_id_prefix: documentIdPrefixMap[_object],
 							})),
 							value,
 						),
 				})
 				.meta({
-					reference_collections: allowObjects,
+					reference_collections: referenceCollections,
 					type: GeneralizedFieldTypeEnum.obj.id_ref,
 				}),
-		idRefs: (allowObjects: ApiObjectCollection[]) =>
+		idRefs: (referenceCollections: ApiObjectCollection[]) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -205,7 +205,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 						test: (value) =>
 							typeof value === 'string' &&
 							isDocumentIdString(
-								allowObjects.map((_object) => ({
+								referenceCollections.map((_object) => ({
 									document_id_prefix: documentIdPrefixMap[_object],
 								})),
 								value,
@@ -214,7 +214,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 			)
 				.defined()
 				.meta({
-					reference_collections: allowObjects,
+					reference_collections: referenceCollections,
 					type: GeneralizedFieldTypeEnum.obj.id_refs,
 				}),
 	} as const);
