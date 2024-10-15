@@ -189,7 +189,10 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 							value,
 						),
 				})
-				.meta({ allowObjects, type: GeneralizedFieldTypeEnum.obj.id_ref }),
+				.meta({
+					reference_collections: allowObjects,
+					type: GeneralizedFieldTypeEnum.obj.id_ref,
+				}),
 		idRefs: (allowObjects: ApiObjectCollection[]) =>
 			YupHelpers.array(
 				yup
@@ -210,5 +213,8 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					}),
 			)
 				.defined()
-				.meta({ allowObjects, type: GeneralizedFieldTypeEnum.obj.id_refs }),
+				.meta({
+					reference_collections: allowObjects,
+					type: GeneralizedFieldTypeEnum.obj.id_refs,
+				}),
 	} as const);
