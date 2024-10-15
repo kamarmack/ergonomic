@@ -9,6 +9,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'duration', // string - ISO duration string
 	'email_address', // string - email address
 	'file', // string - single Google Cloud Storage Bucket URL
+	'file_list', // array - multiple Google Cloud Storage Bucket URLs
 	'floating_point_number', // number - floating point number
 	'id', // string - ID
 	'id_ref', // string - ID reference
