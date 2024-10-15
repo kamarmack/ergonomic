@@ -23,22 +23,24 @@ const validateDocumentIdString = (
 };
 
 export const isDocumentIdString = (
-	allowObjects: {
+	referenceCollections: {
 		document_id_prefix: string;
 	}[],
 	testValue: unknown,
 ): boolean => {
 	if (typeof testValue !== 'string') return false;
-	return allowObjects.some((options) =>
+	return referenceCollections.some((options) =>
 		validateDocumentIdString(options, testValue),
 	);
 };
 
 export const isDocumentIdStringRef = (
-	allowObjects: {
+	referenceCollections: {
 		document_id_prefix: string;
 	}[],
 	testValue: unknown,
 ): boolean => {
-	return testValue === '' || isDocumentIdString(allowObjects, testValue);
+	return (
+		testValue === '' || isDocumentIdString(referenceCollections, testValue)
+	);
 };
