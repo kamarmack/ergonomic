@@ -40,10 +40,11 @@ export type GeneralizedFieldSchemaMetadata = {
 
 export type GeneralizedFieldSpec = {
 	default?: string;
-	oneOf: string[];
+	innerType?: GeneralizedFieldSpec;
 	label?: string;
 	meta?: GeneralizedFieldSchemaMetadata;
 	notOneOf: string[];
 	nullable?: boolean;
+	oneOf: string[];
 	type: 'string' | 'number' | 'boolean' | 'array' | 'mixed';
 };
