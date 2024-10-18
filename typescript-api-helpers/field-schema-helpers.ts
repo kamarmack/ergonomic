@@ -20,6 +20,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'long_text', // string - long text
 	'markdown_text', // string - markdown text
 	'phone_number', // string - phone number
+	'recurrence_rule', // string - iCalendar RFC recurrence rule string
 	'rich_text', // string - rich text
 	'select_many', // array - array of strings from enum
 	'select_one', // string - single string from enum
