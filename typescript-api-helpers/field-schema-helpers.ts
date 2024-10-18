@@ -18,7 +18,9 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'interval', // string - ISO interval string
 	'list', // array - array of strings
 	'long_text', // string - long text
+	'markdown_text', // string - markdown text
 	'phone_number', // string - phone number
+	'rich_text', // string - rich text
 	'select_many', // array - array of strings from enum
 	'select_one', // string - single string from enum
 	'short_text', // string - short text
