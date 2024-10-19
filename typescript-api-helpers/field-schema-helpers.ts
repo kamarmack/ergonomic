@@ -24,6 +24,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'rich_text', // string - rich text
 	'select_many', // array - array of strings from enum
 	'select_one', // string - single string from enum
+	'sensitive_text', // string - sensitive text hidden while editing
 	'short_text', // string - short text
 	'url', // string - URL, e.g. https://example.com
 ]);
