@@ -23,7 +23,7 @@ export type RecurrenceRuleData = {
 	UNTIL?: string;
 };
 
-export const isValidRecurrenceRuleData = (
+export const isRecurrenceRuleData = (
 	data: Partial<RecurrenceRuleData>,
 ): data is RecurrenceRuleData => {
 	return (
@@ -49,7 +49,7 @@ export const isValidRecurrenceRuleData = (
  * @example
  * ```typescript
  * const ruleString = 'FREQ=MONTHLY;DTSTART=20220211T000000Z;COUNT=36';
- * const ruleMap = parseRecurrenceRuleString(ruleString);
+ * const ruleMap = getRecurrenceRuleData(ruleString);
  * console.log(ruleMap);
  * // {
  * //   FREQ: 'MONTHLY',
@@ -58,7 +58,7 @@ export const isValidRecurrenceRuleData = (
  * // }
  * ```
  */
-export const parseRecurrenceRuleString = (
+export const getRecurrenceRuleData = (
 	ruleString: string,
 ): RecurrenceRuleData | null => {
 	const ruleParts = ruleString.split(';');
@@ -82,17 +82,21 @@ export const parseRecurrenceRuleString = (
 		}
 	});
 
-	if (isValidRecurrenceRuleData(ruleMap)) {
+	if (isRecurrenceRuleData(ruleMap)) {
 		return ruleMap;
 	}
 
 	return null;
 };
 
+export const isRecurrenceRuleString = (value: unknown): value is string => {
+	return typeof value === 'string' && getRecurrenceRuleData(value) !== null;
+};
+
 /**
  * Converts a recurrence rule data object into a recurrence rule string.
  *
- * @param data The recurrence rule data object to convert.
+ * @param ruleData The recurrence rule data object to convert.
  * @returns The recurrence rule string.
  *
  * @example
@@ -106,15 +110,17 @@ export const parseRecurrenceRuleString = (
  * console.log(ruleString); // => "FREQ=MONTHLY;DTSTART=20220211T000000Z;COUNT=36"
  * ```
  */
-export const getRecurrenceRuleString = (data: RecurrenceRuleData): string => {
-	const parts = [`FREQ=${data.FREQ}`, `DTSTART=${data.DTSTART}`];
+export const getRecurrenceRuleString = (
+	ruleData: RecurrenceRuleData,
+): string => {
+	const parts = [`FREQ=${ruleData.FREQ}`, `DTSTART=${ruleData.DTSTART}`];
 
-	if (data.COUNT !== undefined) {
-		parts.push(`COUNT=${data.COUNT}`);
+	if (ruleData.COUNT !== undefined) {
+		parts.push(`COUNT=${ruleData.COUNT}`);
 	}
 
-	if (data.UNTIL !== undefined) {
-		parts.push(`UNTIL=${data.UNTIL}`);
+	if (ruleData.UNTIL !== undefined) {
+		parts.push(`UNTIL=${ruleData.UNTIL}`);
 	}
 
 	return parts.join(';');

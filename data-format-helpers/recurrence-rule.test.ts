@@ -1,20 +1,20 @@
 import {
-	isValidRecurrenceRuleData,
-	parseRecurrenceRuleString,
+	isRecurrenceRuleData,
+	getRecurrenceRuleData,
 	getRecurrenceRuleString,
 	RecurrenceRuleData,
 } from './recurrence-rule.js';
 
 describe('Recurrence Rule Tests', () => {
-	// Tests for isValidRecurrenceRuleData
-	describe('isValidRecurrenceRuleData', () => {
+	// Tests for isRecurrenceRuleData
+	describe('isRecurrenceRuleData', () => {
 		it('should return true for valid RecurrenceRuleData', () => {
 			const data: RecurrenceRuleData = {
 				FREQ: 'MONTHLY',
 				DTSTART: '20220211T000000Z',
 				COUNT: 10,
 			};
-			expect(isValidRecurrenceRuleData(data)).toBe(true);
+			expect(isRecurrenceRuleData(data)).toBe(true);
 		});
 
 		it('should return false for invalid frequency', () => {
@@ -22,14 +22,14 @@ describe('Recurrence Rule Tests', () => {
 				FREQ: 'INVALID_FREQ',
 				DTSTART: '20220211T000000Z',
 			};
-			expect(isValidRecurrenceRuleData(data as RecurrenceRuleData)).toBe(false);
+			expect(isRecurrenceRuleData(data as RecurrenceRuleData)).toBe(false);
 		});
 
 		it('should return false for missing DTSTART', () => {
 			const data = {
 				FREQ: 'MONTHLY',
 			};
-			expect(isValidRecurrenceRuleData(data as RecurrenceRuleData)).toBe(false);
+			expect(isRecurrenceRuleData(data as RecurrenceRuleData)).toBe(false);
 		});
 
 		it('should return false for invalid COUNT type', () => {
@@ -38,9 +38,9 @@ describe('Recurrence Rule Tests', () => {
 				DTSTART: '20220211T000000Z',
 				COUNT: 'not-a-number',
 			};
-			expect(
-				isValidRecurrenceRuleData(data as unknown as RecurrenceRuleData),
-			).toBe(false);
+			expect(isRecurrenceRuleData(data as unknown as RecurrenceRuleData)).toBe(
+				false,
+			);
 		});
 
 		it('should return true if UNTIL is a valid string', () => {
@@ -49,12 +49,12 @@ describe('Recurrence Rule Tests', () => {
 				DTSTART: '20220211T000000Z',
 				UNTIL: '20230501T000000Z',
 			};
-			expect(isValidRecurrenceRuleData(data as RecurrenceRuleData)).toBe(true);
+			expect(isRecurrenceRuleData(data as RecurrenceRuleData)).toBe(true);
 		});
 	});
 
-	// Tests for parseRecurrenceRuleString
-	describe('parseRecurrenceRuleString', () => {
+	// Tests for getRecurrenceRuleData
+	describe('getRecurrenceRuleData', () => {
 		it('should parse a valid recurrence rule string with COUNT', () => {
 			const ruleString = 'FREQ=MONTHLY;DTSTART=20220211T000000Z;COUNT=36';
 			const expectedData: RecurrenceRuleData = {
@@ -62,7 +62,7 @@ describe('Recurrence Rule Tests', () => {
 				DTSTART: '20220211T000000Z',
 				COUNT: 36,
 			};
-			expect(parseRecurrenceRuleString(ruleString)).toEqual(expectedData);
+			expect(getRecurrenceRuleData(ruleString)).toEqual(expectedData);
 		});
 
 		it('should parse a valid recurrence rule string with UNTIL', () => {
@@ -73,7 +73,7 @@ describe('Recurrence Rule Tests', () => {
 				DTSTART: '20220211T000000Z',
 				UNTIL: '20230501T000000Z',
 			};
-			expect(parseRecurrenceRuleString(ruleString)).toEqual(expectedData);
+			expect(getRecurrenceRuleData(ruleString)).toEqual(expectedData);
 		});
 
 		it('should parse a valid recurrence rule string with only FREQ and DTSTART', () => {
@@ -82,17 +82,17 @@ describe('Recurrence Rule Tests', () => {
 				FREQ: 'WEEKLY',
 				DTSTART: '20230307T000000Z',
 			};
-			expect(parseRecurrenceRuleString(ruleString)).toEqual(expectedData);
+			expect(getRecurrenceRuleData(ruleString)).toEqual(expectedData);
 		});
 
 		it('should return null for invalid frequency in rule string', () => {
 			const ruleString = 'FREQ=INVALID;DTSTART=20220211T000000Z;COUNT=10';
-			expect(parseRecurrenceRuleString(ruleString)).toBeNull();
+			expect(getRecurrenceRuleData(ruleString)).toBeNull();
 		});
 
 		it('should return null for missing DTSTART in rule string', () => {
 			const ruleString = 'FREQ=DAILY;COUNT=10';
-			expect(parseRecurrenceRuleString(ruleString)).toBeNull();
+			expect(getRecurrenceRuleData(ruleString)).toBeNull();
 		});
 	});
 
