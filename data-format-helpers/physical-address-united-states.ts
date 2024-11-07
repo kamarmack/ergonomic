@@ -4,7 +4,7 @@ import {
 	getEnum,
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
 
-export const USA_STATES_BY_CODE = {
+export const USA_STATE_BY_CODE = {
 	// States
 	AL: 'Alabama',
 	AK: 'Alaska',
@@ -68,14 +68,14 @@ export const USA_STATES_BY_CODE = {
 	MP: 'Northern Mariana Islands',
 } as const;
 
-export const UsaStateCodeEnum = getEnum(Keys(USA_STATES_BY_CODE));
+export const UsaStateCodeEnum = getEnum(Keys(USA_STATE_BY_CODE));
 export type UsaStateCode = EnumMember<typeof UsaStateCodeEnum>;
 
-export const UsaStateTitleEnum = getEnum(Object.values(USA_STATES_BY_CODE));
+export const UsaStateTitleEnum = getEnum(Object.values(USA_STATE_BY_CODE));
 export type UsaStateTitle = EnumMember<typeof UsaStateTitleEnum>;
 
 /**
- * @deprecated Use `USA_STATES_BY_CODE`, `UsaStateCodeEnum`, or `UsaStateTitleEnum` instead.
+ * @deprecated Use `USA_STATE_BY_CODE`, `UsaStateCodeEnum`, or `UsaStateTitleEnum` instead.
  */
 export const UsaStateEnum = getEnum([
 	'Alabama',
