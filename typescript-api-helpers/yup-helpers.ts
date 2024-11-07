@@ -3,7 +3,6 @@ import * as YupSchemaHelpers from 'yup/lib/schema.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
 	getUtcDateNow,
-	isCurrencyUsdCents,
 	isDuration,
 	isEmailAddress,
 	isFilePath,
@@ -122,7 +121,7 @@ export const YupHelpers = {
 			.test({
 				message: '${path} is not currency usd',
 				name: 'is-currency-usd',
-				test: (value: unknown) => value === '' || isCurrencyUsdCents(value),
+				test: (value: unknown) => value === '' || typeof value === 'number',
 			})
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.currency }),
