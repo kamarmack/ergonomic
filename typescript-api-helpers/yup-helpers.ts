@@ -2,12 +2,14 @@ import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema.js';
 import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
+	IanaTimeZoneEnum,
 	getUtcDateNow,
 	isDuration,
 	isEmailAddress,
 	isFilePath,
 	isInterval,
 	isPhoneNumberUnitedStates,
+	isRecurrenceRuleString,
 	isUtcDate,
 	isWebDomain,
 	isWebUrl,
@@ -115,6 +117,24 @@ export const YupHelpers = {
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
+	recurrenceRule: () =>
+		yup
+			.string()
+			.default('')
+			.test({
+				message: '${path} is not a Recurrence Rule',
+				name: 'is-recurrence-rule',
+				test: (value) => value === '' || isRecurrenceRuleString(value),
+			})
+			.meta({ type: GeneralizedFieldTypeEnum.obj.recurrence_rule }),
+	timeZone: () =>
+		yup
+			.string()
+			.oneOf((IanaTimeZoneEnum.arr as string[]).concat(['']))
+			.default('')
+			.meta({
+				type: GeneralizedFieldTypeEnum.obj.time_zone,
+			}),
 	usd: () =>
 		yup
 			.number()
