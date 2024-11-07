@@ -42,18 +42,17 @@ export const getCurrencyUsdCents = (value: unknown): number => {
 	return isNegative ? -cents : cents;
 };
 
+const defaultNumberFormatOptions: Intl.NumberFormatOptions = {
+	currency: 'usd',
+	maximumFractionDigits: 2,
+	style: 'currency',
+};
 export const getCurrencyUsdStringFromCents = (
 	currencyUsdNumber: number,
-	options: Intl.NumberFormatOptions = {
-		currency: 'usd',
-		maximumFractionDigits: 2,
-		style: 'currency',
-	},
+	options = defaultNumberFormatOptions,
 ) =>
 	new Intl.NumberFormat('en', {
-		currency: 'usd',
-		maximumFractionDigits: 2,
-		style: 'currency',
+		...defaultNumberFormatOptions,
 		...options,
 	}).format(currencyUsdNumber / 100);
 
