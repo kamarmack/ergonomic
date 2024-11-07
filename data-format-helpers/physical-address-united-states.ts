@@ -1,5 +1,8 @@
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	EnumMember,
+	getEnum,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const USA_STATES_BY_CODE = {
 	// States
@@ -64,8 +67,12 @@ export const USA_STATES_BY_CODE = {
 	AS: 'American Samoa',
 	MP: 'Northern Mariana Islands',
 } as const;
+
 export const UsaStateCodeEnum = getEnum(Keys(USA_STATES_BY_CODE));
+export type UsaStateCode = EnumMember<typeof UsaStateCodeEnum>;
+
 export const UsaStateTitleEnum = getEnum(Object.values(USA_STATES_BY_CODE));
+export type UsaStateTitle = EnumMember<typeof UsaStateTitleEnum>;
 
 /**
  * @deprecated Use `USA_STATES_BY_CODE`, `UsaStateCodeEnum`, or `UsaStateTitleEnum` instead.
