@@ -18,7 +18,9 @@
  * @returns {number} The equivalent value in cents, rounded to the nearest cent.
  */
 export const getCurrencyUsdCents = (value: unknown): number => {
-	if (typeof value === 'number') return Math.round(value * 100);
+	if (!['string', 'number'].includes(typeof value)) return 0;
+	if (typeof value === 'number')
+		return Math.round((value + Number.EPSILON) * 100);
 
 	const currencyUsdString = value as string;
 
@@ -29,15 +31,15 @@ export const getCurrencyUsdCents = (value: unknown): number => {
 	// Remove all non-numeric characters except the decimal point
 	const digitsOnly = currencyUsdString.replace(/[^0-9.]/g, '');
 
-	// Parse the resulting string as a floating-point number
-	let numericValue = parseFloat(digitsOnly);
+	// Parse as a float to handle any number of decimal places
+	const numericValue = parseFloat(digitsOnly);
 	if (isNaN(numericValue)) return 0; // Return 0 for invalid input
 
-	// Apply the negative sign if necessary
-	if (isNegative) numericValue = -numericValue;
+	// Move decimal two places to the right and round to the nearest cent
+	const cents = Math.round((numericValue + Number.EPSILON) * 100);
 
-	// Round to the nearest cent (two decimal places) and convert to cents
-	return Math.round(numericValue * 100);
+	// Apply the negative sign if necessary
+	return isNegative ? -cents : cents;
 };
 
 export const getCurrencyUsdStringFromCents = (
