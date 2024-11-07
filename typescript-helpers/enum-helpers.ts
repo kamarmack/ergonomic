@@ -129,3 +129,17 @@ export const getOrderedEnum = <K extends string>(
 
 export type Exc<T, V extends T> = Exclude<T, V>;
 export type Ext<T, V extends T> = Extract<T, V>;
+
+/**
+ * Extracts the keys of an enum object.
+ *
+ * @example
+ * ```typescript
+ * const FruitEnum = getEnum(['apple', 'orange', 'pear']);
+ * type Fruit = EnumMember<typeof FruitEnum>; // => 'apple' | 'orange' | 'pear'
+ *
+ * const VeggieEnum = getEnum(['carrot', 'green_beans', 'cauliflower', 'celery']);
+ * type Veggie = EnumMember<typeof VeggieEnum>; // => 'carrot' | 'green_beans' | 'cauliflower' | 'celery'
+ * ```
+ */
+export type EnumMember<T> = T extends { obj: Record<infer K, any> } ? K : never;
