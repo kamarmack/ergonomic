@@ -23,7 +23,7 @@ export type RecurrenceRuleData = {
 	UNTIL?: string;
 };
 
-const isValidRecurrenceRuleData = (
+export const isValidRecurrenceRuleData = (
 	data: Partial<RecurrenceRuleData>,
 ): data is RecurrenceRuleData => {
 	return (
