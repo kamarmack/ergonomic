@@ -56,6 +56,13 @@ export const getCurrencyUsdStringFromCents = (
 		...options,
 	}).format(currencyUsdNumber / 100);
 
+export const isCurrencyUsdString = (value: unknown): value is string =>
+	typeof value === 'string' &&
+	/^(\(\$?\d+(\.\d{2,})?\)|-?\$\d+(\.\d{2,})?)$/.test(value.trim());
+
+/**
+ * @deprecated Use `isCurrencyUsdString` instead.
+ */
 export const isCurrencyUsdCents = (value: unknown): value is string => {
 	if (typeof value !== 'string' || !value.includes('$')) return false;
 	const numCents = getCurrencyUsdCents(value);
