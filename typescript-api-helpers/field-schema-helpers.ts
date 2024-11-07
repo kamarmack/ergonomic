@@ -1,4 +1,7 @@
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const GeneralizedFieldTypeEnum = getEnum([
 	'address_field', // string - address field (city, country, line1, line2, postal_code, state)
@@ -29,7 +32,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'time_zone', // string - IANA time zone string, e.g. America/New_York
 	'url', // string - URL, e.g. https://example.com
 ]);
-export type GeneralizedFieldType = keyof typeof GeneralizedFieldTypeEnum.obj;
+export type GeneralizedFieldType = EnumMember<typeof GeneralizedFieldTypeEnum>;
 
 export type GeneralizedFieldSchemaMetadata = {
 	label_by_enum_option?: Record<string, string>;

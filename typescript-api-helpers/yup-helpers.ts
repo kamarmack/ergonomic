@@ -1,6 +1,9 @@
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema.js';
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 import {
 	IanaTimeZoneEnum,
 	getUtcDateNow,
@@ -25,7 +28,7 @@ export const YupTypeEnum = getEnum([
 	'number',
 	'string',
 ]);
-export type YupType = keyof typeof YupTypeEnum.obj;
+export type YupType = EnumMember<typeof YupTypeEnum>;
 
 export type FieldSchema = YupSchemaHelpers.SchemaObjectDescription & {
 	innerType?: YupSchemaHelpers.SchemaInnerTypeDescription;

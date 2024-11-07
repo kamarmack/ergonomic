@@ -1,6 +1,9 @@
 import * as R from 'ramda';
 import { DateTime } from 'luxon';
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { NumericCharacters } from 'ergonomic/typescript-helpers/number-helpers.js';
 
 export const getUtcDateNow = () => DateTime.now().toUTC().toISO();
@@ -61,10 +64,10 @@ export const MmEnum = getEnum([
 	'11',
 	'12',
 ] as const);
-export type Mm = keyof typeof MmEnum.obj;
+export type Mm = EnumMember<typeof MmEnum>;
 
 export const FiscalQuarterEnum = getEnum(['Q1', 'Q2', 'Q3', 'Q4'] as const);
-export type FiscalQuarter = keyof typeof FiscalQuarterEnum.obj;
+export type FiscalQuarter = EnumMember<typeof FiscalQuarterEnum>;
 
 /**
  * Returns the first day of the month for a given year and month.

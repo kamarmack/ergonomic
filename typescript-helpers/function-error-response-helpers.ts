@@ -1,4 +1,7 @@
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 
 export const GeneralizedErrorCategoryEnum = getEnum([
 	'doc.deleted',
@@ -11,8 +14,9 @@ export const GeneralizedErrorCategoryEnum = getEnum([
 	'request.forbidden',
 	'request.unknown-error',
 ]);
-export type GeneralizedErrorCategory =
-	keyof typeof GeneralizedErrorCategoryEnum.obj;
+export type GeneralizedErrorCategory = EnumMember<
+	typeof GeneralizedErrorCategoryEnum
+>;
 
 export const GeneralizedErrorStatusCodeEnum = getEnum([
 	'400',
@@ -21,8 +25,9 @@ export const GeneralizedErrorStatusCodeEnum = getEnum([
 	'404',
 	'500',
 ]);
-export type GeneralizedErrorStatusCode =
-	keyof typeof GeneralizedErrorStatusCodeEnum.obj;
+export type GeneralizedErrorStatusCode = EnumMember<
+	typeof GeneralizedErrorStatusCodeEnum
+>;
 export type GeneralizedErrorStatusCodeNumber = 400 | 401 | 403 | 404 | 500;
 export const getGeneralizedErrorStatusCode = (
 	errorCategory: GeneralizedErrorCategory,

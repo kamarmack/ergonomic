@@ -1,7 +1,11 @@
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { default as validator } from 'validator';
 
 export const WebProtocolEnum = getEnum(['http://', 'https://']);
+export type WebProtocol = EnumMember<typeof WebProtocolEnum>;
 
 export const isWebDomain = (stringValue: unknown): stringValue is string => {
 	if (typeof stringValue === 'string') {

@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 import {
+	EnumMember,
 	GeneralizedEnumType,
 	getEnum,
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
@@ -61,7 +62,7 @@ export const getApiObjectSpec = <
 		Keys(
 			createParamsJsonShape as unknown as Omit<
 				Record<T, YupTypes.AnySchema>,
-				keyof typeof CreateParamsHelpers.fieldMaskEnum.obj
+				EnumMember<typeof CreateParamsHelpers.fieldMaskEnum>
 			>,
 		),
 	);
@@ -100,7 +101,7 @@ export const getApiObjectSpec = <
 		Keys(
 			updateParamsJsonShape as unknown as Omit<
 				Record<T, YupTypes.AnySchema>,
-				keyof typeof UpdateParamsHelpers.fieldMaskEnum.obj
+				EnumMember<typeof UpdateParamsHelpers.fieldMaskEnum>
 			>,
 		),
 	);

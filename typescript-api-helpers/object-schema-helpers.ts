@@ -2,7 +2,10 @@ import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
 import { YupHelpers } from 'ergonomic/typescript-api-helpers/yup-helpers.js';
-import { getEnum } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import {
+	getEnum,
+	EnumMember,
+} from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
 
@@ -41,8 +44,9 @@ export type GeneralizedApiObject = yup.InferType<
 export const GeneralizedApiObjectFieldEnum = getEnum(
 	Keys(GeneralizedApiObjectProperties),
 );
-export type GeneralizedApiObjectField =
-	keyof typeof GeneralizedApiObjectFieldEnum.obj;
+export type GeneralizedApiObjectField = EnumMember<
+	typeof GeneralizedApiObjectFieldEnum
+>;
 
 // Create API Object
 export const CreateParamsHelpers = {
@@ -58,8 +62,9 @@ export const CreateParamsHelpers = {
 		(schema.defined() as T).meta({ required_on_create: true }),
 };
 
-export type CreateParamsFieldMask =
-	keyof typeof CreateParamsHelpers.fieldMaskEnum.obj;
+export type CreateParamsFieldMask = EnumMember<
+	typeof CreateParamsHelpers.fieldMaskEnum
+>;
 export type CreateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	CreateParamsFieldMask
@@ -96,7 +101,9 @@ export const UpdateParamsHelpers = {
 		),
 };
 
-export type UpdateParamsFieldMask = keyof typeof UpdateParamsFieldMaskEnum.obj;
+export type UpdateParamsFieldMask = EnumMember<
+	typeof UpdateParamsFieldMaskEnum
+>;
 export type UpdateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	UpdateParamsFieldMask
@@ -112,4 +119,4 @@ export type GeneralizedUpdateOperation = {
 
 // DB Helpers
 export const WriteOperationEnum = getEnum(['create', 'update']);
-export type WriteOperation = keyof typeof WriteOperationEnum.obj;
+export type WriteOperation = EnumMember<typeof WriteOperationEnum>;
