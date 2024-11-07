@@ -26,6 +26,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'select_one', // string - single string from enum
 	'sensitive_text', // string - sensitive text hidden while editing
 	'short_text', // string - short text
+	'time_zone', // string - IANA time zone string, e.g. America/New_York
 	'url', // string - URL, e.g. https://example.com
 ]);
 export type GeneralizedFieldType = keyof typeof GeneralizedFieldTypeEnum.obj;
