@@ -20,8 +20,10 @@ describe('getCurrencyUsdCents', () => {
 
 	it('should round to the nearest cent when there are more than two decimal places', () => {
 		expect(getCurrencyUsdCents('$1.005')).toBe(101); // 1.005 rounds to 1.01
+		expect(getCurrencyUsdCents('$1.00543212')).toBe(101); // 1.00543212 rounds to 1.01
 		expect(getCurrencyUsdCents('$1.004')).toBe(100); // 1.004 rounds to 1.00
 		expect(getCurrencyUsdCents('-$1.005')).toBe(-101); // -1.005 rounds to -1.01
+		expect(getCurrencyUsdCents('-$1.00543212')).toBe(-101); // -1.00543212 rounds to -1.01
 		expect(getCurrencyUsdCents('-$1.004')).toBe(-100); // -1.004 rounds to -1.00
 	});
 
