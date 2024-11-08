@@ -1,8 +1,6 @@
 name: Publish to npm on merge
 'on':
   push:
-    branches:
-      - master
     tags:
       - '*'
 jobs:
