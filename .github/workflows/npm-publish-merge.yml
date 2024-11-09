@@ -15,7 +15,6 @@ jobs:
       - name: Build project
         run: npm install && tsc --build ./tsconfig.json
       - name: Publish package
-        if: github.ref_name == 'master'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_GAT }}
