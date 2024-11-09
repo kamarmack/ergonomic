@@ -153,4 +153,9 @@ export const getApiObjectSpec = <
 	} as const;
 };
 
+export type GeneralizedApiObjectSpec = ReturnType<typeof getApiObjectSpec>;
+
+/**
+ * @deprecated Use `GeneralizedApiObjectSpec` instead.
+ */
 export type ApiObjectSpec = ReturnType<typeof getApiObjectSpec>;
