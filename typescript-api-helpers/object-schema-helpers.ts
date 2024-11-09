@@ -73,6 +73,10 @@ export type CreateParams<
 	T extends GeneralizedApiObject,
 	K extends keyof T,
 > = Partial<Pick<T, CreateParamsField<keyof T>>> & Required<Pick<T, K>>;
+
+/**
+ * @deprecated Use `Partial<GeneralizedApiObject>` instead
+ */
 export type GeneralizedCreateBody = CreateParams<
 	GeneralizedApiObject,
 	GeneralizedApiObjectField
