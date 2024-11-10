@@ -142,4 +142,6 @@ export type Ext<T, V extends T> = Extract<T, V>;
  * type Veggie = EnumMember<typeof VeggieEnum>; // => 'carrot' | 'green_beans' | 'cauliflower' | 'celery'
  * ```
  */
-export type EnumMember<T> = T extends { obj: Record<infer K, any> } ? K : never;
+export type EnumMember<T> = T extends { obj: Record<infer K, unknown> }
+	? K
+	: never;
