@@ -54,6 +54,23 @@ export type GeneralizedFieldSpec = {
 	notOneOf: string[];
 	nullable?: boolean;
 	oneOf: string[];
-	presence?: 'required' | 'optional';
+	tests: {
+		name: 'defined' | 'required';
+		params: unknown;
+	}[];
 	type: 'string' | 'number' | 'boolean' | 'array' | 'mixed';
 };
+
+const getFieldPresencePredicate =
+	(predicate: 'defined' | 'required') =>
+	(fieldSpec: GeneralizedFieldSpec): boolean => {
+		if (!Array.isArray(fieldSpec.tests)) {
+			return false;
+		}
+
+		return fieldSpec.tests.some((test) => {
+			return test.name === predicate;
+		});
+	};
+export const isFieldRequired = getFieldPresencePredicate('required');
+export const isFieldDefined = getFieldPresencePredicate('defined');
