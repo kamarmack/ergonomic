@@ -54,5 +54,6 @@ export type GeneralizedFieldSpec = {
 	notOneOf: string[];
 	nullable?: boolean;
 	oneOf: string[];
+	presence?: 'required' | 'optional';
 	type: 'string' | 'number' | 'boolean' | 'array' | 'mixed';
 };
