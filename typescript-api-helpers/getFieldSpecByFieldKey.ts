@@ -2,6 +2,13 @@ import * as yup from 'yup';
 import { GeneralizedFieldSpec } from 'ergonomic/typescript-api-helpers//field-schema-helpers.js';
 import { ObjectShape } from 'yup/lib/object';
 
+/**
+ * Get field spec by field key
+ *
+ * @param objectSchema yup object schema
+ * @param fieldKeys field keys
+ * @returns field spec by field key - See {@link GeneralizedFieldSpec}
+ */
 export const getFieldSpecByFieldKey = (
 	objectSchema: yup.ObjectSchema<ObjectShape> | undefined,
 	fieldKeys: string[] = [],
