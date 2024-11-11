@@ -63,12 +63,25 @@ export type GeneralizedFieldSpec = {
 
 const getFieldPresencePredicate =
 	(predicate: 'defined' | 'required') =>
-	(fieldSpec: GeneralizedFieldSpec): boolean => {
-		if (!Array.isArray(fieldSpec.tests)) {
+	(params: {
+		fieldSpec: GeneralizedFieldSpec;
+		operation: 'create' | 'update';
+	}): boolean => {
+		const { required_on_create = false } = params.fieldSpec?.meta || {};
+
+		if (
+			predicate === 'required' &&
+			params.operation === 'create' &&
+			required_on_create
+		) {
+			return true;
+		}
+
+		if (!Array.isArray(params.fieldSpec.tests)) {
 			return false;
 		}
 
-		return fieldSpec.tests.some((test) => {
+		return params.fieldSpec.tests.some((test) => {
 			return test.name === predicate;
 		});
 	};
