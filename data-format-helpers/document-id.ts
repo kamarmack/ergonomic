@@ -2,19 +2,18 @@ import * as R from 'ramda';
 import { v4 } from 'uuid';
 import { compressUUID } from 'ergonomic/data-format-helpers/compressUUID.js';
 
-export const getDocumentIdString = (options: {
-	document_id_prefix: string;
-}): string => options.document_id_prefix + '_' + compressUUID(v4());
+export const getDocumentIdString = (options: { id_prefix: string }): string =>
+	options.id_prefix + '_' + compressUUID(v4());
 
 const validateDocumentIdString = (
 	options: {
-		document_id_prefix: string;
+		id_prefix: string;
 	},
 	testValue: string,
 ): boolean => {
 	const split = testValue.split('_');
 	const prefix = R.init(split).join('_');
-	if (prefix !== options.document_id_prefix) return false;
+	if (prefix !== options.id_prefix) return false;
 	const suffix = R.last(split);
 	if (typeof suffix !== 'string') return false;
 	const chars =
@@ -24,7 +23,7 @@ const validateDocumentIdString = (
 
 export const isDocumentIdString = (
 	referenceCollections: {
-		document_id_prefix: string;
+		id_prefix: string;
 	}[],
 	testValue: unknown,
 ): boolean => {
@@ -36,7 +35,7 @@ export const isDocumentIdString = (
 
 export const isDocumentIdStringRef = (
 	referenceCollections: {
-		document_id_prefix: string;
+		id_prefix: string;
 	}[],
 	testValue: unknown,
 ): boolean => {

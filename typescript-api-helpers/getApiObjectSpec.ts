@@ -25,13 +25,13 @@ export const getApiObjectSpec = <
 >({
 	createParamsRequiredFieldEnum,
 	databaseId = '(default)',
-	documentIdPrefix,
+	idPrefix,
 	objectPlural,
 	properties,
 }: {
 	createParamsRequiredFieldEnum: GeneralizedEnumType<V>;
 	databaseId?: string;
-	documentIdPrefix: string;
+	idPrefix: string;
 	objectPlural?: string;
 	properties: U;
 }) => {
@@ -143,7 +143,7 @@ export const getApiObjectSpec = <
 		createParamsRequiredFieldJsonSchema,
 		createParamsRequiredFieldJsonShape,
 		databaseId,
-		documentIdPrefix,
+		idPrefix,
 		mergeCreateParams,
 		updateParamsDefaultJson,
 		updateParamsFieldEnum,

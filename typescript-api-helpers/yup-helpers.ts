@@ -170,17 +170,17 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.url }),
 } as const;
 
-export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
-	_: ApiObjectCollection[],
-	documentIdPrefixMap: Record<ApiObjectCollection, string>,
+export const getApiObjectYupHelpers = <TCollection extends string>(
+	_: TCollection[],
+	idPrefixMap: Record<TCollection, string>,
 ) =>
 	({
-		id: (_object: ApiObjectCollection) =>
+		id: (_object: TCollection) =>
 			yup
 				.string()
 				.default(() =>
 					getDocumentIdString({
-						document_id_prefix: documentIdPrefixMap[_object],
+						id_prefix: idPrefixMap[_object],
 					}),
 				)
 				.test({
@@ -188,14 +188,11 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 						`${path} is not a uuid: ${value}`,
 					name: 'is-uuid',
 					test: (value) =>
-						isDocumentIdString(
-							[{ document_id_prefix: documentIdPrefixMap[_object] }],
-							value,
-						),
+						isDocumentIdString([{ id_prefix: idPrefixMap[_object] }], value),
 				})
 				.label('Unique ID')
 				.meta({ _object, type: GeneralizedFieldTypeEnum.obj.id }),
-		idRef: (referenceCollections: ApiObjectCollection[]) =>
+		idRef: (referenceCollections: TCollection[]) =>
 			yup
 				.string()
 				.default('')
@@ -206,7 +203,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					test: (value) =>
 						isDocumentIdString(
 							referenceCollections.map((_object) => ({
-								document_id_prefix: documentIdPrefixMap[_object],
+								id_prefix: idPrefixMap[_object],
 							})),
 							value,
 						),
@@ -215,7 +212,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 					reference_collections: referenceCollections,
 					type: GeneralizedFieldTypeEnum.obj.id_ref,
 				}),
-		idRefs: (referenceCollections: ApiObjectCollection[]) =>
+		idRefs: (referenceCollections: TCollection[]) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -228,7 +225,7 @@ export const getApiObjectYupHelpers = <ApiObjectCollection extends string>(
 							typeof value === 'string' &&
 							isDocumentIdString(
 								referenceCollections.map((_object) => ({
-									document_id_prefix: documentIdPrefixMap[_object],
+									id_prefix: idPrefixMap[_object],
 								})),
 								value,
 							),

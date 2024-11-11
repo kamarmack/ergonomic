@@ -4,12 +4,12 @@ import { getDocumentIdString } from 'ergonomic/data-format-helpers/document-id.j
 export const getIdObj = <T extends string>(
 	_object: T,
 	obj: Record<T, string>,
-	documentIdPrefixMap: Record<T, string>,
+	idPrefixMap: Record<T, string>,
 ): Record<T, string> =>
 	R.mapObjIndexed(
 		(_) =>
 			getDocumentIdString({
-				document_id_prefix: documentIdPrefixMap[_object],
+				id_prefix: idPrefixMap[_object],
 			}),
 		obj,
 	);
