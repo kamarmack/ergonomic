@@ -4,6 +4,7 @@ import {
 	getEnum,
 	EnumMember,
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
+import { isInteger } from 'ergonomic/typescript-helpers/number-helpers.js';
 import {
 	IanaTimeZoneEnum,
 	getUtcDateNow,
@@ -108,6 +109,16 @@ export const YupHelpers = {
 			.number()
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.floating_point_number }),
+	integer: () =>
+		yup
+			.number()
+			.test({
+				message: '${path} is not an integer',
+				name: 'is-integer',
+				test: isInteger,
+			})
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.integer }),
 	interval: () =>
 		yup
 			.string()
