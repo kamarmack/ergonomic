@@ -47,6 +47,22 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.list }),
 	constant: <T extends boolean | string | number>(value: T) =>
 		yup.mixed<T>().oneOf([value]).default(value),
+	booleanDefaultFalse: () =>
+		yup
+			.boolean()
+			.default(false)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
+	booleanDefaultTrue: () =>
+		yup
+			.boolean()
+			.default(true)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
+	booleanDefaultUnset: () =>
+		yup
+			.boolean()
+			.nullable()
+			.default(null)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
 	date: () =>
 		yup
 			.string()
