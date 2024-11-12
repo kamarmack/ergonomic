@@ -19,6 +19,7 @@ import {
 	isWebUrl,
 	getDocumentIdString,
 	isDocumentIdString,
+	isDocumentIdStringRef,
 } from 'ergonomic/data-format-helpers/index.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
 
@@ -212,7 +213,7 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 						`${path} is not a uuid: ${value}`,
 					name: 'is-uuid',
 					test: (value) =>
-						isDocumentIdString(
+						isDocumentIdStringRef(
 							referenceCollections.map((_object) => ({
 								id_prefix: idPrefixMap[_object],
 							})),
