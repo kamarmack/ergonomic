@@ -12,6 +12,7 @@ import {
 	isFilePath,
 	isInterval,
 	isPhoneNumberUnitedStates,
+	isPostalCodeUnitedStates,
 	isRecurrenceRuleString,
 	isUtcDate,
 	isWebDomain,
@@ -120,6 +121,16 @@ export const YupHelpers = {
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
+	postalCodeUnitedStates: () =>
+		yup
+			.string()
+			.test({
+				message: '${path} is not a US postal code',
+				name: 'is-postal-code-united-states',
+				test: (value) => value === '' || isPostalCodeUnitedStates(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.address_field }),
 	recurrenceRule: () =>
 		yup
 			.string()
