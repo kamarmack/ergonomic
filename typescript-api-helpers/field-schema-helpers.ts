@@ -14,7 +14,6 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'file', // string - single Google Cloud Storage Bucket URL, e.g. gs://bucket/file
 	'file_list', // array - multiple Google Cloud Storage Bucket URLs, e.g. [gs://bucket/file1, ...]
 	'floating_point_number', // number - floating point number
-	'growth_rate', // number - floating point number, e.g. 0.1 for 10%
 	'id', // string - ID, e.g. usr_5lVsQD0PTnDuYeYrflCPsI
 	'id_ref', // string - ID reference
 	'id_refs', // array - array of ID references
@@ -23,6 +22,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'list', // array - array of strings
 	'long_text', // string - long text
 	'markdown_text', // string - markdown text
+	'percentage', // number - floating point number, e.g. 0.1 for 10%
 	'phone_number', // string - phone number
 	'recurrence_rule', // string - iCalendar RFC recurrence rule string, e.g. FREQ=MONTHLY;DTSTART=20220211T000000Z;COUNT=36, FREQ=MONTHLY;DTSTART=20221001T000000Z;UNTIL=20240524T000000Z, or FREQ=YEARLY;DTSTART=20230307T000000Z
 	'rich_text', // string - rich text

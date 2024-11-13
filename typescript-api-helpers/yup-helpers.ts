@@ -109,11 +109,6 @@ export const YupHelpers = {
 			.number()
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.floating_point_number }),
-	growthRate: () =>
-		yup
-			.number()
-			.default(0)
-			.meta({ type: GeneralizedFieldTypeEnum.obj.growth_rate }),
 	integer: () =>
 		yup
 			.number()
@@ -144,6 +139,11 @@ export const YupHelpers = {
 			})
 			.default(getUtcDateNow)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
+	percentage: () =>
+		yup
+			.number()
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.percentage }),
 	phoneNumber: () =>
 		yup
 			.string()
