@@ -14,6 +14,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'file', // string - single Google Cloud Storage Bucket URL, e.g. gs://bucket/file
 	'file_list', // array - multiple Google Cloud Storage Bucket URLs, e.g. [gs://bucket/file1, ...]
 	'floating_point_number', // number - floating point number
+	'growth_rate', // number - floating point number, e.g. 0.1 for 10%
 	'id', // string - ID, e.g. usr_5lVsQD0PTnDuYeYrflCPsI
 	'id_ref', // string - ID reference
 	'id_refs', // array - array of ID references

@@ -104,11 +104,16 @@ export const YupHelpers = {
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.file }),
-	growthRate: () =>
+	floatingPointNumber: () =>
 		yup
 			.number()
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.floating_point_number }),
+	growthRate: () =>
+		yup
+			.number()
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.growth_rate }),
 	integer: () =>
 		yup
 			.number()
