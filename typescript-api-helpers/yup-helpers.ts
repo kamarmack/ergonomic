@@ -47,7 +47,19 @@ export const YupHelpers = {
 			.of<T>(types)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.list }),
 	constant: <T extends boolean | string | number>(value: T) =>
-		yup.mixed<T>().oneOf([value]).default(value),
+		yup
+			.mixed<T>()
+			.oneOf([value])
+			.default(value)
+			.meta({
+				type: GeneralizedFieldTypeEnum.obj[
+					typeof value === 'string'
+						? 'short_text'
+						: typeof value === 'number'
+						? 'floating_point_number'
+						: 'boolean'
+				],
+			}),
 	booleanDefaultFalse: () =>
 		yup
 			.boolean()
