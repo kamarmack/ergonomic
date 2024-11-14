@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
 	getEnum,
 	EnumMember,
@@ -124,4 +125,40 @@ export const getRecurrenceRuleString = (
 	}
 
 	return parts.join(';');
+};
+
+/**
+ * Converts a recurrence rule data object into a human-friendly string.
+ *
+ * @param data The recurrence rule data object to convert.
+ * @returns The human-friendly string representation of the recurrence rule.
+ *
+ * @example
+ * ```typescript
+ * const ruleData = {
+ *  FREQ: 'MONTHLY',
+ *  DTSTART: '20220211T000000Z',
+ *  COUNT: 36
+ * };
+ * const humanFriendlyString = getHumanFriendlyRecurrenceRuleString(ruleData);
+ * console.log(humanFriendlyString);
+ * // => "Repeats monthly starting on February 11, 2022 for 36 occurrences."
+ * ```
+ */
+export const getHumanFriendlyRecurrenceRuleString = (
+	data: RecurrenceRuleData,
+): string => {
+	const startDate = DateTime.fromISO(data.DTSTART, { zone: 'utc' });
+	const startDateString = startDate.toFormat('MMMM d, yyyy');
+	const frequencyText = data.FREQ.toLowerCase();
+
+	if (data.COUNT != null) {
+		return `Repeats ${frequencyText} starting on ${startDateString} for ${data.COUNT} occurrences.`;
+	} else if (data.UNTIL != null) {
+		const untilDate = DateTime.fromISO(data.UNTIL, { zone: 'utc' });
+		const untilDateString = untilDate.toFormat('MMMM d, yyyy');
+		return `Repeats ${frequencyText} starting on ${startDateString} until ${untilDateString}.`;
+	} else {
+		return `Repeats ${frequencyText} starting on ${startDateString} indefinitely.`;
+	}
 };
