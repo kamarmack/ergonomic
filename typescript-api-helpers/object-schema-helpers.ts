@@ -8,6 +8,7 @@ import {
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
+import { isDocumentIdStringRef } from 'ergonomic/data-format-helpers/document-id.js';
 
 // API Object Properties
 export const GeneralizedApiObjectProperties = {
@@ -15,7 +16,21 @@ export const GeneralizedApiObjectProperties = {
 		.boolean()
 		.default(false)
 		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
+	_created_by: yup
+		.string()
+		.default('')
+		.test({
+			message: ({ path, value }: { path: string; value: string }) =>
+				`${path} is not a uuid: ${value}`,
+			name: 'is-uuid',
+			test: (value) => isDocumentIdStringRef([{ id_prefix: 'acct' }], value),
+		})
+		.meta({
+			reference_collections: ['user_account'],
+			type: GeneralizedFieldTypeEnum.obj.id_ref,
+		}),
 	_date_created: YupHelpers.now(),
+	_date_last_modified: YupHelpers.now(),
 	_deleted: yup
 		.boolean()
 		.default(false)
