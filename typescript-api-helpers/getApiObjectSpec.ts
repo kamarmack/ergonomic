@@ -130,6 +130,7 @@ export const getApiObjectSpec = <
 
 	return {
 		apiObjectCollectionId,
+		apiObjectCollectionIdPlural: objectPlural ?? apiObjectCollectionId + 's',
 		apiObjectDefaultJson,
 		apiObjectEndpoint,
 		apiObjectFieldEnum,
