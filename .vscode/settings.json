@@ -23,6 +23,7 @@
 	"editor.formatOnSave": true,
 	"files.eol": "\n",
 	"terminal.integrated.confirmOnExit": "always",
+	"testing.openTesting": "neverOpen",
 	"workbench.colorCustomizations": {
 		"editorIndentGuide.background1": "#8CA58B8F",
 		"editorIndentGuide.activeBackground1": "#39FF148F",
