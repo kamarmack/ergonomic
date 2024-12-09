@@ -3,7 +3,6 @@ export * from 'ergonomic/data/document-id.js';
 export * from 'ergonomic/data/duration.js';
 export * from 'ergonomic/data/email-address.js';
 export * from 'ergonomic/data/file-path.js';
-export * from 'ergonomic/data/get-data-format-fns.js';
 export * from 'ergonomic/data/interval.js';
 export * from 'ergonomic/data/phone-number-united-states.js';
 export * from 'ergonomic/data/physical-address-united-states.js';
