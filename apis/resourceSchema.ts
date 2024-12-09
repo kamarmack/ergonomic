@@ -7,8 +7,8 @@ import { Keys } from 'ergonomic/utils/object.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
 import { isDocumentIdStringRef } from 'ergonomic/data/documentId.js';
 
-// API Object Properties
-export const GeneralizedApiObjectProperties = {
+// API Resource Properties
+export const GeneralizedApiResourceProperties = {
 	_archived: yup
 		.boolean()
 		.default(false)
@@ -18,8 +18,8 @@ export const GeneralizedApiObjectProperties = {
 		.default('')
 		.test({
 			message: ({ path, value }: { path: string; value: string }) =>
-				`${path} is not a uuid: ${value}`,
-			name: 'is-uuid',
+				`${path} is not a document ID: ${value}`,
+			name: 'isDocumentId',
 			test: (value) => isDocumentIdStringRef([{ id_prefix: 'acct' }], value),
 		})
 		.meta({
@@ -54,29 +54,29 @@ export const GeneralizedApiObjectProperties = {
 		.defined()
 		.meta({ type: GeneralizedFieldTypeEnum.obj.short_text }),
 } as const;
-export const GeneralizedApiObjectSchema = yup.object(
-	GeneralizedApiObjectProperties,
+export const GeneralizedApiResourceSchema = yup.object(
+	GeneralizedApiResourceProperties,
 );
-export const defaultGeneralizedApiObject =
-	GeneralizedApiObjectSchema.getDefault();
-export type GeneralizedApiObject = yup.InferType<
-	typeof GeneralizedApiObjectSchema
+export const defaultGeneralizedApiResource =
+	GeneralizedApiResourceSchema.getDefault();
+export type GeneralizedApiResource = yup.InferType<
+	typeof GeneralizedApiResourceSchema
 >;
 
-export const GeneralizedApiObjectFieldEnum = getEnum(
-	Keys(GeneralizedApiObjectProperties),
+export const GeneralizedApiResourceFieldEnum = getEnum(
+	Keys(GeneralizedApiResourceProperties),
 );
-export type GeneralizedApiObjectField = EnumMember<
-	typeof GeneralizedApiObjectFieldEnum
+export type GeneralizedApiResourceField = EnumMember<
+	typeof GeneralizedApiResourceFieldEnum
 >;
 
-// Create API Object
+// Create API Resource
 export const CreateParamsHelpers = {
 	fieldMaskEnum: getEnum(
 		Keys(
 			R.pick(
 				['_archived', '_date_created', '_deleted', '_object'] as const,
-				GeneralizedApiObjectProperties,
+				GeneralizedApiResourceProperties,
 			),
 		),
 	),
@@ -92,21 +92,21 @@ export type CreateParamsField<T extends string | number | symbol> = Exclude<
 	CreateParamsFieldMask
 >;
 export type CreateParams<
-	T extends GeneralizedApiObject,
+	T extends GeneralizedApiResource,
 	K extends keyof T,
 > = Partial<Pick<T, CreateParamsField<keyof T>>> & Required<Pick<T, K>>;
-export type GeneralizedCreateBody = Partial<GeneralizedApiObject>;
-export const GeneralizedApiObjectCreateParamsRequiredFieldEnum = getEnum([
+export type GeneralizedCreateBody = Partial<GeneralizedApiResource>;
+export const GeneralizedApiResourceCreateParamsRequiredFieldEnum = getEnum([
 	'category',
 	'name',
 ]);
 
-// Update API Object
+// Update API Resource
 const UpdateParamsFieldMaskEnum = getEnum(
 	Keys(
 		R.pick(
 			['_object', '_id', '_date_created'] as const,
-			GeneralizedApiObjectProperties,
+			GeneralizedApiResourceProperties,
 		),
 	),
 );
@@ -127,10 +127,10 @@ export type UpdateParamsField<T extends string | number | symbol> = Exclude<
 	T,
 	UpdateParamsFieldMask
 >;
-export type UpdateParams<T extends GeneralizedApiObject> = Partial<
+export type UpdateParams<T extends GeneralizedApiResource> = Partial<
 	Pick<T, UpdateParamsField<keyof T>>
 >;
-export type GeneralizedUpdateBody = UpdateParams<GeneralizedApiObject>;
+export type GeneralizedUpdateBody = UpdateParams<GeneralizedApiResource>;
 export type GeneralizedUpdateOperation = {
 	_id: string;
 	updateParams: GeneralizedUpdateBody;

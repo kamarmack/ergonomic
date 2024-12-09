@@ -8,17 +8,17 @@ import {
 	getEnum,
 } from 'ergonomic/utils/enum.js';
 import {
-	GeneralizedApiObject,
-	GeneralizedApiObjectProperties,
+	GeneralizedApiResource,
+	GeneralizedApiResourceProperties,
 	CreateParams,
 	CreateParamsHelpers,
 	UpdateParams,
 	UpdateParamsHelpers,
-} from 'ergonomic/apis/objectSchema.js';
-import { getApiObjectEndpoint } from 'ergonomic/apis/getApiObjectEndpoint.js';
+} from 'ergonomic/apis/resourceSchema.js';
+import { getApiResourceEndpoint } from 'ergonomic/apis/getApiResourceEndpoint.js';
 
-// Create API Object Property Definitions
-export const getApiObjectSpec = <
+// Create API Resource Property Definitions
+export const getApiResourceSpec = <
 	T extends string,
 	U extends Record<T, YupTypes.AnySchema>,
 	V extends T,
@@ -26,17 +26,17 @@ export const getApiObjectSpec = <
 	createParamsRequiredFieldEnum,
 	databaseId = '(default)',
 	idPrefix,
-	objectPlural,
+	resourcePlural,
 	properties,
 }: {
 	createParamsRequiredFieldEnum: GeneralizedEnumType<V>;
 	databaseId?: string;
 	idPrefix: string;
-	objectPlural?: string;
+	resourcePlural?: string;
 	properties: U;
 }) => {
-	// API Object
-	const apiObjectJsonShape = R.mapObjIndexed(
+	// API Resource
+	const apiResourceJsonShape = R.mapObjIndexed(
 		(schema: U[T], field: T) =>
 			createParamsRequiredFieldEnum.isMember(field)
 				? CreateParamsHelpers.getRequiredField(schema)
@@ -44,18 +44,18 @@ export const getApiObjectSpec = <
 		properties,
 	) as U;
 
-	const apiObjectJsonSchema = yup.object(apiObjectJsonShape);
-	const apiObjectFieldEnum = getEnum(
-		Keys(apiObjectJsonShape as Record<T, YupTypes.AnySchema>),
+	const apiResourceJsonSchema = yup.object(apiResourceJsonShape);
+	const apiResourceFieldEnum = getEnum(
+		Keys(apiResourceJsonShape as Record<T, YupTypes.AnySchema>),
 	);
-	const apiObjectDefaultJson = apiObjectJsonSchema.getDefault();
-	type ApiObjectType = GeneralizedApiObject &
-		yup.InferType<typeof apiObjectJsonSchema>;
+	const apiResourceDefaultJson = apiResourceJsonSchema.getDefault();
+	type ApiResourceType = GeneralizedApiResource &
+		yup.InferType<typeof apiResourceJsonSchema>;
 
 	// Create Params
 	const createParamsJsonShape = R.omit(
 		CreateParamsHelpers.fieldMaskEnum.arr as T[],
-		apiObjectJsonShape,
+		apiResourceJsonShape,
 	);
 	const createParamsJsonSchema = yup.object(createParamsJsonShape);
 	const createParamsFieldEnum = getEnum(
@@ -68,24 +68,24 @@ export const getApiObjectSpec = <
 	);
 	const createParamsDefaultJson = createParamsJsonSchema.getDefault();
 
-	type CreateApiObjectParamsType = CreateParams<
-		ApiObjectType,
-		keyof ApiObjectType & V
+	type CreateApiResourceParamsType = CreateParams<
+		ApiResourceType,
+		keyof ApiResourceType & V
 	>;
 	const mergeCreateParams = ({
 		createParams,
 	}: {
-		createParams: CreateApiObjectParamsType;
+		createParams: CreateApiResourceParamsType;
 	}) =>
 		({
-			...apiObjectJsonSchema.getDefault(),
+			...apiResourceJsonSchema.getDefault(),
 			...R.reject((v) => v === undefined, createParams),
-		} as ApiObjectType);
+		} as ApiResourceType);
 
 	// Create Params Required Fields
 	const createParamsRequiredFieldJsonShape = R.pick(
 		createParamsRequiredFieldEnum.arr as V[],
-		apiObjectJsonShape,
+		apiResourceJsonShape,
 	);
 	const createParamsRequiredFieldJsonSchema = yup.object(
 		createParamsRequiredFieldJsonShape,
@@ -94,7 +94,7 @@ export const getApiObjectSpec = <
 	// Update Params
 	const updateParamsJsonShape = R.omit(
 		UpdateParamsHelpers.fieldMaskEnum.arr as T[],
-		apiObjectJsonShape,
+		apiResourceJsonShape,
 	);
 	const updateParamsJsonSchema = yup.object(updateParamsJsonShape);
 	const updateParamsFieldEnum = getEnum(
@@ -107,35 +107,36 @@ export const getApiObjectSpec = <
 	);
 	const updateParamsDefaultJson = updateParamsJsonSchema.getDefault();
 
-	type UpdateApiObjectParamsType = UpdateParams<ApiObjectType>;
+	type UpdateApiResourceParamsType = UpdateParams<ApiResourceType>;
 	const mergeUpdateParams = ({
-		prevApiObjectJson,
+		prevApiResourceJson,
 		updateParams,
 	}: {
-		prevApiObjectJson: ApiObjectType;
-		updateParams: UpdateApiObjectParamsType;
-	}): ApiObjectType => ({
-		...prevApiObjectJson,
+		prevApiResourceJson: ApiResourceType;
+		updateParams: UpdateApiResourceParamsType;
+	}): ApiResourceType => ({
+		...prevApiResourceJson,
 		...R.reject((v) => v === undefined, updateParams),
 	});
 
 	// REST API Client
 	const { _object } =
-		properties as unknown as typeof GeneralizedApiObjectProperties;
-	const apiObjectCollectionId = _object.getDefault();
-	if (apiObjectCollectionId === undefined) throw new Error();
-	const apiObjectEndpoint = getApiObjectEndpoint(
-		objectPlural ?? apiObjectCollectionId + 's',
+		properties as unknown as typeof GeneralizedApiResourceProperties;
+	const apiResourceCollectionId = _object.getDefault();
+	if (apiResourceCollectionId === undefined) throw new Error();
+	const apiResourceEndpoint = getApiResourceEndpoint(
+		resourcePlural ?? apiResourceCollectionId + 's',
 	);
 
 	return {
-		apiObjectCollectionId,
-		apiObjectCollectionIdPlural: objectPlural ?? apiObjectCollectionId + 's',
-		apiObjectDefaultJson,
-		apiObjectEndpoint,
-		apiObjectFieldEnum,
-		apiObjectJsonSchema,
-		apiObjectJsonShape,
+		apiResourceCollectionId,
+		apiResourceCollectionIdPlural:
+			resourcePlural ?? apiResourceCollectionId + 's',
+		apiResourceDefaultJson,
+		apiResourceEndpoint,
+		apiResourceFieldEnum,
+		apiResourceJsonSchema,
+		apiResourceJsonShape,
 		createParamsDefaultJson,
 		createParamsFieldEnum,
 		createParamsJsonSchema,
@@ -154,9 +155,4 @@ export const getApiObjectSpec = <
 	} as const;
 };
 
-export type GeneralizedApiObjectSpec = ReturnType<typeof getApiObjectSpec>;
-
-/**
- * @deprecated Use `GeneralizedApiObjectSpec` instead.
- */
-export type ApiObjectSpec = ReturnType<typeof getApiObjectSpec>;
+export type GeneralizedApiResourceSpec = ReturnType<typeof getApiResourceSpec>;

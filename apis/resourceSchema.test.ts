@@ -1,9 +1,9 @@
-import { defaultGeneralizedApiObject } from 'ergonomic/apis/objectSchema.js';
+import { defaultGeneralizedApiResource } from 'ergonomic/apis/resourceSchema.js';
 import { utcDateRegex } from 'ergonomic/utils/string.js';
 
-test('GeneralizedApiObjectSchema.getDefault', () => {
-	type T = typeof defaultGeneralizedApiObject;
-	expect<T>(defaultGeneralizedApiObject).toStrictEqual<T>({
+test('GeneralizedApiResourceSchema.getDefault', () => {
+	type T = typeof defaultGeneralizedApiResource;
+	expect<T>(defaultGeneralizedApiResource).toStrictEqual<T>({
 		_archived: false,
 		_created_by: '',
 		_date_created: expect.stringMatching(utcDateRegex) as string,

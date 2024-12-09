@@ -225,7 +225,7 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 } as const;
 
-export const getApiObjectYupHelpers = <TCollection extends string>(
+export const getApiResourceYupHelpers = <TCollection extends string>(
 	_: TCollection[],
 	idPrefixMap: Record<TCollection, string>,
 ) =>
@@ -240,8 +240,8 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 				)
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a uuid: ${value}`,
-					name: 'is-uuid',
+						`${path} is not a document ID: ${value}`,
+					name: 'isDocumentId',
 					test: (value) =>
 						isDocumentIdString([{ id_prefix: idPrefixMap[_object] }], value),
 				})
@@ -258,8 +258,8 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 				.default('')
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a uuid: ${value}`,
-					name: 'is-uuid',
+						`${path} is not a document ID: ${value}`,
+					name: 'isDocumentId',
 					test: (value) =>
 						isDocumentIdStringRef(
 							referenceCollections.map((_object) => ({
@@ -279,8 +279,8 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 					.defined()
 					.test({
 						message: ({ path, value }: { path: string; value: string }) =>
-							`${path} is not a uuid: ${value}`,
-						name: 'is-uuid',
+							`${path} is not a document ID: ${value}`,
+						name: 'isDocumentId',
 						test: (value) =>
 							typeof value === 'string' &&
 							isDocumentIdString(
