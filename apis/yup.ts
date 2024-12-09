@@ -84,6 +84,16 @@ export const YupHelpers = {
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
+	domain: () =>
+		yup
+			.string()
+			.test({
+				message: '${path} is not a domain',
+				name: 'isDomain',
+				test: (value) => value === '' || isDomain(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.domain }),
 	duration: () =>
 		yup
 			.string()
@@ -203,16 +213,6 @@ export const YupHelpers = {
 			})
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
-	webDomain: () =>
-		yup
-			.string()
-			.test({
-				message: '${path} is not a domain',
-				name: 'isDomain',
-				test: (value) => value === '' || isDomain(value),
-			})
-			.default('')
-			.meta({ type: GeneralizedFieldTypeEnum.obj.domain }),
 	url: () =>
 		yup
 			.string()
