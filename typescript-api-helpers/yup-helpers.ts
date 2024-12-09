@@ -52,6 +52,7 @@ export const YupHelpers = {
 			.oneOf([value])
 			.default(value)
 			.meta({
+				can_update: false,
 				type: GeneralizedFieldTypeEnum.obj[
 					typeof value === 'string'
 						? 'short_text'
@@ -249,6 +250,7 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 				.label('Unique ID')
 				.meta({
 					_object,
+					can_update: false,
 					primary_key: true,
 					type: GeneralizedFieldTypeEnum.obj.id,
 				}),

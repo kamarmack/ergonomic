@@ -26,17 +26,27 @@ export const GeneralizedApiObjectProperties = {
 			test: (value) => isDocumentIdStringRef([{ id_prefix: 'acct' }], value),
 		})
 		.meta({
+			can_update: false,
+			server_managed: true,
 			reference_collections: ['user_account'],
 			type: GeneralizedFieldTypeEnum.obj.id_ref,
 		}),
-	_date_created: YupHelpers.now(),
-	_date_last_modified: YupHelpers.now(),
+	_date_created: YupHelpers.now().meta({
+		can_update: false,
+		server_managed: true,
+	}),
+	_date_last_modified: YupHelpers.now().meta({
+		server_managed: true,
+	}),
 	_deleted: yup
 		.boolean()
 		.default(false)
 		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
 	_id: yup.string().defined().label('Unique ID'),
-	_object: yup.string().defined(),
+	_object: yup.string().defined().meta({
+		can_update: false,
+		server_managed: true,
+	}),
 	category: yup.string().defined(),
 	description: yup
 		.string()
