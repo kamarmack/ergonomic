@@ -10,7 +10,7 @@ test('GeneralizedApiResourceSchema.getDefault', () => {
 		_date_last_modified: expect.stringMatching(utcDateRegex) as string,
 		_deleted: false,
 		_id: undefined,
-		_obect: undefined,
+		_object: undefined,
 		category: undefined,
 		description: '',
 		name: undefined,

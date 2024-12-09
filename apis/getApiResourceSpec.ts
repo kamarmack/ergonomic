@@ -120,9 +120,9 @@ export const getApiResourceSpec = <
 	});
 
 	// REST API Client
-	const { _obect } =
+	const { _object } =
 		properties as unknown as typeof GeneralizedApiResourceProperties;
-	const apiResourceCollectionId = _obect.getDefault();
+	const apiResourceCollectionId = _object.getDefault();
 	if (apiResourceCollectionId === undefined) throw new Error();
 	const apiResourceEndpoint = getApiResourceEndpoint(
 		resourcePlural ?? apiResourceCollectionId + 's',

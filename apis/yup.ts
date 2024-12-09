@@ -230,12 +230,12 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 	idPrefixMap: Record<TCollection, string>,
 ) =>
 	({
-		id: (_obect: TCollection) =>
+		id: (_object: TCollection) =>
 			yup
 				.string()
 				.default(() =>
 					getDocumentIdString({
-						id_prefix: idPrefixMap[_obect],
+						id_prefix: idPrefixMap[_object],
 					}),
 				)
 				.test({
@@ -243,11 +243,11 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 						`${path} is not a document ID: ${value}`,
 					name: 'isDocumentId',
 					test: (value) =>
-						isDocumentIdString([{ id_prefix: idPrefixMap[_obect] }], value),
+						isDocumentIdString([{ id_prefix: idPrefixMap[_object] }], value),
 				})
 				.label('Unique ID')
 				.meta({
-					_obect,
+					_object,
 					can_update: false,
 					primary_key: true,
 					type: GeneralizedFieldTypeEnum.obj.id,
@@ -262,8 +262,8 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 					name: 'isDocumentId',
 					test: (value) =>
 						isDocumentIdStringRef(
-							referenceCollections.map((_obect) => ({
-								id_prefix: idPrefixMap[_obect],
+							referenceCollections.map((_object) => ({
+								id_prefix: idPrefixMap[_object],
 							})),
 							value,
 						),
@@ -284,8 +284,8 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 						test: (value) =>
 							typeof value === 'string' &&
 							isDocumentIdString(
-								referenceCollections.map((_obect) => ({
-									id_prefix: idPrefixMap[_obect],
+								referenceCollections.map((_object) => ({
+									id_prefix: idPrefixMap[_object],
 								})),
 								value,
 							),

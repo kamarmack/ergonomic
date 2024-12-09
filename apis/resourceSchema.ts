@@ -40,7 +40,7 @@ export const GeneralizedApiResourceProperties = {
 		.default(false)
 		.meta({ type: GeneralizedFieldTypeEnum.obj.boolean }),
 	_id: yup.string().defined().label('Unique ID'),
-	_obect: yup.string().defined().meta({
+	_object: yup.string().defined().meta({
 		can_update: false,
 		server_managed: true,
 	}),
@@ -75,7 +75,7 @@ export const CreateParamsHelpers = {
 	fieldMaskEnum: getEnum(
 		Keys(
 			R.pick(
-				['_archived', '_date_created', '_deleted', '_obect'] as const,
+				['_archived', '_date_created', '_deleted', '_object'] as const,
 				GeneralizedApiResourceProperties,
 			),
 		),
@@ -105,7 +105,7 @@ export const GeneralizedApiResourceCreateParamsRequiredFieldEnum = getEnum([
 const UpdateParamsFieldMaskEnum = getEnum(
 	Keys(
 		R.pick(
-			['_obect', '_id', '_date_created'] as const,
+			['_object', '_id', '_date_created'] as const,
 			GeneralizedApiResourceProperties,
 		),
 	),
