@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
+import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 
 /**
  * Enum of IANA timezone strings.

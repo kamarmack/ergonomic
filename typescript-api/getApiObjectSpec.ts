@@ -1,12 +1,12 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
-import { Keys } from 'ergonomic/typescript/object.js';
+import { Keys } from 'ergonomic/utils/object.js';
 import {
 	EnumMember,
 	GeneralizedEnumType,
 	getEnum,
-} from 'ergonomic/typescript/enum.js';
+} from 'ergonomic/utils/enum.js';
 import {
 	GeneralizedApiObject,
 	GeneralizedApiObjectProperties,

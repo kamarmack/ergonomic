@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { GeneralizedError } from 'ergonomic/typescript/function-error-response.js';
+import { GeneralizedError } from 'ergonomic/utils/function-error-response.js';
 
 export type GeneralizedResponse<T = unknown> = {
 	data: T[];

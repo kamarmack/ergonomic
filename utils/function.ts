@@ -1,8 +1,8 @@
 import {
 	GeneralizedResponse,
 	isGeneralizedErrorResponse,
-} from 'ergonomic/typescript/function-response.js';
-import { getGeneralizedError } from 'ergonomic/typescript/function-error-response.js';
+} from 'ergonomic/utils/function-response.js';
+import { getGeneralizedError } from 'ergonomic/utils/function-error-response.js';
 
 export type GeneralizedPredicateFn = (value: unknown) => boolean;
 export type GeneralizedMapFn<T = unknown, U = unknown> = (value: T) => U;

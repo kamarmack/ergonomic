@@ -1,5 +1,5 @@
 import { defaultGeneralizedApiObject } from 'ergonomic/typescript-api/object-schema.js';
-import { utcDateRegex } from 'ergonomic/typescript/string.js';
+import { utcDateRegex } from 'ergonomic/utils/string.js';
 
 test('GeneralizedApiObjectSchema.getDefault', () => {
 	type T = typeof defaultGeneralizedApiObject;

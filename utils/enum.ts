@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as changeCase from 'change-case';
-import { Keys } from 'ergonomic/typescript/object.js';
+import { Keys } from 'ergonomic/utils/object.js';
 
 export type GeneralizedEnumObject<K extends string = string> = Readonly<{
 	[key in K]: key;

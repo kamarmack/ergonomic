@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema.js';
-import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
-import { isInteger } from 'ergonomic/typescript/number.js';
+import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
+import { isInteger } from 'ergonomic/utils/number.js';
 import {
 	IanaTimeZoneEnum,
 	getUtcDateNow,

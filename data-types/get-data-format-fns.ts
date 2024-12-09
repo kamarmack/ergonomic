@@ -3,7 +3,7 @@ import {
 	GeneralizedPredicateFn,
 	getGeneralizedParseFn,
 	getGeneralizedCastFn,
-} from 'ergonomic/typescript/function.js';
+} from 'ergonomic/utils/function.js';
 
 export const getDataFormatFns = <
 	M extends GeneralizedMapFn = GeneralizedMapFn,

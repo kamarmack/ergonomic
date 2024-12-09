@@ -1,5 +1,5 @@
-import { Keys } from 'ergonomic/typescript/object.js';
-import { EnumMember, getEnum } from 'ergonomic/typescript/enum.js';
+import { Keys } from 'ergonomic/utils/object.js';
+import { EnumMember, getEnum } from 'ergonomic/utils/enum.js';
 
 export const USA_STATE_BY_CODE = {
 	// States

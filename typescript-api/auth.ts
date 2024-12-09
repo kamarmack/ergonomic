@@ -1,4 +1,4 @@
-import { GeneralizedResponse } from 'ergonomic/typescript/index.js';
+import { GeneralizedResponse } from 'ergonomic/utils/index.js';
 
 export type FirebaseUserCustomTokenParams = {
 	id_token: string;

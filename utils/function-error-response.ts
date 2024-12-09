@@ -1,4 +1,4 @@
-import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
+import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 
 export const GeneralizedErrorCategoryEnum = getEnum([
 	'doc.deleted',

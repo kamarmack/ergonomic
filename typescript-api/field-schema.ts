@@ -1,4 +1,4 @@
-import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
+import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 
 export const GeneralizedFieldTypeEnum = getEnum([
 	'address_field', // string - address field (city, country, line1, line2, postal_code, state)

@@ -1,4 +1,4 @@
-import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
+import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 import { default as validator } from 'validator';
 
 export const WebProtocolEnum = getEnum(['http://', 'https://']);
