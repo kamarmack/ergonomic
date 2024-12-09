@@ -129,7 +129,7 @@ export const UsaStateEnum = getEnum([
 	'Wyoming',
 ]);
 
-export const isPostalCodeUnitedStates = (
+export const isUnitedStatesPostalCode = (
 	stringValue: unknown,
 ): stringValue is string =>
 	typeof stringValue === 'string' && /^\d{5}$/.test(stringValue);

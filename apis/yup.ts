@@ -9,15 +9,15 @@ import {
 	isEmailAddress,
 	isFilePath,
 	isInterval,
-	isPhoneNumberUnitedStates,
-	isPostalCodeUnitedStates,
+	isUnitedStatesPhoneNumber,
+	isUnitedStatesPostalCode,
 	isRecurrenceRuleString,
 	isUtcDate,
-	isWebDomain as isDomain,
-	isWebUrl as isUrl,
+	isDomain,
 	getDocumentIdString,
 	isDocumentIdString,
 	isDocumentIdStringRef,
+	isUrl,
 } from 'ergonomic/data/index.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/field-schema.js';
 
@@ -189,7 +189,7 @@ export const YupHelpers = {
 			.test({
 				message: '${path} is not a US phone number',
 				name: 'isUnitedStatesPhoneNumber',
-				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
+				test: (value) => value === '' || isUnitedStatesPhoneNumber(value),
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
@@ -199,20 +199,10 @@ export const YupHelpers = {
 			.test({
 				message: '${path} is not a US postal code',
 				name: 'isUnitedStatesPostalCode',
-				test: (value) => value === '' || isPostalCodeUnitedStates(value),
+				test: (value) => value === '' || isUnitedStatesPostalCode(value),
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.address_field }),
-	usd: () =>
-		yup
-			.number()
-			.test({
-				message: '${path} is not usd',
-				name: 'isUsd',
-				test: (value: unknown) => typeof value === 'number',
-			})
-			.default(0)
-			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 	url: () =>
 		yup
 			.string()
@@ -223,6 +213,16 @@ export const YupHelpers = {
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.url }),
+	usd: () =>
+		yup
+			.number()
+			.test({
+				message: '${path} is not usd',
+				name: 'isUsd',
+				test: (value: unknown) => typeof value === 'number',
+			})
+			.default(0)
+			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 } as const;
 
 export const getApiObjectYupHelpers = <TCollection extends string>(

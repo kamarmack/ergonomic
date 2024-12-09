@@ -3,7 +3,7 @@ import {
 	getRecurrenceRuleData,
 	getRecurrenceRuleString,
 	RecurrenceRuleData,
-} from './recurrence-rule.js';
+} from 'ergonomic/data/recurrenceRule.js';
 
 describe('Recurrence Rule Tests', () => {
 	// Tests for isRecurrenceRuleData

@@ -1,4 +1,7 @@
-import { getCurrencyUsdCents, isCurrencyUsdString } from './usd.js';
+import {
+	getCurrencyUsdCents,
+	isCurrencyUsdString,
+} from 'ergonomic/data/usd.js';
 
 describe('getCurrencyUsdCents', () => {
 	it('should convert positive dollar amounts correctly', () => {

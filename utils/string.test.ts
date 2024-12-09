@@ -1,4 +1,4 @@
-import { compressUUID } from './string.js';
+import { compressUUID } from 'ergonomic/utils/string.js';
 
 describe('compressUUID', () => {
 	// Test known UUIDs

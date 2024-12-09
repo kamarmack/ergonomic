@@ -2,7 +2,7 @@ import GoogleLibPhoneNumber from 'google-libphonenumber';
 
 const getPhoneUtil = () => GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
-export const isPhoneNumberUnitedStates = (
+export const isUnitedStatesPhoneNumber = (
 	stringValue: unknown,
 ): stringValue is string => {
 	try {
