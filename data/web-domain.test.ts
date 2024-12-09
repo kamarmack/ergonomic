@@ -1,4 +1,4 @@
-import { isWebDomain, isWebUrl } from 'ergonomic/data-types/web-domain.js';
+import { isWebDomain, isWebUrl } from 'ergonomic/data/web-domain.js';
 
 describe('URL Validation Tests', () => {
 	describe('isWebDomain', () => {

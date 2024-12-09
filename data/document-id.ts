@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { v4 } from 'uuid';
-import { compressUUID } from 'ergonomic/data-types/compressUUID.js';
+import { compressUUID } from 'ergonomic/data/compressUUID.js';
 
 export const getDocumentIdString = (options: { id_prefix: string }): string =>
 	options.id_prefix + '_' + compressUUID(v4());

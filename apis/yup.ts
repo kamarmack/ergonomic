@@ -18,7 +18,7 @@ import {
 	getDocumentIdString,
 	isDocumentIdString,
 	isDocumentIdStringRef,
-} from 'ergonomic/data-types/index.js';
+} from 'ergonomic/data/index.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/field-schema.js';
 
 export const YupTypeEnum = getEnum([
