@@ -1,4 +1,4 @@
-import { compressUUID } from './compressUUID.js';
+import { compressUUID } from './string.js';
 
 describe('compressUUID', () => {
 	// Test known UUIDs
