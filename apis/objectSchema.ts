@@ -4,7 +4,7 @@ import * as YupTypes from 'yup/lib/schema.js';
 import { YupHelpers } from 'ergonomic/apis/yup.js';
 import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 import { Keys } from 'ergonomic/utils/object.js';
-import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/field-schema.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
 import { isDocumentIdStringRef } from 'ergonomic/data/documentId.js';
 
 // API Object Properties

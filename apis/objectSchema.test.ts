@@ -1,4 +1,4 @@
-import { defaultGeneralizedApiObject } from 'ergonomic/apis/object-schema.js';
+import { defaultGeneralizedApiObject } from 'ergonomic/apis/objectSchema.js';
 import { utcDateRegex } from 'ergonomic/utils/string.js';
 
 test('GeneralizedApiObjectSchema.getDefault', () => {

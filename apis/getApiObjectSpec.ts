@@ -14,7 +14,7 @@ import {
 	CreateParamsHelpers,
 	UpdateParams,
 	UpdateParamsHelpers,
-} from 'ergonomic/apis/object-schema.js';
+} from 'ergonomic/apis/objectSchema.js';
 import { getApiObjectEndpoint } from 'ergonomic/apis/getApiObjectEndpoint.js';
 
 // Create API Object Property Definitions
