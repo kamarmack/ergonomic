@@ -36,6 +36,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 export type GeneralizedFieldType = EnumMember<typeof GeneralizedFieldTypeEnum>;
 
 export type GeneralizedFieldSchemaMetadata = {
+	can_update?: boolean;
 	label_by_enum_option?: Record<string, string>;
 	label_message_admin_text?: string;
 	label_message_user_text?: string;
@@ -43,10 +44,29 @@ export type GeneralizedFieldSchemaMetadata = {
 	label_tooltip_user_text?: string;
 	pii?: boolean;
 	primary_key?: boolean;
+	server_managed?: boolean;
 	reference_collections?: string[];
 	required_on_create?: boolean;
 	type: GeneralizedFieldType;
 	unique_key?: boolean;
+};
+
+export const defaultGeneralizedFieldSchemaMetadata: Omit<
+	GeneralizedFieldSchemaMetadata,
+	'type'
+> = {
+	can_update: true,
+	label_by_enum_option: {},
+	label_message_admin_text: '',
+	label_message_user_text: '',
+	label_tooltip_admin_text: '',
+	label_tooltip_user_text: '',
+	pii: false,
+	primary_key: false,
+	server_managed: false,
+	reference_collections: [],
+	required_on_create: false,
+	unique_key: false,
 };
 
 export type GeneralizedFieldSpec = {
