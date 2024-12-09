@@ -247,7 +247,11 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 						isDocumentIdString([{ id_prefix: idPrefixMap[_object] }], value),
 				})
 				.label('Unique ID')
-				.meta({ _object, type: GeneralizedFieldTypeEnum.obj.id }),
+				.meta({
+					_object,
+					primary_key: true,
+					type: GeneralizedFieldTypeEnum.obj.id,
+				}),
 		idRef: (referenceCollections: TCollection[]) =>
 			yup
 				.string()
