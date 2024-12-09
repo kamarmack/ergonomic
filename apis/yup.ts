@@ -165,26 +165,6 @@ export const YupHelpers = {
 			.number()
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.percentage }),
-	phoneNumber: () =>
-		yup
-			.string()
-			.test({
-				message: '${path} is not a US phone number',
-				name: 'isUnitedStatesPhoneNumber',
-				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
-			})
-			.default('')
-			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
-	postalCodeUnitedStates: () =>
-		yup
-			.string()
-			.test({
-				message: '${path} is not a US postal code',
-				name: 'isUnitedStatesPostalCode',
-				test: (value) => value === '' || isPostalCodeUnitedStates(value),
-			})
-			.default('')
-			.meta({ type: GeneralizedFieldTypeEnum.obj.address_field }),
 	recurrenceRule: () =>
 		yup
 			.string()
@@ -203,6 +183,26 @@ export const YupHelpers = {
 			.meta({
 				type: GeneralizedFieldTypeEnum.obj.time_zone,
 			}),
+	unitedStatesPhoneNumber: () =>
+		yup
+			.string()
+			.test({
+				message: '${path} is not a US phone number',
+				name: 'isUnitedStatesPhoneNumber',
+				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
+	unitedStatesPostalCode: () =>
+		yup
+			.string()
+			.test({
+				message: '${path} is not a US postal code',
+				name: 'isUnitedStatesPostalCode',
+				test: (value) => value === '' || isPostalCodeUnitedStates(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.address_field }),
 	usd: () =>
 		yup
 			.number()
