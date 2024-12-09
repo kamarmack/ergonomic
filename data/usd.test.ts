@@ -1,4 +1,4 @@
-import { getCurrencyUsdCents, isCurrencyUsdString } from './currency-usd.js';
+import { getCurrencyUsdCents, isCurrencyUsdString } from './usd.js';
 
 describe('getCurrencyUsdCents', () => {
 	it('should convert positive dollar amounts correctly', () => {

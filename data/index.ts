@@ -1,4 +1,3 @@
-export * from 'ergonomic/data/currency-usd.js';
 export * from 'ergonomic/data/document-id.js';
 export * from 'ergonomic/data/duration.js';
 export * from 'ergonomic/data/email-address.js';
@@ -10,3 +9,4 @@ export * from 'ergonomic/data/recurrence-rule.js';
 export * from 'ergonomic/data/time-zone.js';
 export * from 'ergonomic/data/utc-date.js';
 export * from 'ergonomic/data/web-domain.js';
+export * from 'ergonomic/data/usd.js';

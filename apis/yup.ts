@@ -197,11 +197,11 @@ export const YupHelpers = {
 			.number()
 			.test({
 				message: '${path} is not currency usd',
-				name: 'is-currency-usd',
+				name: 'isUsd',
 				test: (value: unknown) => typeof value === 'number',
 			})
 			.default(0)
-			.meta({ type: GeneralizedFieldTypeEnum.obj.currency }),
+			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 	webDomain: () =>
 		yup
 			.string()
