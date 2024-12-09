@@ -19,7 +19,6 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'long_text', // string - long text
 	'markdown_text', // string - markdown text
 	'percentage', // number - floating point number, e.g. 0.1 for 10%
-	'phone_number', // string - phone number
 	'recurrence_rule', // string - iCalendar RFC recurrence rule string, e.g. FREQ=MONTHLY;DTSTART=20220211T000000Z;COUNT=36, FREQ=MONTHLY;DTSTART=20221001T000000Z;UNTIL=20240524T000000Z, or FREQ=YEARLY;DTSTART=20230307T000000Z
 	'rich_text', // string - rich text
 	'select_many', // array - array of strings from enum
@@ -28,6 +27,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'short_text', // string - short text
 	'time_zone', // string - IANA time zone string, e.g. America/New_York
 	'url', // string - URL, e.g. https://example.com
+	'united_states_phone_number', // string - phone number e.g. +18135552671
 	'usd', // number - number of USD cents, e.g. 1000 for $10.00
 ]);
 export type GeneralizedFieldType = EnumMember<typeof GeneralizedFieldTypeEnum>;

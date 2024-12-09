@@ -192,7 +192,7 @@ export const YupHelpers = {
 				test: (value) => value === '' || isUnitedStatesPhoneNumber(value),
 			})
 			.default('')
-			.meta({ type: GeneralizedFieldTypeEnum.obj.phone_number }),
+			.meta({ type: GeneralizedFieldTypeEnum.obj.united_states_phone_number }),
 	unitedStatesPostalCode: () =>
 		yup
 			.string()
