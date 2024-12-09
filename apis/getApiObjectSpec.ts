@@ -14,8 +14,8 @@ import {
 	CreateParamsHelpers,
 	UpdateParams,
 	UpdateParamsHelpers,
-} from 'ergonomic/typescript-api/object-schema.js';
-import { getApiObjectEndpoint } from 'ergonomic/typescript-api/getApiObjectEndpoint.js';
+} from 'ergonomic/apis/object-schema.js';
+import { getApiObjectEndpoint } from 'ergonomic/apis/getApiObjectEndpoint.js';
 
 // Create API Object Property Definitions
 export const getApiObjectSpec = <

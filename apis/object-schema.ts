@@ -1,10 +1,10 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
-import { YupHelpers } from 'ergonomic/typescript-api/yup.js';
+import { YupHelpers } from 'ergonomic/apis/yup.js';
 import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 import { Keys } from 'ergonomic/utils/object.js';
-import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api/field-schema.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/field-schema.js';
 import { isDocumentIdStringRef } from 'ergonomic/data-types/document-id.js';
 
 // API Object Properties

@@ -19,7 +19,7 @@ import {
 	isDocumentIdString,
 	isDocumentIdStringRef,
 } from 'ergonomic/data-types/index.js';
-import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api/field-schema.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/field-schema.js';
 
 export const YupTypeEnum = getEnum([
 	'array',
