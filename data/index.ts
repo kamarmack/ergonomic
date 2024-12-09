@@ -1,4 +1,4 @@
-export * from 'ergonomic/data/document-id.js';
+export * from 'ergonomic/data/documentId.js';
 export * from 'ergonomic/data/duration.js';
 export * from 'ergonomic/data/email-address.js';
 export * from 'ergonomic/data/file-path.js';

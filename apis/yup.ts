@@ -13,8 +13,8 @@ import {
 	isPostalCodeUnitedStates,
 	isRecurrenceRuleString,
 	isUtcDate,
-	isWebDomain,
-	isWebUrl,
+	isWebDomain as isDomain,
+	isWebUrl as isUrl,
 	getDocumentIdString,
 	isDocumentIdString,
 	isDocumentIdStringRef,
@@ -78,8 +78,8 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a UTC Date',
-				name: 'is-utc-date',
+				message: '${path} is not a UTC date',
+				name: 'isDate',
 				test: (value) => value === '' || isUtcDate(value),
 			})
 			.default('')
@@ -88,7 +88,7 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a Duration',
+				message: '${path} is not a duration',
 				name: 'is-duration',
 				test: (value) => value === '' || isDuration(value),
 			})
@@ -97,9 +97,10 @@ export const YupHelpers = {
 	emailAddress: () =>
 		yup
 			.string()
+			.email()
 			.test({
 				message: '${path} is not an email address',
-				name: 'is-email-address',
+				name: 'isEmailAddress',
 				test: (value: unknown) => value === '' || isEmailAddress(value),
 			})
 			.default('')
@@ -108,8 +109,8 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a File Path',
-				name: 'is-filePath',
+				message: '${path} is not a file path',
+				name: 'isFilePath',
 				test: (value) => value === '' || isFilePath(value),
 			})
 			.default('')
@@ -124,7 +125,7 @@ export const YupHelpers = {
 			.number()
 			.test({
 				message: '${path} is not an integer',
-				name: 'is-integer',
+				name: 'isInteger',
 				test: isInteger,
 			})
 			.default(0)
@@ -133,8 +134,8 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a Interval',
-				name: 'is-interval',
+				message: '${path} is not an interval',
+				name: 'isInterval',
 				test: (value) => value === '' || isInterval(value),
 			})
 			.default('')
@@ -143,8 +144,8 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a UTC Date',
-				name: 'is-utc-date',
+				message: '${path} is not a UTC date',
+				name: 'isDate',
 				test: isUtcDate,
 			})
 			.default(getUtcDateNow)
@@ -159,7 +160,7 @@ export const YupHelpers = {
 			.string()
 			.test({
 				message: '${path} is not a US phone number',
-				name: 'is-phone-number-united-states',
+				name: 'isUnitedStatesPhoneNumber',
 				test: (value) => value === '' || isPhoneNumberUnitedStates(value),
 			})
 			.default('')
@@ -169,7 +170,7 @@ export const YupHelpers = {
 			.string()
 			.test({
 				message: '${path} is not a US postal code',
-				name: 'is-postal-code-united-states',
+				name: 'isUnitedStatesPostalCode',
 				test: (value) => value === '' || isPostalCodeUnitedStates(value),
 			})
 			.default('')
@@ -179,8 +180,8 @@ export const YupHelpers = {
 			.string()
 			.default('')
 			.test({
-				message: '${path} is not a Recurrence Rule',
-				name: 'is-recurrence-rule',
+				message: '${path} is not a recurrence rule',
+				name: 'isRecurrenceRule',
 				test: (value) => value === '' || isRecurrenceRuleString(value),
 			})
 			.meta({ type: GeneralizedFieldTypeEnum.obj.recurrence_rule }),
@@ -196,7 +197,7 @@ export const YupHelpers = {
 		yup
 			.number()
 			.test({
-				message: '${path} is not currency usd',
+				message: '${path} is not usd',
 				name: 'isUsd',
 				test: (value: unknown) => typeof value === 'number',
 			})
@@ -206,19 +207,19 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a web host',
-				name: 'is-web-host',
-				test: (value) => value === '' || isWebDomain(value),
+				message: '${path} is not a domain',
+				name: 'isDomain',
+				test: (value) => value === '' || isDomain(value),
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.domain }),
-	webUrl: () =>
+	url: () =>
 		yup
 			.string()
 			.test({
-				message: '${path} is not a web url',
-				name: 'is-web-url',
-				test: (value) => value === '' || isWebUrl(value),
+				message: '${path} is not a url',
+				name: 'isUrl',
+				test: (value) => value === '' || isUrl(value),
 			})
 			.default('')
 			.meta({ type: GeneralizedFieldTypeEnum.obj.url }),
