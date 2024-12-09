@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { getDocumentIdString } from 'ergonomic/data-format-helpers/document-id.js';
+import { getDocumentIdString } from 'ergonomic/data-types/document-id.js';
 
 export const getIdObj = <T extends string>(
 	_object: T,

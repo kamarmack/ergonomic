@@ -8,7 +8,7 @@ import {
 } from 'ergonomic/typescript-helpers/enum-helpers.js';
 import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
-import { isDocumentIdStringRef } from 'ergonomic/data-format-helpers/document-id.js';
+import { isDocumentIdStringRef } from 'ergonomic/data-types/document-id.js';
 
 // API Object Properties
 export const GeneralizedApiObjectProperties = {
