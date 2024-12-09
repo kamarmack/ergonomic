@@ -1,8 +1,8 @@
 import {
 	GeneralizedResponse,
 	isGeneralizedErrorResponse,
-} from 'ergonomic/utils/function-response.js';
-import { getGeneralizedError } from 'ergonomic/utils/function-error-response.js';
+} from 'ergonomic/utils/functionResponse.js';
+import { getGeneralizedError } from 'ergonomic/utils/functionErrorResponse.js';
 
 export type GeneralizedPromiseChainFn = (
 	prevResponseData: unknown[],
