@@ -3,7 +3,7 @@ import { HTTPError } from 'ky-universal';
 import {
 	GeneralizedResponse,
 	getGeneralizedError,
-} from 'ergonomic/typescript-helpers/index.js';
+} from 'ergonomic/typescript/index.js';
 
 const logKyError = (error: unknown): void => {
 	console.error(

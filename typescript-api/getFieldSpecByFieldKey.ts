@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { GeneralizedFieldSpec } from 'ergonomic/typescript-api-helpers//field-schema-helpers.js';
+import { GeneralizedFieldSpec } from 'ergonomic/typescript-api//field-schema.js';
 import { ObjectShape } from 'yup/lib/object';
 
 /**

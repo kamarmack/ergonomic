@@ -1,10 +1,7 @@
 import * as yup from 'yup';
 import * as YupSchemaHelpers from 'yup/lib/schema.js';
-import {
-	getEnum,
-	EnumMember,
-} from 'ergonomic/typescript-helpers/enum-helpers.js';
-import { isInteger } from 'ergonomic/typescript-helpers/number-helpers.js';
+import { getEnum, EnumMember } from 'ergonomic/typescript/enum.js';
+import { isInteger } from 'ergonomic/typescript/number.js';
 import {
 	IanaTimeZoneEnum,
 	getUtcDateNow,
@@ -22,7 +19,7 @@ import {
 	isDocumentIdString,
 	isDocumentIdStringRef,
 } from 'ergonomic/data-types/index.js';
-import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api-helpers/field-schema-helpers.js';
+import { GeneralizedFieldTypeEnum } from 'ergonomic/typescript-api/field-schema.js';
 
 export const YupTypeEnum = getEnum([
 	'array',

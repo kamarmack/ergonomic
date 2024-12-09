@@ -1,12 +1,12 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
-import { Keys } from 'ergonomic/typescript-helpers/object-helpers.js';
+import { Keys } from 'ergonomic/typescript/object.js';
 import {
 	EnumMember,
 	GeneralizedEnumType,
 	getEnum,
-} from 'ergonomic/typescript-helpers/enum-helpers.js';
+} from 'ergonomic/typescript/enum.js';
 import {
 	GeneralizedApiObject,
 	GeneralizedApiObjectProperties,
@@ -14,8 +14,8 @@ import {
 	CreateParamsHelpers,
 	UpdateParams,
 	UpdateParamsHelpers,
-} from 'ergonomic/typescript-api-helpers/object-schema-helpers.js';
-import { getApiObjectEndpoint } from 'ergonomic/typescript-api-helpers/getApiObjectEndpoint.js';
+} from 'ergonomic/typescript-api/object-schema.js';
+import { getApiObjectEndpoint } from 'ergonomic/typescript-api/getApiObjectEndpoint.js';
 
 // Create API Object Property Definitions
 export const getApiObjectSpec = <

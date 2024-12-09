@@ -1,7 +1,7 @@
-import { GeneralizedResponse } from 'ergonomic/typescript-helpers/function-response-helpers.js';
-import { resolveGeneralizedPromiseChain } from 'ergonomic/typescript-helpers/async-function-helpers.js';
+import { GeneralizedResponse } from 'ergonomic/typescript/function-response.js';
+import { resolveGeneralizedPromiseChain } from 'ergonomic/typescript/async-function.js';
 
-describe('typescript-helpers.async-function-helpers.resolveGeneralizedPromiseChain', () => {
+describe('typescript.async-function.resolveGeneralizedPromiseChain', () => {
 	test('numeric mappers', () =>
 		void (async () => {
 			expect(
