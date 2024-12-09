@@ -225,29 +225,29 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 } as const;
 
-export const getApiObjectYupHelpers = <TCollection extends string>(
+export const getApiResourceYupHelpers = <TCollection extends string>(
 	_: TCollection[],
 	idPrefixMap: Record<TCollection, string>,
 ) =>
 	({
-		id: (_object: TCollection) =>
+		id: (_obect: TCollection) =>
 			yup
 				.string()
 				.default(() =>
 					getDocumentIdString({
-						id_prefix: idPrefixMap[_object],
+						id_prefix: idPrefixMap[_obect],
 					}),
 				)
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a uuid: ${value}`,
-					name: 'is-uuid',
+						`${path} is not a document ID: ${value}`,
+					name: 'isDocumentId',
 					test: (value) =>
-						isDocumentIdString([{ id_prefix: idPrefixMap[_object] }], value),
+						isDocumentIdString([{ id_prefix: idPrefixMap[_obect] }], value),
 				})
 				.label('Unique ID')
 				.meta({
-					_object,
+					_obect,
 					can_update: false,
 					primary_key: true,
 					type: GeneralizedFieldTypeEnum.obj.id,
@@ -258,12 +258,12 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 				.default('')
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a uuid: ${value}`,
-					name: 'is-uuid',
+						`${path} is not a document ID: ${value}`,
+					name: 'isDocumentId',
 					test: (value) =>
 						isDocumentIdStringRef(
-							referenceCollections.map((_object) => ({
-								id_prefix: idPrefixMap[_object],
+							referenceCollections.map((_obect) => ({
+								id_prefix: idPrefixMap[_obect],
 							})),
 							value,
 						),
@@ -279,13 +279,13 @@ export const getApiObjectYupHelpers = <TCollection extends string>(
 					.defined()
 					.test({
 						message: ({ path, value }: { path: string; value: string }) =>
-							`${path} is not a uuid: ${value}`,
-						name: 'is-uuid',
+							`${path} is not a document ID: ${value}`,
+						name: 'isDocumentId',
 						test: (value) =>
 							typeof value === 'string' &&
 							isDocumentIdString(
-								referenceCollections.map((_object) => ({
-									id_prefix: idPrefixMap[_object],
+								referenceCollections.map((_obect) => ({
+									id_prefix: idPrefixMap[_obect],
 								})),
 								value,
 							),
