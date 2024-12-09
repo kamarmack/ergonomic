@@ -26,8 +26,8 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'sensitive_text', // string - sensitive text hidden while editing
 	'short_text', // string - short text
 	'time_zone', // string - IANA time zone string, e.g. America/New_York
+	'united_states_phone_number', // string - phone number e.g. +18135551234
 	'url', // string - URL, e.g. https://example.com
-	'united_states_phone_number', // string - phone number e.g. +18135552671
 	'usd', // number - number of USD cents, e.g. 1000 for $10.00
 ]);
 export type GeneralizedFieldType = EnumMember<typeof GeneralizedFieldTypeEnum>;
