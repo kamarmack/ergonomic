@@ -1,3 +1,3 @@
-export * from 'ergonomic/typescript-api-helpers/index.js';
-export * from 'ergonomic/typescript-helpers/index.js';
-export * from 'ergonomic/data-format-helpers/index.js';
+export * from 'ergonomic/utils/index.js';
+export * from 'ergonomic/data/index.js';
+export * from 'ergonomic/apis/index.js';
