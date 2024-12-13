@@ -25,7 +25,7 @@ export const GeneralizedApiResourceProperties = {
 		.meta({
 			can_update: false,
 			server_managed: true,
-			reference_collections: ['user_account'],
+			reference_collections: ['user'],
 			type: GeneralizedFieldTypeEnum.obj.id_ref,
 		}),
 	_date_created: YupHelpers.now().meta({
