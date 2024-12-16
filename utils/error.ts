@@ -47,7 +47,7 @@ export const getGeneralizedErrorStatusCode = (
  * An error that is thrown when a Function call or an API request fails.
  *
  * @property error The error object
- * @property error.category The category of the error
+ * @property error.type The type of the error
  * @property error.data The data
  * @property error.message The error message
  * @property error.status The status code
@@ -56,29 +56,29 @@ export const getGeneralizedErrorStatusCode = (
  * @example
  * {
  * 	error: {
- * 		category: 'request.invalid-params',
  * 		data: {
- * 				'username': [
+ * 				username: [
  * 					'This field may not be blank.'
  * 				],
  * 		},
  * 		message: 'Invalid parameters were provided.',
  * 		status: 400,
- * 		status_text: 'Bad Request'
+ * 		status_text: 'Bad Request',
+ * 		type: 'request.invalid-params',
  * 	}
  * }
  */
 export type GeneralizedError = {
 	error: {
-		category: GeneralizedErrorCategory;
 		data: Record<string, unknown>;
 		message: string;
 		status_code: GeneralizedErrorStatusCodeNumber;
 		status_text: string;
+		type: GeneralizedErrorCategory;
 	};
 };
 const defaultGetGeneralizedErrorParams = {
-	category: 'request.unknown-error' as const,
+	type: 'request.unknown-error' as const,
 	data: {},
 	message: 'An unknown error occurred.',
 	status_text: 'Internal Server Error',
@@ -93,7 +93,7 @@ export const getGeneralizedError = (
 		...config,
 		status_code: parseInt(
 			getGeneralizedErrorStatusCode(
-				config.category || defaultGetGeneralizedErrorParams.category,
+				config.type || defaultGetGeneralizedErrorParams.type,
 			),
 		) as GeneralizedErrorStatusCodeNumber,
 	},

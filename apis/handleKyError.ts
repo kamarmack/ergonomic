@@ -1,9 +1,9 @@
 import { inspect } from 'util';
 import { HTTPError } from 'ky-universal';
 import {
-	GeneralizedResponse,
 	getGeneralizedError,
-} from 'ergonomic/utils/index.js';
+	GeneralizedError,
+} from 'ergonomic/utils/error.js';
 
 const logKyError = (error: unknown): void => {
 	console.error(
@@ -14,19 +14,15 @@ const logKyError = (error: unknown): void => {
 
 export const handleKyError = async (
 	error: unknown,
-): Promise<GeneralizedResponse> => {
+): Promise<GeneralizedError> => {
 	try {
 		const errorResponse = (await (
 			error as HTTPError
-		).response.json()) as GeneralizedResponse;
+		).response.json()) as GeneralizedError;
 		logKyError(errorResponse);
 		return errorResponse;
 	} catch (err) {
 		logKyError(err);
-		const defaultResponse = {
-			data: [],
-			errors: [getGeneralizedError()],
-		};
-		return defaultResponse;
+		return getGeneralizedError();
 	}
 };
