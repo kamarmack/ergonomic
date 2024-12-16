@@ -16,6 +16,7 @@ import {
 	UpdateParamsHelpers,
 } from 'ergonomic/apis/resourceSchema.js';
 import { getApiResourceEndpoint } from 'ergonomic/apis/getApiResourceEndpoint.js';
+import { getDocumentIdString } from 'ergonomic/data/documentId.js';
 
 // Create API Resource Property Definitions
 export const getApiResourceSpec = <
@@ -128,6 +129,11 @@ export const getApiResourceSpec = <
 		resourcePlural ?? apiResourceCollectionId + 's',
 	);
 
+	const generateId = () =>
+		getDocumentIdString({
+			id_prefix: idPrefix,
+		});
+
 	return {
 		apiResourceCollectionId,
 		apiResourceCollectionIdPlural:
@@ -145,6 +151,7 @@ export const getApiResourceSpec = <
 		createParamsRequiredFieldJsonSchema,
 		createParamsRequiredFieldJsonShape,
 		databaseId,
+		generateId,
 		idPrefix,
 		mergeCreateParams,
 		updateParamsDefaultJson,
