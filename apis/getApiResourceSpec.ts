@@ -27,14 +27,14 @@ export const getApiResourceSpec = <
 	createParamsRequiredFieldEnum,
 	databaseId = '(default)',
 	idPrefix,
-	resourcePlural,
 	properties,
+	resourceNamePlural,
 }: {
 	createParamsRequiredFieldEnum: GeneralizedEnumType<V>;
 	databaseId?: string;
 	idPrefix: string;
-	resourcePlural?: string;
 	properties: U;
+	resourceNamePlural?: string;
 }) => {
 	// API Resource
 	const apiResourceJsonShape = R.mapObjIndexed(
@@ -125,7 +125,7 @@ export const getApiResourceSpec = <
 		properties as unknown as typeof GeneralizedApiResourceProperties;
 	const apiResourceName = _object.getDefault();
 	if (apiResourceName === undefined) throw new Error();
-	const apiResourceNamePlural = resourcePlural ?? apiResourceName + 's';
+	const apiResourceNamePlural = resourceNamePlural ?? apiResourceName + 's';
 	const collectionId = apiResourceNamePlural;
 	const apiResourceEndpoint = getApiResourceEndpoint(apiResourceNamePlural);
 
