@@ -42,7 +42,7 @@ export type GeneralizedFieldSchemaMetadata = {
 	pii?: boolean;
 	primary_key?: boolean;
 	server_managed?: boolean;
-	reference_collections?: string[];
+	resources?: string[];
 	required_on_create?: boolean;
 	type: GeneralizedFieldType;
 	unique_key?: boolean;
@@ -61,7 +61,7 @@ export const defaultGeneralizedFieldSchemaMetadata: Omit<
 	pii: false,
 	primary_key: false,
 	server_managed: false,
-	reference_collections: [],
+	resources: [],
 	required_on_create: false,
 	unique_key: false,
 };

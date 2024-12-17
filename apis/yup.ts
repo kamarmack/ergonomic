@@ -269,7 +269,7 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 						),
 				})
 				.meta({
-					reference_collections: referenceCollections,
+					resources: referenceCollections,
 					type: GeneralizedFieldTypeEnum.obj.id_ref,
 				}),
 		idRefs: (referenceCollections: TCollection[]) =>
@@ -293,7 +293,7 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 			)
 				.defined()
 				.meta({
-					reference_collections: referenceCollections,
+					resources: referenceCollections,
 					type: GeneralizedFieldTypeEnum.obj.id_refs,
 				}),
 	} as const);
