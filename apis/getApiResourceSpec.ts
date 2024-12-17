@@ -123,11 +123,11 @@ export const getApiResourceSpec = <
 	// REST API Client
 	const { _object } =
 		properties as unknown as typeof GeneralizedApiResourceProperties;
-	const apiResourceCollectionId = _object.getDefault();
-	if (apiResourceCollectionId === undefined) throw new Error();
-	const apiResourceEndpoint = getApiResourceEndpoint(
-		resourcePlural ?? apiResourceCollectionId + 's',
-	);
+	const apiResourceName = _object.getDefault();
+	if (apiResourceName === undefined) throw new Error();
+	const apiResourceNamePlural = resourcePlural ?? apiResourceName + 's';
+	const collectionId = apiResourceNamePlural;
+	const apiResourceEndpoint = getApiResourceEndpoint(apiResourceNamePlural);
 
 	const generateId = () =>
 		getDocumentIdString({
@@ -135,14 +135,14 @@ export const getApiResourceSpec = <
 		});
 
 	return {
-		apiResourceCollectionId,
-		apiResourceCollectionIdPlural:
-			resourcePlural ?? apiResourceCollectionId + 's',
 		apiResourceDefaultJson,
 		apiResourceEndpoint,
 		apiResourceFieldEnum,
 		apiResourceJsonSchema,
 		apiResourceJsonShape,
+		apiResourceName,
+		apiResourceNamePlural,
+		collectionId,
 		createParamsDefaultJson,
 		createParamsFieldEnum,
 		createParamsJsonSchema,
