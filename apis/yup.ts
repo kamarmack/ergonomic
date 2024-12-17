@@ -225,12 +225,12 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 } as const;
 
-export const getApiResourceYupHelpers = <TCollection extends string>(
-	_: TCollection[],
-	idPrefixMap: Record<TCollection, string>,
+export const getApiResourceYupHelpers = <TResourceName extends string>(
+	_: TResourceName[],
+	idPrefixMap: Record<TResourceName, string>,
 ) =>
 	({
-		id: (_object: TCollection) =>
+		id: (_object: TResourceName) =>
 			yup
 				.string()
 				.default(() =>
@@ -252,7 +252,7 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 					primary_key: true,
 					type: GeneralizedFieldTypeEnum.obj.id,
 				}),
-		idRef: (referenceCollections: TCollection[]) =>
+		idRef: (resources: TResourceName[]) =>
 			yup
 				.string()
 				.default('')
@@ -262,17 +262,17 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 					name: 'isDocumentId',
 					test: (value) =>
 						isDocumentIdStringRef(
-							referenceCollections.map((_object) => ({
+							resources.map((_object) => ({
 								id_prefix: idPrefixMap[_object],
 							})),
 							value,
 						),
 				})
 				.meta({
-					resources: referenceCollections,
+					resources: resources,
 					type: GeneralizedFieldTypeEnum.obj.id_ref,
 				}),
-		idRefs: (referenceCollections: TCollection[]) =>
+		idRefs: (resources: TResourceName[]) =>
 			YupHelpers.array(
 				yup
 					.string()
@@ -284,7 +284,7 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 						test: (value) =>
 							typeof value === 'string' &&
 							isDocumentIdString(
-								referenceCollections.map((_object) => ({
+								resources.map((_object) => ({
 									id_prefix: idPrefixMap[_object],
 								})),
 								value,
@@ -293,7 +293,7 @@ export const getApiResourceYupHelpers = <TCollection extends string>(
 			)
 				.defined()
 				.meta({
-					resources: referenceCollections,
+					resources: resources,
 					type: GeneralizedFieldTypeEnum.obj.id_refs,
 				}),
 	} as const);
