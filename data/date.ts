@@ -47,6 +47,17 @@ export const isUtcDate = (stringValue: unknown): stringValue is string => {
 	return false;
 };
 
+export const isDateYyyyMmDd = (stringValue: unknown): stringValue is string => {
+	if (typeof stringValue === 'string') {
+		const trimmedStringValue = stringValue.slice().trim();
+		if (trimmedStringValue !== '') {
+			const [yyyy, mm, dd] = trimmedStringValue.split('-');
+			return yyyy?.length === 4 && mm?.length === 2 && dd?.length === 2;
+		}
+	}
+	return false;
+};
+
 export const MmEnum = getEnum([
 	'01',
 	'02',

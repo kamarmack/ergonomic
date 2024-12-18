@@ -13,6 +13,7 @@ import {
 	isUnitedStatesPostalCode,
 	isRecurrenceRuleString,
 	isUtcDate,
+	isDateYyyyMmDd,
 	isDomain,
 	getDocumentIdString,
 	isDocumentIdString,
@@ -78,8 +79,18 @@ export const YupHelpers = {
 		yup
 			.string()
 			.test({
-				message: '${path} is not a UTC date',
+				message: '${path} is not a date',
 				name: 'isDate',
+				test: (value) => value === '' || isDateYyyyMmDd(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
+	dateTime: () =>
+		yup
+			.string()
+			.test({
+				message: '${path} is not a UTC date',
+				name: 'isDateTime',
 				test: (value) => value === '' || isUtcDate(value),
 			})
 			.default('')
