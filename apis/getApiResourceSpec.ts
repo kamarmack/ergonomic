@@ -154,6 +154,7 @@ export const getApiResourceSpec = <
 		generateId,
 		idPrefix,
 		mergeCreateParams,
+		properties,
 		updateParamsDefaultJson,
 		updateParamsFieldEnum,
 		updateParamsJsonSchema,
