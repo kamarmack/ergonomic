@@ -4,6 +4,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'address_field', // string - address field (city, country, line1, line2, postal_code, state)
 	'boolean', // boolean - true or false
 	'date', // string - ISO date string with millisecond precision, e.g. 2020-01-01T00:00:00.000Z
+	'day', // string - YYYY-MM-DD, e.g. 2020-01-01 - useful when time is not relevant
 	'domain', // string - domain name, e.g. example.com
 	'duration', // string - ISO duration string, e.g. P3Y6M1W4DT12H or P5Y3M
 	'email_address', // string - email address, e.g. john@example.com
