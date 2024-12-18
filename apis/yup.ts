@@ -94,7 +94,7 @@ export const YupHelpers = {
 				test: (value) => value === '' || isUtcDate(value),
 			})
 			.default('')
-			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
+			.meta({ type: GeneralizedFieldTypeEnum.obj.date_time }),
 	domain: () =>
 		yup
 			.string()
@@ -170,7 +170,7 @@ export const YupHelpers = {
 				test: isUtcDate,
 			})
 			.default(getUtcDateNow)
-			.meta({ type: GeneralizedFieldTypeEnum.obj.date }),
+			.meta({ type: GeneralizedFieldTypeEnum.obj.date_time }),
 	percentage: () =>
 		yup
 			.number()
