@@ -9,10 +9,10 @@ import { ObjectShape } from 'yup/lib/object';
  * @param fieldKeys field keys
  * @returns field spec by field key - See {@link GeneralizedFieldSpec}
  */
-export const getFieldSpecByFieldKey = (
+export const getFieldSpecByFieldKey = <TFieldKey extends string>(
 	resourceSchema: yup.ObjectSchema<ObjectShape> | undefined,
-	fieldKeys: string[] = [],
-): Record<string, GeneralizedFieldSpec> =>
+	fieldKeys: TFieldKey[] = [],
+): Record<TFieldKey, GeneralizedFieldSpec> =>
 	fieldKeys.reduce((acc, fieldKey) => {
 		const fields = resourceSchema?.fields ?? {};
 		const fieldSchema = fields?.[fieldKey];
@@ -33,4 +33,4 @@ export const getFieldSpecByFieldKey = (
 				default: fieldSchemaTyped.getDefault() ?? undefined,
 			},
 		};
-	}, {} as Record<string, GeneralizedFieldSpec>);
+	}, {} as Record<TFieldKey, GeneralizedFieldSpec>);
