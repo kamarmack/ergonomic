@@ -19,3 +19,16 @@ export const getJsonString = (obj: unknown) =>
 		(_, value) => (typeof value === 'undefined' ? null : value) as unknown,
 		'\t',
 	);
+
+/**
+ * Utility type:
+ * For type TData, make the properties in TKeys non-nullable
+ *
+ * -? removes the optional marker
+ */
+export type WithNonNullableKeys<TData, TKeys extends keyof TData> = Omit<
+	TData,
+	TKeys
+> & {
+	[P in TKeys]-?: NonNullable<TData[P]>;
+};
