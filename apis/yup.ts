@@ -35,7 +35,7 @@ export type FieldSchema = YupSchemaHelpers.SchemaObjectDescription & {
 	innerType?: YupSchemaHelpers.SchemaInnerTypeDescription;
 };
 
-export const YupHelpers = {
+export const yupX = {
 	array: <T extends Parameters<ReturnType<typeof yup.array>['of']>[0]>(
 		types: T,
 	) =>
@@ -236,7 +236,7 @@ export const YupHelpers = {
 			.meta({ type: GeneralizedFieldTypeEnum.obj.usd }),
 } as const;
 
-export const getApiResourceYupHelpers = <TResourceName extends string>(
+export const getApiResourceYupFields = <TResourceName extends string>(
 	_: TResourceName[],
 	idPrefixMap: Record<TResourceName, string>,
 ) =>
@@ -284,24 +284,25 @@ export const getApiResourceYupHelpers = <TResourceName extends string>(
 					type: GeneralizedFieldTypeEnum.obj.id_ref,
 				}),
 		idRefs: (resources: TResourceName[]) =>
-			YupHelpers.array(
-				yup
-					.string()
-					.defined()
-					.test({
-						message: ({ path, value }: { path: string; value: string }) =>
-							`${path} is not a document ID: ${value}`,
-						name: 'isDocumentId',
-						test: (value) =>
-							typeof value === 'string' &&
-							isDocumentIdString(
-								resources.map((_object) => ({
-									id_prefix: idPrefixMap[_object],
-								})),
-								value,
-							),
-					}),
-			)
+			yupX
+				.array(
+					yup
+						.string()
+						.defined()
+						.test({
+							message: ({ path, value }: { path: string; value: string }) =>
+								`${path} is not a document ID: ${value}`,
+							name: 'isDocumentId',
+							test: (value) =>
+								typeof value === 'string' &&
+								isDocumentIdString(
+									resources.map((_object) => ({
+										id_prefix: idPrefixMap[_object],
+									})),
+									value,
+								),
+						}),
+				)
 				.defined()
 				.meta({
 					resources: resources,

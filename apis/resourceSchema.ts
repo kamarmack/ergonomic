@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
-import { YupHelpers } from 'ergonomic/apis/yup.js';
+import { yupX } from 'ergonomic/apis/yup.js';
 import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 import { Keys } from 'ergonomic/utils/object.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
@@ -28,11 +28,11 @@ export const GeneralizedApiResourceProperties = {
 			server_managed: true,
 			type: GeneralizedFieldTypeEnum.obj.id_ref,
 		}),
-	_date_created: YupHelpers.now().meta({
+	_date_created: yupX.now().meta({
 		can_update: false,
 		server_managed: true,
 	}),
-	_date_last_modified: YupHelpers.now().meta({
+	_date_last_modified: yupX.now().meta({
 		server_managed: true,
 	}),
 	_deleted: yup
