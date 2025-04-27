@@ -5,7 +5,7 @@ import { yupX } from 'ergonomic/apis/yup.js';
 import { getEnum, EnumMember } from 'ergonomic/utils/enum.js';
 import { Keys } from 'ergonomic/utils/object.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
-import { isDocumentIdStringRef } from 'ergonomic/data/documentId.js';
+import { isForeignKey } from 'ergonomic/data/documentId.js';
 
 // API Resource Properties
 export const GeneralizedApiResourceProperties = {
@@ -19,14 +19,14 @@ export const GeneralizedApiResourceProperties = {
 		.test({
 			message: ({ path, value }: { path: string; value: string }) =>
 				`${path} is not a document ID: ${value}`,
-			name: 'isDocumentId',
-			test: (value) => isDocumentIdStringRef([{ id_prefix: 'acct' }], value),
+			name: 'isForeignKey',
+			test: (value) => isForeignKey([{ id_prefix: 'usr' }], value),
 		})
 		.meta({
 			can_update: false,
 			resources: ['user'],
 			server_managed: true,
-			type: GeneralizedFieldTypeEnum.obj.id_ref,
+			type: GeneralizedFieldTypeEnum.obj.foreign_key,
 		}),
 	_date_created: yupX.now().meta({
 		can_update: false,

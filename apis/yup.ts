@@ -17,7 +17,7 @@ import {
 	isDomain,
 	getDocumentIdString,
 	isDocumentIdString,
-	isDocumentIdStringRef,
+	isForeignKey,
 	isUrl,
 } from 'ergonomic/data/index.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
@@ -241,6 +241,51 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 	idPrefixMap: Record<TResourceName, string>,
 ) =>
 	({
+		foreignKey: (resources: TResourceName[]) =>
+			yup
+				.string()
+				.default('')
+				.test({
+					message: ({ path, value }: { path: string; value: string }) =>
+						`${path} is not a document ID: ${value}`,
+					name: 'isForeignKey',
+					test: (value) =>
+						isForeignKey(
+							resources.map((_object) => ({
+								id_prefix: idPrefixMap[_object],
+							})),
+							value,
+						),
+				})
+				.meta({
+					resources: resources,
+					type: GeneralizedFieldTypeEnum.obj.foreign_key,
+				}),
+		foreignKeys: (resources: TResourceName[]) =>
+			yupX
+				.array(
+					yup
+						.string()
+						.defined()
+						.test({
+							message: ({ path, value }: { path: string; value: string }) =>
+								`${path} is not a document ID: ${value}`,
+							name: 'isForeignKey',
+							test: (value) =>
+								typeof value === 'string' &&
+								isDocumentIdString(
+									resources.map((_object) => ({
+										id_prefix: idPrefixMap[_object],
+									})),
+									value,
+								),
+						}),
+				)
+				.defined()
+				.meta({
+					resources: resources,
+					type: GeneralizedFieldTypeEnum.obj.foreign_keys,
+				}),
 		id: (_object: TResourceName) =>
 			yup
 				.string()
@@ -262,50 +307,5 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 					can_update: false,
 					primary_key: true,
 					type: GeneralizedFieldTypeEnum.obj.id,
-				}),
-		idRef: (resources: TResourceName[]) =>
-			yup
-				.string()
-				.default('')
-				.test({
-					message: ({ path, value }: { path: string; value: string }) =>
-						`${path} is not a document ID: ${value}`,
-					name: 'isDocumentId',
-					test: (value) =>
-						isDocumentIdStringRef(
-							resources.map((_object) => ({
-								id_prefix: idPrefixMap[_object],
-							})),
-							value,
-						),
-				})
-				.meta({
-					resources: resources,
-					type: GeneralizedFieldTypeEnum.obj.id_ref,
-				}),
-		idRefs: (resources: TResourceName[]) =>
-			yupX
-				.array(
-					yup
-						.string()
-						.defined()
-						.test({
-							message: ({ path, value }: { path: string; value: string }) =>
-								`${path} is not a document ID: ${value}`,
-							name: 'isDocumentId',
-							test: (value) =>
-								typeof value === 'string' &&
-								isDocumentIdString(
-									resources.map((_object) => ({
-										id_prefix: idPrefixMap[_object],
-									})),
-									value,
-								),
-						}),
-				)
-				.defined()
-				.meta({
-					resources: resources,
-					type: GeneralizedFieldTypeEnum.obj.id_refs,
 				}),
 	} as const);

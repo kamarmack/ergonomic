@@ -33,7 +33,7 @@ export const isDocumentIdString = (
 	);
 };
 
-export const isDocumentIdStringRef = (
+export const isForeignKey = (
 	resources: {
 		id_prefix: string;
 	}[],
