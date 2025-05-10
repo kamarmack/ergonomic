@@ -78,6 +78,7 @@ export const yupX = {
 	date: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a date',
 				name: 'isDate',
@@ -88,6 +89,7 @@ export const yupX = {
 	dateTime: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a UTC date',
 				name: 'isDateTime',
@@ -98,6 +100,7 @@ export const yupX = {
 	domain: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a domain',
 				name: 'isDomain',
@@ -108,6 +111,7 @@ export const yupX = {
 	duration: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a duration',
 				name: 'is-duration',
@@ -118,6 +122,8 @@ export const yupX = {
 	emailAddress: () =>
 		yup
 			.string()
+			.trim()
+			.lowercase()
 			.email()
 			.test({
 				message: '${path} is not an email address',
@@ -129,6 +135,7 @@ export const yupX = {
 	filePath: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a file path',
 				name: 'isFilePath',
@@ -154,6 +161,7 @@ export const yupX = {
 	interval: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not an interval',
 				name: 'isInterval',
@@ -164,6 +172,7 @@ export const yupX = {
 	now: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a UTC date',
 				name: 'isDate',
@@ -179,6 +188,7 @@ export const yupX = {
 	recurrenceRule: () =>
 		yup
 			.string()
+			.trim()
 			.default('')
 			.test({
 				message: '${path} is not a recurrence rule',
@@ -189,6 +199,7 @@ export const yupX = {
 	timeZone: () =>
 		yup
 			.string()
+			.trim()
 			.oneOf((IanaTimeZoneEnum.arr as string[]).concat(['']))
 			.default('')
 			.meta({
@@ -197,6 +208,7 @@ export const yupX = {
 	unitedStatesPhoneNumber: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a US phone number',
 				name: 'isUnitedStatesPhoneNumber',
@@ -207,6 +219,7 @@ export const yupX = {
 	unitedStatesPostalCode: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a US postal code',
 				name: 'isUnitedStatesPostalCode',
@@ -217,6 +230,7 @@ export const yupX = {
 	url: () =>
 		yup
 			.string()
+			.trim()
 			.test({
 				message: '${path} is not a url',
 				name: 'isUrl',
@@ -244,6 +258,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 		foreignKey: (resources: TResourceName[]) =>
 			yup
 				.string()
+				.trim()
 				.default('')
 				.test({
 					message: ({ path, value }: { path: string; value: string }) =>
@@ -266,6 +281,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 				.array(
 					yup
 						.string()
+						.trim()
 						.defined()
 						.test({
 							message: ({ path, value }: { path: string; value: string }) =>
@@ -289,6 +305,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 		id: (_object: TResourceName) =>
 			yup
 				.string()
+				.trim()
 				.default(() =>
 					getDocumentIdString({
 						id_prefix: idPrefixMap[_object],
