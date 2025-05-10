@@ -1,19 +1,12 @@
 import * as R from 'ramda';
 import * as yup from 'yup';
 import * as YupTypes from 'yup/lib/schema.js';
-import { Keys } from 'ergonomic/utils/object.js';
-import {
-	EnumMember,
-	GeneralizedEnumType,
-	getEnum,
-} from 'ergonomic/utils/enum.js';
+import { GeneralizedEnumType } from 'ergonomic/utils/enum.js';
 import {
 	GeneralizedApiResource,
 	GeneralizedApiResourceProperties,
 	CreateParams,
-	CreateParamsHelpers,
 	UpdateParams,
-	UpdateParamsHelpers,
 } from 'ergonomic/apis/resourceSchema.js';
 import { getApiResourceEndpoint } from 'ergonomic/apis/getApiResourceEndpoint.js';
 import { getDocumentIdString } from 'ergonomic/data/documentId.js';
@@ -24,7 +17,7 @@ export const getApiResourceSpec = <
 	U extends Record<T, YupTypes.AnySchema>,
 	V extends T,
 >({
-	createParamsRequiredFieldEnum,
+	createParamsRequiredFieldEnum: _createParamsRequiredFieldEnum,
 	databaseId = '(default)',
 	idPrefix,
 	properties,
@@ -37,26 +30,26 @@ export const getApiResourceSpec = <
 	resourceNamePlural?: string;
 }) => {
 	// API Resource
-	const apiResourceJsonShape = R.mapObjIndexed(
+	/*const apiResourceJsonShape = R.mapObjIndexed(
 		(schema: U[T], field: T) =>
 			createParamsRequiredFieldEnum.isMember(field)
 				? CreateParamsHelpers.getRequiredField(schema)
 				: schema,
 		properties,
-	) as U;
+	) as U;*/
 
-	const apiResourceJsonSchema = yup.object(apiResourceJsonShape);
-	const apiResourceFieldEnum = getEnum(
-		Keys(apiResourceJsonShape as Record<T, YupTypes.AnySchema>),
-	);
+	const apiResourceJsonSchema = yup.object(properties);
+	/*const apiResourceFieldEnum = getEnum(
+		Keys(properties as Record<T, YupTypes.AnySchema>),
+	);*/
 	const apiResourceDefaultJson = apiResourceJsonSchema.getDefault();
 	type ApiResourceType = GeneralizedApiResource &
 		yup.InferType<typeof apiResourceJsonSchema>;
 
 	// Create Params
-	const createParamsJsonShape = R.omit(
+	/*const createParamsJsonShape = R.omit(
 		CreateParamsHelpers.fieldMaskEnum.arr as T[],
-		apiResourceJsonShape,
+		properties,
 	);
 	const createParamsJsonSchema = yup.object(createParamsJsonShape);
 	const createParamsFieldEnum = getEnum(
@@ -67,7 +60,7 @@ export const getApiResourceSpec = <
 			>,
 		),
 	);
-	const createParamsDefaultJson = createParamsJsonSchema.getDefault();
+	const createParamsDefaultJson = createParamsJsonSchema.getDefault();*/
 
 	type CreateApiResourceParamsType = CreateParams<
 		ApiResourceType,
@@ -83,10 +76,10 @@ export const getApiResourceSpec = <
 			...R.reject((v) => v === undefined, createParams),
 		} as ApiResourceType);
 
-	// Create Params Required Fields
+	/*// Create Params Required Fields
 	const createParamsRequiredFieldJsonShape = R.pick(
 		createParamsRequiredFieldEnum.arr as V[],
-		apiResourceJsonShape,
+		properties,
 	);
 	const createParamsRequiredFieldJsonSchema = yup.object(
 		createParamsRequiredFieldJsonShape,
@@ -95,7 +88,7 @@ export const getApiResourceSpec = <
 	// Update Params
 	const updateParamsJsonShape = R.omit(
 		UpdateParamsHelpers.fieldMaskEnum.arr as T[],
-		apiResourceJsonShape,
+		properties,
 	);
 	const updateParamsJsonSchema = yup.object(updateParamsJsonShape);
 	const updateParamsFieldEnum = getEnum(
@@ -106,7 +99,7 @@ export const getApiResourceSpec = <
 			>,
 		),
 	);
-	const updateParamsDefaultJson = updateParamsJsonSchema.getDefault();
+	const updateParamsDefaultJson = updateParamsJsonSchema.getDefault();*/
 
 	type UpdateApiResourceParamsType = UpdateParams<ApiResourceType>;
 	const mergeUpdateParams = ({
@@ -137,28 +130,28 @@ export const getApiResourceSpec = <
 	return {
 		apiResourceDefaultJson,
 		apiResourceEndpoint,
-		apiResourceFieldEnum,
+		// apiResourceFieldEnum,
 		apiResourceJsonSchema,
-		apiResourceJsonShape,
+		// apiResourceJsonShape,
 		apiResourceName,
 		apiResourceNamePlural,
 		collectionId,
-		createParamsDefaultJson,
-		createParamsFieldEnum,
-		createParamsJsonSchema,
-		createParamsJsonShape,
-		createParamsRequiredFieldEnum,
-		createParamsRequiredFieldJsonSchema,
-		createParamsRequiredFieldJsonShape,
+		// createParamsDefaultJson,
+		// createParamsFieldEnum,
+		// createParamsJsonSchema,
+		// createParamsJsonShape,
+		// createParamsRequiredFieldEnum,
+		// createParamsRequiredFieldJsonSchema,
+		// createParamsRequiredFieldJsonShape,
 		databaseId,
 		generateId,
 		idPrefix,
 		mergeCreateParams,
 		properties,
-		updateParamsDefaultJson,
-		updateParamsFieldEnum,
-		updateParamsJsonSchema,
-		updateParamsJsonShape,
+		// updateParamsDefaultJson,
+		// updateParamsFieldEnum,
+		// updateParamsJsonSchema,
+		// updateParamsJsonShape,
 		mergeUpdateParams,
 	} as const;
 };
