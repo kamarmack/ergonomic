@@ -66,7 +66,7 @@
 		"build": "tsc --build ./tsconfig.json",
 		"clean": "tsc --build --clean ./tsconfig.json",
 		"format": "doctoc . && prettier --write .",
-		"lint": "eslint . --ext .ts",
+		"lint": "eslint . --ext .ts && tsc --noEmit",
 		"prepare": "(husky install && chmod +x .husky/*) || true",
 		"test": "NODE_OPTIONS=--experimental-vm-modules npx jest --config='./jest.config.json' --verbose",
 		"watch": "tsc --build --watch ./tsconfig.json"
