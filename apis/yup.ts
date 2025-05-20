@@ -36,6 +36,29 @@ export type FieldSchema = YupSchemaHelpers.SchemaObjectDescription & {
 };
 
 export const yupX = {
+	anyObject: () =>
+		yup.mixed<Record<string, unknown>>().test({
+			name: 'is-object',
+			message: 'Must be an object',
+			test: function (value) {
+				return typeof value === 'object' && !Array.isArray(value);
+			},
+		}),
+	anyObjectOrNull: () =>
+		yup
+			.mixed<Record<string, unknown> | null>()
+			.test({
+				name: 'is-object-or-null',
+				message: 'Must be an object or null',
+				test: function (value) {
+					return (
+						value === null ||
+						(typeof value === 'object' && !Array.isArray(value))
+					);
+				},
+			})
+			.nullable()
+			.default(null),
 	array: <T extends Parameters<ReturnType<typeof yup.array>['of']>[0]>(
 		types: T,
 	) =>
