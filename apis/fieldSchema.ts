@@ -15,6 +15,7 @@ export const GeneralizedFieldTypeEnum = getEnum([
 	'foreign_keys', // array - array of document IDs
 	'id', // string - ID, e.g. usr_5lVsQD0PTnDuYeYrflCPsI
 	'integer', // number - integer
+	'international_phone_number', // string - phone number e.g. +18135551234 or +447123456789
 	'interval', // string - ISO interval string, e.g. 2020-01-01T00:00:00.000Z/2020-01-02T00:00:00.000Z
 	'list', // array - array of strings
 	'long_text', // string - long text

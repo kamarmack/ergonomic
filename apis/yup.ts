@@ -21,6 +21,7 @@ import {
 	isUrl,
 } from 'ergonomic/data/index.js';
 import { GeneralizedFieldTypeEnum } from 'ergonomic/apis/fieldSchema.js';
+import { isInternationalPhoneNumber } from 'ergonomic/data/internationalPhoneNumber.js';
 
 export const YupTypeEnum = getEnum([
 	'array',
@@ -181,6 +182,17 @@ export const yupX = {
 			})
 			.default(0)
 			.meta({ type: GeneralizedFieldTypeEnum.obj.integer }),
+	internationalPhoneNumber: () =>
+		yup
+			.string()
+			.trim()
+			.test({
+				message: '${path} is not a phone number',
+				name: 'isInternationalPhoneNumber',
+				test: (value) => value === '' || isInternationalPhoneNumber(value),
+			})
+			.default('')
+			.meta({ type: GeneralizedFieldTypeEnum.obj.international_phone_number }),
 	interval: () =>
 		yup
 			.string()
