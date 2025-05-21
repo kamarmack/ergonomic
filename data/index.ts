@@ -1,3 +1,4 @@
+export * from 'ergonomic/data/countries.js';
 export * from 'ergonomic/data/documentId.js';
 export * from 'ergonomic/data/date.js';
 export * from 'ergonomic/data/domain.js';
