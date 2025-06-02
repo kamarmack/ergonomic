@@ -23,3 +23,63 @@ export const isInternationalPhoneNumber = (
 		}
 	});
 };
+
+/** Convert a "messy" phone string (e.g. "(813) 555-5555") to strict
+ *  E.164 (e.g. "+18135555555").
+ *
+ *  If the input already starts with "+", the country is inferred by the
+ *  lib itself. Otherwise we pass a **defaultRegion** hint (ISO-3166
+ *  α-2, like "US") so the library can supply the missing country code.
+ *
+ *  @param input        Any human-friendly phone text.
+ *  @returns            Strict E.164 string or a best-effort "+digits".
+ *
+ *  @example
+ *  getE164PhoneNumber("(813) 555-5555");          // => "+18135555555"
+ *  getE164PhoneNumber("+44 7123 456789");         // => "+447123456789"
+ */
+export function getE164PhoneNumber(
+	humanFriendlyPhoneNumber: string,
+	defaultRegion: string,
+): string {
+	try {
+		const util = getPhoneUtil(); // singleton util
+
+		// If number starts with "+", region is irrelevant.
+		const phone = humanFriendlyPhoneNumber.trim().startsWith('+')
+			? util.parse(humanFriendlyPhoneNumber) // auto-detect
+			: util.parse(humanFriendlyPhoneNumber, defaultRegion); // need the hint
+
+		// Return canonical E.164.
+		return util.format(phone, GoogleLibPhoneNumber.PhoneNumberFormat.E164);
+	} catch {
+		// Fallback: strip junk, ensure a leading "+".
+		return `+${humanFriendlyPhoneNumber.replace(/[^0-9]/g, '')}`;
+	}
+}
+
+/**
+ * Converts an E.164 phone string (e.g. "+18135555555") to a
+ * human-friendly international form (e.g. "+1 813-555-5555").
+ *
+ * @param {string} e164 - Raw phone number in E.164 ("+" then digits).
+ * @returns {string} Pretty-printed phone number, or the original string on failure.
+ *
+ * @example
+ * ```ts
+ * getHumanFriendlyPhoneNumber("+18135555555"); // => "+1 813-555-5555"
+ * getHumanFriendlyPhoneNumber("+447123456789"); // => "+44 7123 456789"
+ * ```
+ */
+export function getHumanFriendlyPhoneNumber(e164: string): string {
+	try {
+		const util = getPhoneUtil(); // singleton util
+		const parsed = util.parse(e164); // country inferred from "+"
+		return util.format(
+			parsed,
+			GoogleLibPhoneNumber.PhoneNumberFormat.INTERNATIONAL,
+		);
+	} catch (_) {
+		return e164; // fallback: return as-is
+	}
+}
