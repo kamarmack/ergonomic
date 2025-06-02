@@ -5,6 +5,7 @@ export * from 'ergonomic/data/domain.js';
 export * from 'ergonomic/data/duration.js';
 export * from 'ergonomic/data/emailAddress.js';
 export * from 'ergonomic/data/filePath.js';
+export * from 'ergonomic/data/internationalPhoneNumber.js';
 export * from 'ergonomic/data/interval.js';
 export * from 'ergonomic/data/recurrenceRule.js';
 export * from 'ergonomic/data/timeZone.js';
