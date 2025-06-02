@@ -31,12 +31,15 @@ export const isInternationalPhoneNumber = (
  *  lib itself. Otherwise we pass a **defaultRegion** hint (ISO-3166
  *  α-2, like "US") so the library can supply the missing country code.
  *
- *  @param input        Any human-friendly phone text.
- *  @returns            Strict E.164 string or a best-effort "+digits".
+ *  @param {string} humanFriendlyPhoneNumber - Any human-friendly phone text.
+ * @param {string} defaultRegion - ISO-3166 α-2 country code (e.g. "US").
+ *  @returns {string} Strict E.164 string or a best-effort "+digits".
  *
  *  @example
- *  getE164PhoneNumber("(813) 555-5555");          // => "+18135555555"
- *  getE164PhoneNumber("+44 7123 456789");         // => "+447123456789"
+ * ```ts
+ * getE164PhoneNumber("(813) 555-5555"); // => "+18135555555"
+ * getE164PhoneNumber("+44 7123 456789"); // => "+447123456789"
+ * ```
  */
 export function getE164PhoneNumber(
 	humanFriendlyPhoneNumber: string,
