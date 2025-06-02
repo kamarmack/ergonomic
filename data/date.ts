@@ -169,3 +169,31 @@ export const getNextMonth = <T extends string, U extends Mm>(
 		mm: nextMonth.toString().padStart(2, '0') as Mm, // Note -- padStart is used to ensure that the month is always 2 digits.
 	};
 };
+
+/**
+ * Returns a date string with minute precision from an ISO date input.
+ *
+ * @param isoDateInput - An ISO date string (e.g. "2023-10-01T12:34:56Z").
+ * @returns A string formatted as "YYYY-MM-DDTHH:mm" in local time or an empty string if the input is invalid.
+ *
+ * @example
+ * ```ts
+ * getDateWithMinutePrecision("2023-10-01T12:34:56Z");
+ * // => "2023-10-01T12:34" if the local time is UTC+0
+ * // => "2023-10-01T14:34" if the local time is UTC+2
+ * ```
+ */
+export function getDateWithMinutePrecision(isoDateInput: string) {
+	if (typeof isoDateInput === 'string' && isoDateInput) {
+		const isoDateOutput = DateTime.fromISO(isoDateInput).toISO({
+			suppressMilliseconds: false,
+		});
+
+		if (isoDateOutput == null) {
+			return '';
+		}
+
+		return isoDateOutput.slice(0, 16);
+	}
+	return '';
+}
