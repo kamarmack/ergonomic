@@ -348,3 +348,23 @@ export const countries = [
 		phone_number_prefix: '+86',
 	},
 ];
+
+export const defaultCountry: Country = countries.find(function (country) {
+	return country.two_letter_country_code === 'US';
+})!;
+export const getCountryPhoneNumberRegionDisplayValue = (country: Country) =>
+	`${country.flag_emoji} ${country.phone_number_prefix}`;
+export const defaultCountryPhoneNumberRegionDisplayValue =
+	getCountryPhoneNumberRegionDisplayValue(defaultCountry);
+export const defaultCountryCodes = ['US', 'CA', 'GB', 'AU', 'NZ'];
+export const defaultCountries: Country[] = countries.filter(function (country) {
+	return defaultCountryCodes.includes(country.two_letter_country_code);
+});
+const restOfCountriesUnsorted: Country[] = countries.filter(function (country) {
+	return !defaultCountryCodes.includes(country.two_letter_country_code);
+});
+restOfCountriesUnsorted.sort(function (a, b) {
+	return a.country_name.localeCompare(b.country_name);
+});
+export const restOfCountries: Country[] = restOfCountriesUnsorted.slice();
+export const countriesSorted = [...defaultCountries, ...restOfCountries];
