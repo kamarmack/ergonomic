@@ -109,3 +109,32 @@ const getFieldPresencePredicate =
 	};
 export const isFieldRequired = getFieldPresencePredicate('required');
 export const isFieldDefined = getFieldPresencePredicate('defined');
+
+export type FormDataConversionOptions = {
+	currencyFieldKeys?: string[];
+	dateTimeLocalFieldKeys?: string[];
+	floatingPointNumberFieldKeys?: string[];
+	integerFieldKeys?: string[];
+	percentageFieldKeys?: string[];
+	phoneNumberFieldKeys?: string[];
+	phoneNumberRegion?: string;
+};
+
+const DEFAULT_FORM_DATA_CONVERSION_OPTIONS: FormDataConversionOptions = {
+	currencyFieldKeys: [],
+	dateTimeLocalFieldKeys: [],
+	floatingPointNumberFieldKeys: [],
+	integerFieldKeys: [],
+	percentageFieldKeys: [],
+	phoneNumberFieldKeys: [],
+	phoneNumberRegion: 'US',
+};
+
+export function getFormDataConversionOptions(
+	options: Partial<FormDataConversionOptions> = {},
+): FormDataConversionOptions {
+	return {
+		...DEFAULT_FORM_DATA_CONVERSION_OPTIONS,
+		...options,
+	};
+}
