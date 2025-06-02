@@ -83,3 +83,17 @@ export const pickPercentCharacters = (
 export function getPercentageFromFloatingPointNumber(percentage: number) {
 	return `${percentage * 100}%`;
 }
+
+/**
+ * Converts a percentage string to a floating-point number.
+ *
+ * Example:
+ * *  - `'65%'` => `0.65`
+ */
+export function getFloatingPointNumberFromPercentage(value: string): number {
+	// Remove commas and the percent symbol, then parse as a float
+	const numericValue = parseFloat(value.replace(/,/g, '').replace('%', ''));
+
+	// Divide by 100 to get the floating-point representation of the percentage
+	return numericValue / 100;
+}
