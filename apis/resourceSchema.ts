@@ -75,7 +75,13 @@ export const CreateParamsHelpers = {
 	fieldMaskEnum: getEnum(
 		Keys(
 			R.pick(
-				['_archived', '_date_created', '_deleted', '_object'] as const,
+				[
+					'_archived',
+					'_date_created',
+					'_date_last_modified',
+					'_deleted',
+					'_object',
+				] as const,
 				GeneralizedApiResourceProperties,
 			),
 		),
