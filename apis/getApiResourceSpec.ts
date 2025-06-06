@@ -10,6 +10,7 @@ import {
 } from 'ergonomic/apis/resourceSchema.js';
 import { getApiResourceEndpoint } from 'ergonomic/apis/getApiResourceEndpoint.js';
 import { getDocumentIdString } from 'ergonomic/data/documentId.js';
+import { getUtcDateNow } from 'ergonomic/data/date.js';
 
 // Create API Resource Property Definitions
 export const getApiResourceSpec = <
@@ -70,11 +71,15 @@ export const getApiResourceSpec = <
 		createParams,
 	}: {
 		createParams: CreateApiResourceParamsType;
-	}) =>
-		({
+	}) => {
+		const now = getUtcDateNow();
+		return {
 			...apiResourceJsonSchema.getDefault(),
 			...R.reject((v) => v === undefined, createParams),
-		} as ApiResourceType);
+			_date_created: now,
+			_date_last_modified: now,
+		} as ApiResourceType;
+	};
 
 	/*// Create Params Required Fields
 	const createParamsRequiredFieldJsonShape = R.pick(
