@@ -43,6 +43,7 @@ export type GeneralizedFieldSchemaMetadata = {
 	label_message_user_text?: string | Record<'en' | 'es', string>;
 	label_tooltip_admin_text?: string;
 	label_tooltip_user_text?: string | Record<'en' | 'es', string>;
+	localized_label?: Record<'en' | 'es', string>;
 	pii?: boolean;
 	primary_key?: boolean;
 	server_managed?: boolean;
