@@ -2,6 +2,19 @@ export const Keys = <T extends Record<string, unknown>>(
 	object: T,
 ): (keyof T)[] => Object.keys(object);
 
+/**
+ * Typed version of `Object.entries`.
+ *
+ * @example
+ * const o = { a: 1, b: 2, c: 3 };
+ * const e = Entries(o);
+ * //    ^? Array<["a" | "b" | "c", number]>
+ */
+export const Entries = <T extends Record<string, unknown>>(
+  object: T,
+): Array<[keyof T, T[keyof T]]> =>
+  Object.entries(object) as Array<[keyof T, T[keyof T]]>;
+
 export type Writeable<T> = {
 	-readonly [K in keyof T]: T[K];
 };
