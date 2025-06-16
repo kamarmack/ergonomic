@@ -62,25 +62,35 @@ export function getE164PhoneNumber(
 }
 
 /**
- * Converts an E.164 phone string (e.g. "+18135555555") to a
- * human-friendly international form (e.g. "+1 813-555-5555").
+ * Converts an E.164 phone string to a human‐friendly national or international form.
  *
- * @param {string} e164 - Raw phone number in E.164 ("+" then digits).
- * @returns {string} Pretty-printed phone number, or the original string on failure.
+ * @param e164   Raw phone number in E.164 format ("+" followed by digits).
+ * @param format Desired output format:
+ *                  - "international": full international with separators
+ *                  - "national":    local format per national conventions
+ * @returns      Formatted phone number, or the original input on parse failure.
  *
  * @example
  * ```ts
- * getHumanFriendlyPhoneNumber("+18135555555"); // => "+1 813-555-5555"
- * getHumanFriendlyPhoneNumber("+447123456789"); // => "+44 7123 456789"
+ * getHumanFriendlyPhoneNumber("+18135555555", "international"); // => "+1 813-555-5555"
+ * getHumanFriendlyPhoneNumber("+18135555555", "national");      // => "(813) 555-5555"
+ * getHumanFriendlyPhoneNumber("+447123456789", "international"); // => "+44 7123 456789"
+ * getHumanFriendlyPhoneNumber("+447123456789", "national");      // => "07123 456789"
  * ```
  */
-export function getHumanFriendlyPhoneNumber(e164: string): string {
+export function getHumanFriendlyPhoneNumber(
+	e164: string,
+	format: 'national' | 'international',
+): string {
 	try {
 		const util = getPhoneUtil(); // singleton util
 		const parsed = util.parse(e164); // country inferred from "+"
 		return util.format(
 			parsed,
-			GoogleLibPhoneNumber.PhoneNumberFormat.INTERNATIONAL,
+			{
+				international: GoogleLibPhoneNumber.PhoneNumberFormat.INTERNATIONAL,
+				national: GoogleLibPhoneNumber.PhoneNumberFormat.NATIONAL,
+			}[format],
 		);
 	} catch (_) {
 		return e164; // fallback: return as-is
