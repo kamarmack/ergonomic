@@ -230,3 +230,10 @@ export function convertEpochMsToUtcIso(
 		includeOffset: false,
 	});
 }
+
+export function getTodaysDate() {
+	return DateTime.now().toISODate();
+}
+export function getTodaysDateInUTC() {
+	return DateTime.utc().toISODate();
+}
