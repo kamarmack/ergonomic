@@ -1,6 +1,7 @@
 export * from 'ergonomic/utils/always.js';
 export * from 'ergonomic/utils/enum.js';
 export * from 'ergonomic/utils/error.js';
+export * from 'ergonomic/utils/geoqueries.js';
 export * from 'ergonomic/utils/noop.js';
 export * from 'ergonomic/utils/number.js';
 export * from 'ergonomic/utils/object.js';
