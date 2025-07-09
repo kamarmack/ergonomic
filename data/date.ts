@@ -237,3 +237,27 @@ export function getTodaysDate() {
 export function getTodaysDateInUTC() {
 	return DateTime.utc().toISODate();
 }
+
+/**
+ * Returns the yyyy-mm-dd string that is exactly between two given yyyy-mm-dd dates.
+ * Example:
+ *   midDateBetween('2025-01-01', '2025-01-11') // '2025-01-06'
+ *
+ * @param {string} date1 - First date string in yyyy-mm-dd format
+ * @param {string} date2 - Second date string in yyyy-mm-dd format
+ * @returns {string} - The midpoint date string in yyyy-mm-dd format
+ */
+export function midDateBetween(date1: string, date2: string): string {
+	// Parse input dates as Luxon DateTime objects
+	const dt1 = DateTime.fromISO(date1);
+	const dt2 = DateTime.fromISO(date2);
+
+	// Calculate the difference in milliseconds between the two dates
+	const diffMillis = dt2.toMillis() - dt1.toMillis();
+
+	// Calculate the midpoint time in milliseconds
+	const midMillis = dt1.toMillis() + diffMillis / 2;
+
+	// Convert midpoint millis back to a DateTime and format to yyyy-MM-dd
+	return DateTime.fromMillis(midMillis).toISODate();
+}
