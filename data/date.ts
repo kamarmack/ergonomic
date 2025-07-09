@@ -208,13 +208,16 @@ export function getDateWithMinutePrecision(isoDateInput: string) {
  * convertEpochMsToUtcIso('1717591391123');
  * // => '2024-06-05T14:23:11.123Z'
  */
-export function convertEpochMsToUtcIso(epochMsStr: string | null): string {
+export function convertEpochMsToUtcIso(
+	epochMsStr: string | number | null,
+): string {
 	if (!epochMsStr) {
 		return '';
 	}
 
 	// Parse the input string into a number
-	const epochMs = parseInt(epochMsStr, 10);
+	const epochMs =
+		typeof epochMsStr === 'string' ? parseInt(epochMsStr, 10) : epochMsStr;
 
 	if (isNaN(epochMs)) {
 		console.error(`Invalid epoch milliseconds value: ${epochMsStr}`);
