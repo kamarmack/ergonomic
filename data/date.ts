@@ -197,3 +197,33 @@ export function getDateWithMinutePrecision(isoDateInput: string) {
 	}
 	return '';
 }
+
+/**
+ * Converts an epoch milliseconds string into a UTC ISO string with millisecond precision.
+ *
+ * @param {string} epochMsStr - A string representing epoch time in milliseconds.
+ * @returns {string} ISO 8601 string in UTC with milliseconds, e.g. '2025-06-05T14:23:11.123Z'
+ *
+ * @example
+ * convertEpochMsToUtcIso('1717591391123');
+ * // => '2024-06-05T14:23:11.123Z'
+ */
+export function convertEpochMsToUtcIso(epochMsStr: string | null): string {
+	if (!epochMsStr) {
+		return '';
+	}
+
+	// Parse the input string into a number
+	const epochMs = parseInt(epochMsStr, 10);
+
+	if (isNaN(epochMs)) {
+		console.error(`Invalid epoch milliseconds value: ${epochMsStr}`);
+		return '';
+	}
+
+	// Convert to a Luxon DateTime in UTC, then format as ISO with milliseconds
+	return DateTime.fromMillis(epochMs, { zone: 'utc' }).toISO({
+		suppressMilliseconds: false,
+		includeOffset: false,
+	});
+}
