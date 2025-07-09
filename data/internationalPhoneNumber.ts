@@ -1,7 +1,8 @@
 import GoogleLibPhoneNumber from 'google-libphonenumber';
 import { countries } from 'ergonomic/data/countries.js';
 
-export const phoneUtil = GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
+export const phoneNumberUtil =
+	GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
 export const isInternationalPhoneNumber = (
 	stringValue: unknown,
@@ -10,8 +11,11 @@ export const isInternationalPhoneNumber = (
 		try {
 			return (
 				typeof stringValue === 'string' &&
-				phoneUtil.isValidNumberForRegion(
-					phoneUtil.parseAndKeepRawInput(stringValue, two_letter_country_code),
+				phoneNumberUtil.isValidNumberForRegion(
+					phoneNumberUtil.parseAndKeepRawInput(
+						stringValue,
+						two_letter_country_code,
+					),
 					two_letter_country_code,
 				)
 			);
@@ -45,11 +49,14 @@ export function getE164PhoneNumber(
 	try {
 		// If number starts with "+", region is irrelevant.
 		const phone = humanFriendlyPhoneNumber.trim().startsWith('+')
-			? phoneUtil.parse(humanFriendlyPhoneNumber) // auto-detect
-			: phoneUtil.parse(humanFriendlyPhoneNumber, defaultRegion); // need the hint
+			? phoneNumberUtil.parse(humanFriendlyPhoneNumber) // auto-detect
+			: phoneNumberUtil.parse(humanFriendlyPhoneNumber, defaultRegion); // need the hint
 
 		// Return canonical E.164.
-		return phoneUtil.format(phone, GoogleLibPhoneNumber.PhoneNumberFormat.E164);
+		return phoneNumberUtil.format(
+			phone,
+			GoogleLibPhoneNumber.PhoneNumberFormat.E164,
+		);
 	} catch {
 		// Fallback: strip junk, ensure a leading "+".
 		return `+${humanFriendlyPhoneNumber.replace(/[^0-9]/g, '')}`;
@@ -78,8 +85,8 @@ export function getHumanFriendlyPhoneNumber(
 	format: 'national' | 'international',
 ): string {
 	try {
-		const parsed = phoneUtil.parse(e164); // country inferred from "+"
-		return phoneUtil.format(
+		const parsed = phoneNumberUtil.parse(e164); // country inferred from "+"
+		return phoneNumberUtil.format(
 			parsed,
 			{
 				international: GoogleLibPhoneNumber.PhoneNumberFormat.INTERNATIONAL,
