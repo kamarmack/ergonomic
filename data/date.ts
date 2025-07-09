@@ -225,10 +225,12 @@ export function convertEpochMsToUtcIso(
 	}
 
 	// Convert to a Luxon DateTime in UTC, then format as ISO with milliseconds
-	return DateTime.fromMillis(epochMs, { zone: 'utc' }).toISO({
-		suppressMilliseconds: false,
-		includeOffset: false,
-	});
+	return (
+		DateTime.fromMillis(epochMs, { zone: 'utc' }).toISO({
+			suppressMilliseconds: false,
+			includeOffset: false,
+		}) || ''
+	);
 }
 
 export function getTodaysDate() {
@@ -259,5 +261,5 @@ export function midDateBetween(date1: string, date2: string): string {
 	const midMillis = dt1.toMillis() + diffMillis / 2;
 
 	// Convert midpoint millis back to a DateTime and format to yyyy-MM-dd
-	return DateTime.fromMillis(midMillis).toISODate();
+	return DateTime.fromMillis(midMillis).toISODate() || '';
 }
