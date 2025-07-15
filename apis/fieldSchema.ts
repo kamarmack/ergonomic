@@ -39,6 +39,9 @@ export type GeneralizedFieldSchemaMetadata = {
 	label_by_enum_option?:
 		| Record<string, string>
 		| Record<'en' | 'es', Record<string, string>>;
+	group_by_enum_option?:
+		| Record<string, string>
+		| Record<'en' | 'es', Record<string, string>>;
 	label_message_admin_text?: string;
 	label_message_user_text?: string | Record<'en' | 'es', string>;
 	label_tooltip_admin_text?: string;
