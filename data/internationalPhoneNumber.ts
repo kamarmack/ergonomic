@@ -1,5 +1,6 @@
 import GoogleLibPhoneNumber from 'google-libphonenumber';
 import { countries } from 'ergonomic/data/countries.js';
+import { Digits } from 'ergonomic/utils/number.js';
 
 export const phoneNumberUtil =
 	GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
@@ -23,6 +24,15 @@ export const isInternationalPhoneNumber = (
 			return false;
 		}
 	});
+};
+export const isE164 = (stringValue: unknown): stringValue is string => {
+	const e164Characters = Digits.map(String).concat('+');
+	return (
+		isInternationalPhoneNumber(stringValue) &&
+		stringValue.split('').every(function (character) {
+			return e164Characters.includes(character);
+		})
+	);
 };
 
 /** Convert a "messy" phone string (e.g. "(813) 555-5555") to strict
