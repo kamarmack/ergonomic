@@ -34,6 +34,13 @@ export const isE164 = (stringValue: unknown): stringValue is string => {
 		})
 	);
 };
+export const formatE164 = (rawPhoneNumber: string, defaultRegion: string) => {
+	const trimmedPhoneNumber = rawPhoneNumber.trim();
+	const e164 = isE164(trimmedPhoneNumber)
+		? trimmedPhoneNumber
+		: getE164PhoneNumber(trimmedPhoneNumber, defaultRegion);
+	return e164;
+};
 
 /** Convert a "messy" phone string (e.g. "(813) 555-5555") to strict
  *  E.164 (e.g. "+18135555555").
