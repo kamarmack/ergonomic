@@ -17,6 +17,7 @@ export const GeneralizedApiResourceProperties = {
 		.string()
 		.default('')
 		.test({
+			exclusive: false,
 			message: ({ path, value }: { path: string; value: string }) =>
 				`${path} is not a document ID: ${value}`,
 			name: 'isForeignKey',

@@ -39,6 +39,7 @@ export type FieldSchema = YupSchemaHelpers.SchemaObjectDescription & {
 export const yupX = {
 	anyObject: () =>
 		yup.mixed<Record<string, unknown>>().test({
+			exclusive: false,
 			name: 'is-object',
 			message: 'Must be an object',
 			test: function (value) {
@@ -49,6 +50,7 @@ export const yupX = {
 		yup
 			.mixed<Record<string, unknown> | null>()
 			.test({
+				exclusive: false,
 				name: 'is-object-or-null',
 				message: 'Must be an object or null',
 				test: function (value) {
@@ -104,6 +106,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a date',
 				name: 'isDate',
 				test: (value) => value === '' || isDateYyyyMmDd(value),
@@ -115,6 +118,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a UTC date',
 				name: 'isDateTime',
 				test: (value) => value === '' || isUtcDate(value),
@@ -126,6 +130,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a domain',
 				name: 'isDomain',
 				test: (value) => value === '' || isDomain(value),
@@ -137,6 +142,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a duration',
 				name: 'is-duration',
 				test: (value) => value === '' || isDuration(value),
@@ -150,6 +156,7 @@ export const yupX = {
 			.lowercase()
 			.email()
 			.test({
+				exclusive: false,
 				message: '${path} is not an email address',
 				name: 'isEmailAddress',
 				test: (value: unknown) => value === '' || isEmailAddress(value),
@@ -161,6 +168,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a file path',
 				name: 'isFilePath',
 				test: (value) => value === '' || isFilePath(value),
@@ -176,6 +184,7 @@ export const yupX = {
 		yup
 			.number()
 			.test({
+				exclusive: false,
 				message: '${path} is not an integer',
 				name: 'isInteger',
 				test: isInteger,
@@ -187,6 +196,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a phone number',
 				name: 'isInternationalPhoneNumber',
 				test: (value) => value === '' || isInternationalPhoneNumber(value),
@@ -198,6 +208,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not an interval',
 				name: 'isInterval',
 				test: (value) => value === '' || isInterval(value),
@@ -209,6 +220,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a UTC date',
 				name: 'isDate',
 				test: isUtcDate,
@@ -226,6 +238,7 @@ export const yupX = {
 			.trim()
 			.default('')
 			.test({
+				exclusive: false,
 				message: '${path} is not a recurrence rule',
 				name: 'isRecurrenceRule',
 				test: (value) => value === '' || isRecurrenceRuleString(value),
@@ -245,6 +258,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a US phone number',
 				name: 'isUnitedStatesPhoneNumber',
 				test: (value) => value === '' || isUnitedStatesPhoneNumber(value),
@@ -256,6 +270,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a US postal code',
 				name: 'isUnitedStatesPostalCode',
 				test: (value) => value === '' || isUnitedStatesPostalCode(value),
@@ -267,6 +282,7 @@ export const yupX = {
 			.string()
 			.trim()
 			.test({
+				exclusive: false,
 				message: '${path} is not a url',
 				name: 'isUrl',
 				test: (value) => value === '' || isUrl(value),
@@ -277,6 +293,7 @@ export const yupX = {
 		yup
 			.number()
 			.test({
+				exclusive: false,
 				message: '${path} is not usd',
 				name: 'isUsd',
 				test: (value: unknown) => typeof value === 'number',
@@ -296,6 +313,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 				.trim()
 				.default('')
 				.test({
+					exclusive: false,
 					message: ({ path, value }: { path: string; value: string }) =>
 						`${path} is not a document ID: ${value}`,
 					name: 'isForeignKey',
@@ -319,6 +337,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 						.trim()
 						.defined()
 						.test({
+							exclusive: false,
 							message: ({ path, value }: { path: string; value: string }) =>
 								`${path} is not a document ID: ${value}`,
 							name: 'isForeignKey',
@@ -347,6 +366,7 @@ export const getApiResourceYupFields = <TResourceName extends string>(
 					}),
 				)
 				.test({
+					exclusive: false,
 					message: ({ path, value }: { path: string; value: string }) =>
 						`${path} is not a document ID: ${value}`,
 					name: 'isDocumentId',
