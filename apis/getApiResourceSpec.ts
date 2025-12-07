@@ -67,18 +67,36 @@ export const getApiResourceSpec = <
 		ApiResourceType,
 		keyof ApiResourceType & V
 	>;
+	// Utility function to recursively filter out undefined values
+	const filterUndefined = <T>(obj: T): T => {
+		if (obj === null || typeof obj !== 'object') {
+			return obj;
+		}
+		if (Array.isArray(obj)) {
+			return obj.map(filterUndefined) as T;
+		}
+		return Object.fromEntries(
+			Object.entries(obj as Record<string, unknown>)
+				.filter(([, value]) => value !== undefined)
+				.map(([key, value]) => [key, filterUndefined(value)]),
+		) as T;
+	};
+
 	const mergeCreateParams = ({
 		createParams,
 	}: {
 		createParams: CreateApiResourceParamsType;
 	}) => {
 		const now = getUtcDateNow();
-		return {
+		const merged = {
 			...apiResourceJsonSchema.getDefault(),
 			...R.reject((v) => v === undefined, createParams),
 			_date_created: now,
 			_date_last_modified: now,
-		} as ApiResourceType;
+		};
+
+		// Filter out undefined values to prevent Firestore errors
+		return filterUndefined(merged) as ApiResourceType;
 	};
 
 	/*// Create Params Required Fields
@@ -113,10 +131,15 @@ export const getApiResourceSpec = <
 	}: {
 		prevApiResourceJson: ApiResourceType;
 		updateParams: UpdateApiResourceParamsType;
-	}): ApiResourceType => ({
-		...prevApiResourceJson,
-		...R.reject((v) => v === undefined, updateParams),
-	});
+	}): ApiResourceType => {
+		const merged = {
+			...prevApiResourceJson,
+			...R.reject((v) => v === undefined, updateParams),
+		};
+
+		// Filter out undefined values to prevent Firestore errors
+		return filterUndefined(merged) as ApiResourceType;
+	};
 
 	// REST API Client
 	const { _object } =
