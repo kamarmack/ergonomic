@@ -73,5 +73,5 @@
 	},
 	"type": "module",
 	"types": "./index.d.ts",
-	"version": "2.9.4"
+	"version": "3.0.0"
 }
